@@ -94,24 +94,66 @@ function Ord_cmp_init()
    $tab_ger_campos = array();
    $tab_def_campos = array();
    $tab_labels     = array();
-   $tab_ger_campos['detento_id'] = "on";
-   $tab_def_campos['detento_id'] = "detento_id";
-   $tab_labels["detento_id"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["detento_id"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["detento_id"] : "Detento";
-   $tab_ger_campos['medico_id'] = "on";
-   $tab_def_campos['medico_id'] = "medico_id";
-   $tab_labels["medico_id"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["medico_id"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["medico_id"] : "Médico";
-   $tab_ger_campos['motivo'] = "on";
-   $tab_def_campos['motivo'] = "motivo";
-   $tab_labels["motivo"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["motivo"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["motivo"] : "Motivo";
-   $tab_ger_campos['outras_infomacoes'] = "on";
-   $tab_def_campos['outras_infomacoes'] = "outras_infomacoes";
-   $tab_labels["outras_infomacoes"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["outras_infomacoes"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["outras_infomacoes"] : "Outras Informações";
-   $tab_ger_campos['data_consulta'] = "on";
-   $tab_def_campos['data_consulta'] = "data_consulta";
-   $tab_labels["data_consulta"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["data_consulta"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["data_consulta"] : "Data da Consulta";
-   $tab_ger_campos['status_id'] = "on";
-   $tab_def_campos['status_id'] = "status_id";
-   $tab_labels["status_id"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["status_id"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["status_id"] : "Status";
+   $tab_ger_campos['c_detento_id'] = "on";
+   if ($use_alias == "S")
+   {
+       $tab_def_campos['c_detento_id'] = "c_detento_id";
+   }
+   else
+   {
+       $tab_def_campos['c_detento_id'] = "c.detento_id";
+   }
+   $tab_labels["c_detento_id"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_detento_id"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_detento_id"] : "Detento";
+   $tab_ger_campos['c_medico_id'] = "on";
+   if ($use_alias == "S")
+   {
+       $tab_def_campos['c_medico_id'] = "c_medico_id";
+   }
+   else
+   {
+       $tab_def_campos['c_medico_id'] = "c.medico_id";
+   }
+   $tab_labels["c_medico_id"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_medico_id"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_medico_id"] : "Médico";
+   $tab_ger_campos['c_data_consulta'] = "on";
+   if ($use_alias == "S")
+   {
+       $tab_def_campos['c_data_consulta'] = "c_data_consulta";
+   }
+   else
+   {
+       $tab_def_campos['c_data_consulta'] = "c.data_consulta";
+   }
+   $tab_labels["c_data_consulta"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_data_consulta"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_data_consulta"] : "Data da Consulta";
+   $tab_ger_campos['c_motivo'] = "on";
+   if ($use_alias == "S")
+   {
+       $tab_def_campos['c_motivo'] = "c_motivo";
+   }
+   else
+   {
+       $tab_def_campos['c_motivo'] = "c.motivo";
+   }
+   $tab_labels["c_motivo"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_motivo"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_motivo"] : "Motivo";
+   $tab_ger_campos['c_outras_infomacoes'] = "on";
+   if ($use_alias == "S")
+   {
+       $tab_def_campos['c_outras_infomacoes'] = "c_outras_infomacoes";
+   }
+   else
+   {
+       $tab_def_campos['c_outras_infomacoes'] = "c.outras_infomacoes";
+   }
+   $tab_labels["c_outras_infomacoes"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_outras_infomacoes"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_outras_infomacoes"] : "Outras Informações";
+   $tab_ger_campos['c_status_id'] = "on";
+   if ($use_alias == "S")
+   {
+       $tab_def_campos['c_status_id'] = "c_status_id";
+   }
+   else
+   {
+       $tab_def_campos['c_status_id'] = "c.status_id";
+   }
+   $tab_labels["c_status_id"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_status_id"])) ? $_SESSION['sc_session'][$sc_init]['grid_consulta']['labels']["c_status_id"] : "Status";
    if (isset($_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['field_display']) && !empty($_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['field_display']))
    {
        foreach ($_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['field_display'] as $NM_cada_field => $NM_cada_opc)

@@ -294,7 +294,7 @@ class form_detento_ini
       $this->nm_hr_criacao   = "075744"; 
       $this->nm_autor_alt    = "admin"; 
       $this->nm_dt_ult_alt   = "20210726"; 
-      $this->nm_hr_ult_alt   = "090226"; 
+      $this->nm_hr_ult_alt   = "115424"; 
       list($NM_usec, $NM_sec) = explode(" ", microtime()); 
       $this->nm_timestamp    = (float) $NM_sec; 
       $this->nm_app_version  = "1.0.0"; 
@@ -945,7 +945,7 @@ class form_detento_ini
       $this->nm_bases_odbc       = array("odbc");
       $this->nm_bases_progress   = array("progress", "pdo_progress_odbc");
       $this->nm_bases_all        = array_merge($this->nm_bases_access, $this->nm_bases_db2, $this->nm_bases_ibase, $this->nm_bases_informix, $this->nm_bases_mssql, $this->nm_bases_mysql, $this->nm_bases_postgres, $this->nm_bases_oracle, $this->nm_bases_sqlite, $this->nm_bases_sybase, $this->nm_bases_vfp, $this->nm_bases_odbc, $this->nm_bases_progress);
-      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1DcBwZSFGHAvOVWBqDMvmVIFCHEFYHMrqHQBqZ1F7HAvCZMBOHgveDkXKDWBmDoBqHQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoX7HQJmZ1F7Z1vmD5rqDEBOHArCDWF/DoJeD9NmDQX7D1veV5BODMvODkBsV5FYDoJsHQNmZSB/Z1NOD5JeHgBeHEFiV5B3DoF7D9XsDuFaHAveD5JsHgrKVcBOV5FYVoraHQJmZ1F7Z1vmD5rqDEBOHArCDWBmDoB/DcBwH9X7Z1rwV5BOHuNOVcB/V5X7DoNUDcJUZ1FaD1rKV5FaDEBOVkJGH5F/DoB/HQXGH9FGHAveD5BOHuzGVcFeDWXCDoJsDcBwH9B/Z1rYHQJwDMBYVkJ3HEFaHIX7HQFYDQJsZ1BYHuJwDMzGVcBUH5XCVEX7DcNmZ1FGZ1rYHQFUHgrKDkXKDWF/HIJsD9XsZ9JeD1BeD5F7DMvmVcFeV5X/VEBiHQXOZ1FGDSNOHuJsDMveHENiHEB7VoFGHQNwDQFaZ1vCV5BODMNOVcXKH5XKDoXGHQBiZkFGHINaZMJeHgBOHErsHEB7VoFGHQBiH9FUD1BeHuJeHgrwDkB/DWB3VoBqD9BsZ1F7DSrYD5rqDMrYZSJ3HEB7ZuJsHQFYDQFaHIBOVWJsHgrwVcB/DWXKDoXGHQJmH9BqDSNOHQJeDMveHArCV5B7VoFGDcBiZ9XGHIrwHuraDMvOVIB/HEBmDoXGHQBqZ1BOHIveHuX7HgBODkXKDurmDoF7D9XsDQJsDSBYV5FGHgNKDkBsDuB7VEBiHQNmVINUHIBeHuJsHgNKHEJqDurmVoFGHQFYDQFaHIrwHuX7DMvODkB/H5B7DoXGHQBsZ1BOHANOHQF7HgBeHEJqDurmVoFGHQFYZSBiHAN7HQFaDMBYVcB/HEX/VoBqD9BsZ1F7DSrYD5rqDMrYZSJGH5FYDoF7DcXOZSFGHAveV5FUHuBYVcFKDur/VoJwHQFYH9FaHANOD5NUDErKDkFeV5FaZuBqD9NmZSFGHINaV5JwHuvmVcrsH5XCDoXGD9BsZ1FUZ1BeD5BqDMBYHEXeHEFqVoBiDcBwDQX7HIBOV5JwHgNKDkBODuFqDoFGDcBqVIJwD1rwD5JeDMBYZSJqV5FaVoJeD9XsZSFGD1BeVWJsHgrYDkBODuFqVoB/D9BsZ1FaHAvsV5X7DEvsZSXeHEFqZuFaD9JKDQBOZ1BYVWJwHgvsVIFCDWFYDoJsD9BiZ1rqD1zGV5X7DErKZSXeDWFqDoJeD9NmH9X7HABYV5BODMrwV9BUDWrmVorqHQFYZkBiHAvsZMB/HgvCHEXeDuFYZuFaD9NwZ9rqZ1zGV5BODMrwVcFCDWF/DoXGHQJmZ1F7Z1vmD5rqDEBOHArCDWBmDoJeHQBiDQBqHAvmV5XGDMvOVcBUDuFGVoX7HQNwZSBqHArKV5FUDMrYZSXeV5FqHIJsDcJeZSFGDSN7HQJwHgrKVcBOHEF/VoFGHQBiH9B/Z1NOHuX7HgBeHEFiV5B3DoF7D9XsDuFaHAveD5JsHgrKVcBOV5FYVoraHQJmZ1F7Z1vmD5rqDEBOHArCDWBmZuXGHQXGZ9XGHAveHuFaHuNOZSrCH5FqDoXGHQJmZ1rqHArKZMFaDMBYVkJqV5FaZuBODcJeDQX7HIBeD5BqHgrKVcFeDWXCHMBiHQNmVINUHAvsD5XGHgveHArsDWBmZuBqHQBiZ9XGHAvCVWFU";
+      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1HQFYDQB/HIrwD5JwDMrYVcBUDWFYVEX7DcFYVINUD1rwHQJwDEBODkFeH5FYVoFGHQJKDQBqHArYHQXGDMvsVIBsDur/HINUHQXGZ1BOHIveHQJeHgvCHArCDuJeHMJeHQBiH9BiD1veHuJwDMrwV9FeV5FYHIrqHQBqZkFGD1vsZMJeHgvCHArsDWr/HMFGDcXGH9FUHIrwHQFaHgNKDkBODuFqDoFGDcBqVIJwD1rwHQrqHgBYVkJqDWF/HMBOHQXODQB/HABYHQB/DMrwV9FeH5FqHINUDcNmZ1BODSrYHuBOHgvCHEJqHEB3ZuBqHQXsDuBqHANOV5FaDMrwV9BUHEFYHMX7HQXGH9BqHAvmZMXGDMrYZSXeDuFYVoXGDcJeZ9rqD1BeHQJeDMvsZSNiDWrmVEF7HQXGZkBiHArYHQXGHgvCHEJqDWF/HIraHQNwDQBqD1BeHQF7DMrwV9FeDWFYHMrqHQXOZ1FGHABYHQXGHgvCHEJqH5FYHINUHQFYDQFaZ1BYHuBqHgNKDkBODuFqDoFGDcBqVIJwD1rwD5JeDMBYZSJqV5FaDoBODcJeDQFGD1veD5BOHgrYZSJ3V5X7VErqDcBqZ1FaHAvCD5FaDEvsZSJGDuFaZuBqHQXGZSX7HIrKVWJsHuNOVcBODuB7VoraD9XOZ1F7HABYV5JeDEBOVkXeDWFqVoX7HQXGZ9rqD1BeD5rqHuvmVcBOH5B7VoBqD9XOH9B/D1rwD5BiDEBeHEFiV5FaDoXGD9NmDQB/Z1rwD5rqHgvsVcBOV5FYVorqHQFYZ1FaHIBeV5JeDEvsHEFiDurmVoFGD9NmDQX7HANOVWJwHuNOVIFCH5XCVEraHQFYZ1FaD1rwV5FaDErKVkJGDWXCVoB/D9NwZ9JeZ1zGV5BODMvOVcFiV5X/VorqHQNwZ1FUZ1rYV5FGDEvsHEBUH5X/VoFGHQBiZ9JeZ1BYVWJeHuNOV9FeDWXCDoJsDcBwH9B/Z1rYHQJwDEBOHEXeDWXCDoBODcBiH9BiD1veHuFGHuBOVIBODuFqVoB/D9BsZkBiHIBeZMJeDEvsHEFiHEFaHMFaHQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoraDcJUZSB/Z1BeD5XGDEBOHEJqV5FaVoFaDcBwDQFGD1veD5JwHuNOVIFCH5XCVoraHQFYZSFaHArKV5XGDErKHErCDWF/VoBiDcJUZSX7Z1BYHuFaDMvmVcFKV5BmVoBqD9BsZkFGHArKD5BODMveHEJGHEFqDoF7HQBiDQX7D1BOVWJsHuvmVcFCDWXCHMBiD9BsVIraD1rwV5X7HgBeHEFiH5F/VoB/D9XsDQX7Z1rwHuFaHuNOZSrCH5FqDoXGHQJmZ1BiHAvCD5BqHgveDkXKDWFGDoBOHQXOZ9F7HAvmVWJeDMvmVcFKV5BmVoBqD9BsZkFGHArKHQXGHgrKHEJGDWX7HIJwHQJKDuFaHIBeHQNUDMBOVcXKDWFYHMBiD9BsVIraD1rwV5X7HgBeHEFiH5F/VoB/D9XsDQX7Z1rwHuFaHuNOZSrCH5FqDoXGHQJmZ1BiDSvOV5FUHgveHErCDWF/VoBiDcJUZSX7Z1BYHuFaHuzGVcrsDWFYVoBODcNwH9FaHANOD5NUDEBOHEFiHEFqVoFaHQJKDQFaHANKV5BODMvOVcBUDWrmVoF7HQNmZ1BiHIBOD5XGHgNKDkFiV5JeZura";
 $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 108, 101, 61, 34, 102, 111, 110, 116, 45, 102, 97, 109, 105, 108, 121, 58, 32, 84, 97, 104, 111, 109, 97, 44, 32, 65, 114, 105, 97, 108, 44, 32, 115, 97, 110, 115, 45, 115, 101, 114, 105, 102, 59, 32, 102, 111, 110, 116, 45, 115, 105, 122, 101, 58, 32, 49, 51, 112, 120, 59, 32, 102, 111, 110, 116, 45, 119, 101, 105, 103, 104, 116, 58, 32, 98, 111, 108, 100, 59, 32, 116, 101, 120, 116, 45, 97, 108, 105, 103, 110, 58, 32, 99, 101, 110, 116, 101, 114, 34, 62, 84, 104, 105, 115, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 119, 97, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 97, 110, 100, 32, 112, 117, 98, 108, 105, 115, 104, 101, 100, 32, 117, 115, 105, 110, 103, 32, 97, 32, 116, 114, 105, 97, 108, 32, 118, 101, 114, 115, 105, 111, 110, 32, 111, 102, 32, 83, 99, 114, 105, 112, 116, 67, 97, 115, 101, 32, 97, 110, 100, 32, 105, 116, 115, 32, 116, 114, 105, 97, 108, 32, 112, 101, 114, 105, 111, 100, 32, 104, 97, 115, 32, 101, 120, 112, 105, 114, 101, 100, 46, 60, 47, 100, 105, 118, 62);
       $this->prep_conect();
       $this->conectDB();
@@ -1735,6 +1735,16 @@ ob_start();
             $data = NM_utf8_urldecode($_POST['rsargs'][0]);
             $script_case_init = NM_utf8_urldecode($_POST['rsargs'][1]);
         }
+        if ('ajax_form_detento_event_cpf_onchange' == $_POST['rs'])
+        {
+            $cpf = NM_utf8_urldecode($_POST['rsargs'][0]);
+            $script_case_init = NM_utf8_urldecode($_POST['rsargs'][1]);
+        }
+        if ('ajax_form_detento_event_matricula_onchange' == $_POST['rs'])
+        {
+            $matricula = NM_utf8_urldecode($_POST['rsargs'][0]);
+            $script_case_init = NM_utf8_urldecode($_POST['rsargs'][1]);
+        }
         if ('ajax_form_detento_submit_form' == $_POST['rs'])
         {
             $nome = NM_utf8_urldecode($_POST['rsargs'][0]);
@@ -2232,6 +2242,8 @@ ob_start();
     sajax_export("ajax_form_detento_validate_data_inicio_pena");
     sajax_export("ajax_form_detento_validate_status_id");
     sajax_export("ajax_form_detento_validate_data");
+    sajax_export("ajax_form_detento_event_cpf_onchange");
+    sajax_export("ajax_form_detento_event_matricula_onchange");
     sajax_export("ajax_form_detento_submit_form");
     sajax_export("ajax_form_detento_navigate_form");
     sajax_handle_client_request();
@@ -2390,6 +2402,44 @@ ob_start();
         $inicial_form_detento->contr_form_detento->controle();
         exit;
     } // ajax_validate_data
+
+    function ajax_form_detento_event_cpf_onchange($cpf, $script_case_init)
+    {
+        global $inicial_form_detento;
+        //register_shutdown_function("form_detento_pack_ajax_response");
+        $inicial_form_detento->contr_form_detento->NM_ajax_flag          = true;
+        $inicial_form_detento->contr_form_detento->NM_ajax_opcao         = 'event_cpf_onchange';
+        $inicial_form_detento->contr_form_detento->NM_ajax_info['param'] = array(
+                  'cpf' => NM_utf8_urldecode($cpf),
+                  'script_case_init' => NM_utf8_urldecode($script_case_init),
+                  'buffer_output' => true,
+                 );
+        if ($inicial_form_detento->contr_form_detento->NM_ajax_info['param']['buffer_output'])
+        {
+            ob_start();
+        }
+        $inicial_form_detento->contr_form_detento->controle();
+        exit;
+    } // ajax_event_cpf_onchange
+
+    function ajax_form_detento_event_matricula_onchange($matricula, $script_case_init)
+    {
+        global $inicial_form_detento;
+        //register_shutdown_function("form_detento_pack_ajax_response");
+        $inicial_form_detento->contr_form_detento->NM_ajax_flag          = true;
+        $inicial_form_detento->contr_form_detento->NM_ajax_opcao         = 'event_matricula_onchange';
+        $inicial_form_detento->contr_form_detento->NM_ajax_info['param'] = array(
+                  'matricula' => NM_utf8_urldecode($matricula),
+                  'script_case_init' => NM_utf8_urldecode($script_case_init),
+                  'buffer_output' => true,
+                 );
+        if ($inicial_form_detento->contr_form_detento->NM_ajax_info['param']['buffer_output'])
+        {
+            ob_start();
+        }
+        $inicial_form_detento->contr_form_detento->controle();
+        exit;
+    } // ajax_event_matricula_onchange
 
     function ajax_form_detento_submit_form($nome, $matricula, $cpf, $data_nascimento, $data_inicio_pena, $status_id, $data, $nm_form_submit, $nmgp_url_saida, $nmgp_opcao, $nmgp_ancora, $nmgp_num_form, $nmgp_parms, $script_case_init, $csrf_token)
     {

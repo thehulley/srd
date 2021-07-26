@@ -240,14 +240,6 @@ class grid_consulta_pesq
               $this->Arr_result['setValue'][] = array('field' => "id_sel_filters_del", 'value' => $Ajax_select);
               return;
           }
-          $Ajax_select  = "<SELECT id=\"sel_recup_filters_bot\" name=\"NM_filters_bot\" onChange=\"nm_submit_filter(this, 'bot');\" size=\"1\">\r\n";
-          $Ajax_select .= $Opt_filter;
-          $Ajax_select .= "</SELECT>\r\n";
-          $this->Arr_result['setValue'][] = array('field' => "idAjaxSelect_NM_filters_bot", 'value' => $Ajax_select);
-          $Ajax_select = "<SELECT id=\"sel_filters_del_bot\" class=\"scFilterToolbar_obj\" name=\"NM_filters_del_bot\" size=\"1\">\r\n";
-          $Ajax_select .= $Opt_filter;
-          $Ajax_select .= "</SELECT>\r\n";
-          $this->Arr_result['setValue'][] = array('field' => "idAjaxSelect_NM_filters_del_bot", 'value' => $Ajax_select);
       }
 
       if ($this->NM_ajax_opcao == "ajax_filter_delete")
@@ -283,14 +275,6 @@ class grid_consulta_pesq
               $this->Arr_result['setValue'][] = array('field' => "id_sel_filters_del", 'value' => $Ajax_select);
               return;
           }
-          $Ajax_select  = "<SELECT id=\"sel_recup_filters_bot\" class=\"scFilterToolbar_obj\" style=\"display:". (count($this->NM_fil_ant)>0?'':'none') .";\" name=\"NM_filters_bot\" onChange=\"nm_submit_filter(this, 'bot');\" size=\"1\">\r\n";
-          $Ajax_select .= $Opt_filter;
-          $Ajax_select .= "</SELECT>\r\n";
-          $this->Arr_result['setValue'][] = array('field' => "idAjaxSelect_NM_filters_bot", 'value' => $Ajax_select);
-          $Ajax_select = "<SELECT id=\"sel_filters_del_bot\" class=\"scFilterToolbar_obj\" name=\"NM_filters_del_bot\" size=\"1\">\r\n";
-          $Ajax_select .= $Opt_filter;
-          $Ajax_select .= "</SELECT>\r\n";
-          $this->Arr_result['setValue'][] = array('field' => "idAjaxSelect_NM_filters_del_bot", 'value' => $Ajax_select);
       }
       if ($this->NM_ajax_opcao == "ajax_filter_select")
       {
@@ -379,7 +363,7 @@ class grid_consulta_pesq
       $nm_esp_postgres = array();
       $nm_ini_lower = "";
       $nm_fim_lower = "";
-      $Nm_datas[] = "data_consulta";$Nm_datas[] = "data_consulta";$Nm_numeric[] = "id";$Nm_numeric[] = "detento_id";$Nm_numeric[] = "medico_id";$Nm_numeric[] = "status_id";
+      $Nm_datas[] = "c.data_consulta";$Nm_datas[] = "c_data_consulta";$Nm_numeric[] = "c_id";$Nm_numeric[] = "c_detento_id";$Nm_numeric[] = "c_medico_id";$Nm_numeric[] = "c_status_id";
       $campo_join = strtolower(str_replace(".", "_", $nome));
       if (in_array($campo_join, $Nm_numeric))
       {
@@ -410,7 +394,7 @@ class grid_consulta_pesq
             }
          }
       }
-      $Nm_datas[] = "data_consulta";$Nm_datas[] = "data_consulta";
+      $Nm_datas[] = "c.data_consulta";$Nm_datas[] = "c_data_consulta";
       if (in_array($campo_join, $Nm_datas))
       {
           if (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_access))
@@ -452,7 +436,7 @@ class grid_consulta_pesq
          $this->and_or();
          $campo  = substr($this->Db->qstr($campo), 1, -1);
          $campo2 = substr($this->Db->qstr($campo2), 1, -1);
-         $nome_sum = "consulta.$nome";
+         $nome_sum = "$nome";
          if ($tp_campo == "TIMESTAMP")
          {
              $tp_campo = "DATETIME";
@@ -1603,6 +1587,8 @@ if ($_SESSION['scriptcase']['proc_mobile'])
  <script type="text/javascript" src="../_lib/lib/js/scInput.js"></script>
  <script type="text/javascript" src="../_lib/lib/js/jquery.scInput.js"></script>
  <script type="text/javascript" src="../_lib/lib/js/jquery.scInput2.js"></script>
+ <link rel="stylesheet" href="<?php echo $this->Ini->path_prod ?>/third/jquery_plugin/select2/css/select2.min.css" type="text/css" />
+ <SCRIPT type="text/javascript" src="<?php echo $this->Ini->path_prod; ?>/third/jquery_plugin/select2/js/select2.full.min.js"></SCRIPT>
  <link rel="stylesheet" href="<?php echo $this->Ini->path_prod ?>/third/jquery_plugin/thickbox/thickbox.css" type="text/css" media="screen" />
  <link rel="stylesheet" type="text/css" href="../_lib/css/<?php echo $this->Ini->str_schema_filter ?>_error.css" /> 
  <link rel="stylesheet" type="text/css" href="../_lib/css/<?php echo $this->Ini->str_schema_filter ?>_error<?php echo $_SESSION['scriptcase']['reg_conf']['css_dir'] ?>.css" /> 
@@ -1875,6 +1861,7 @@ var nmdg_Form = "F1";
 
    SC_carga_evt_jquery();
    scLoadScInput('input:text.sc-js-input');
+   Sc_carga_select2('all');
  });
  function nm_campos_between(nm_campo, nm_cond, nm_nome_obj)
  {
@@ -1916,25 +1903,25 @@ var nmdg_Form = "F1";
       return;
   }
   var str_out = "";
-  str_out += 'SC_data_consulta_cond#NMF#' + search_get_sel_txt('SC_data_consulta_cond') + '@NMF@';
-  str_out += 'SC_data_consulta_dia#NMF#' + search_get_sel_txt('SC_data_consulta_dia') + '@NMF@';
-  str_out += 'SC_data_consulta_mes#NMF#' + search_get_sel_txt('SC_data_consulta_mes') + '@NMF@';
-  str_out += 'SC_data_consulta_ano#NMF#' + search_get_sel_txt('SC_data_consulta_ano') + '@NMF@';
-  str_out += 'SC_data_consulta_input_2_dia#NMF#' + search_get_sel_txt('SC_data_consulta_input_2_dia') + '@NMF@';
-  str_out += 'SC_data_consulta_input_2_mes#NMF#' + search_get_sel_txt('SC_data_consulta_input_2_mes') + '@NMF@';
-  str_out += 'SC_data_consulta_input_2_ano#NMF#' + search_get_sel_txt('SC_data_consulta_input_2_ano') + '@NMF@';
-  str_out += 'SC_data_consulta_hor#NMF#' + search_get_sel_txt('SC_data_consulta_hor') + '@NMF@';
-  str_out += 'SC_data_consulta_min#NMF#' + search_get_sel_txt('SC_data_consulta_min') + '@NMF@';
-  str_out += 'SC_data_consulta_seg#NMF#' + search_get_sel_txt('SC_data_consulta_seg') + '@NMF@';
-  str_out += 'SC_data_consulta_input_2_hor#NMF#' + search_get_sel_txt('SC_data_consulta_input_2_hor') + '@NMF@';
-  str_out += 'SC_data_consulta_input_2_min#NMF#' + search_get_sel_txt('SC_data_consulta_input_2_min') + '@NMF@';
-  str_out += 'SC_data_consulta_input_2_seg#NMF#' + search_get_sel_txt('SC_data_consulta_input_2_seg') + '@NMF@';
-  str_out += 'SC_id_cond#NMF#' + search_get_sel_txt('SC_id_cond') + '@NMF@';
-  str_out += 'SC_id#NMF#' + search_get_text('SC_id') + '@NMF@';
-  str_out += 'SC_detento_id_cond#NMF#' + search_get_sel_txt('SC_detento_id_cond') + '@NMF@';
-  str_out += 'SC_detento_id#NMF#' + search_get_text('SC_detento_id') + '@NMF@';
-  str_out += 'SC_medico_id_cond#NMF#' + search_get_sel_txt('SC_medico_id_cond') + '@NMF@';
-  str_out += 'SC_medico_id#NMF#' + search_get_text('SC_medico_id') + '@NMF@';
+  str_out += 'SC_c_detento_id_cond#NMF#' + search_get_sel_txt('SC_c_detento_id_cond') + '@NMF@';
+  str_out += 'SC_c_detento_id#NMF#' + search_get_select('SC_c_detento_id') + '@NMF@';
+  str_out += 'SC_c_medico_id_cond#NMF#' + search_get_sel_txt('SC_c_medico_id_cond') + '@NMF@';
+  str_out += 'SC_c_medico_id#NMF#' + search_get_select('SC_c_medico_id') + '@NMF@';
+  str_out += 'SC_c_data_consulta_cond#NMF#' + search_get_sel_txt('SC_c_data_consulta_cond') + '@NMF@';
+  str_out += 'SC_c_data_consulta_dia#NMF#' + search_get_sel_txt('SC_c_data_consulta_dia') + '@NMF@';
+  str_out += 'SC_c_data_consulta_mes#NMF#' + search_get_sel_txt('SC_c_data_consulta_mes') + '@NMF@';
+  str_out += 'SC_c_data_consulta_ano#NMF#' + search_get_sel_txt('SC_c_data_consulta_ano') + '@NMF@';
+  str_out += 'SC_c_data_consulta_input_2_dia#NMF#' + search_get_sel_txt('SC_c_data_consulta_input_2_dia') + '@NMF@';
+  str_out += 'SC_c_data_consulta_input_2_mes#NMF#' + search_get_sel_txt('SC_c_data_consulta_input_2_mes') + '@NMF@';
+  str_out += 'SC_c_data_consulta_input_2_ano#NMF#' + search_get_sel_txt('SC_c_data_consulta_input_2_ano') + '@NMF@';
+  str_out += 'SC_c_data_consulta_hor#NMF#' + search_get_sel_txt('SC_c_data_consulta_hor') + '@NMF@';
+  str_out += 'SC_c_data_consulta_min#NMF#' + search_get_sel_txt('SC_c_data_consulta_min') + '@NMF@';
+  str_out += 'SC_c_data_consulta_seg#NMF#' + search_get_sel_txt('SC_c_data_consulta_seg') + '@NMF@';
+  str_out += 'SC_c_data_consulta_input_2_hor#NMF#' + search_get_sel_txt('SC_c_data_consulta_input_2_hor') + '@NMF@';
+  str_out += 'SC_c_data_consulta_input_2_min#NMF#' + search_get_sel_txt('SC_c_data_consulta_input_2_min') + '@NMF@';
+  str_out += 'SC_c_data_consulta_input_2_seg#NMF#' + search_get_sel_txt('SC_c_data_consulta_input_2_seg') + '@NMF@';
+  str_out += 'SC_c_status_id_cond#NMF#' + search_get_sel_txt('SC_c_status_id_cond') + '@NMF@';
+  str_out += 'SC_c_status_id#NMF#' + search_get_select('SC_c_status_id') + '@NMF@';
   str_out += 'SC_NM_operador#NMF#' + search_get_text('SC_NM_operador');
   str_out  = str_out.replace(/[+]/g, "__NM_PLUS__");
   str_out  = str_out.replace(/[&]/g, "__NM_AMP__");
@@ -2145,10 +2132,10 @@ function nm_open_popup(parms)
    function monta_form()
    {
       global 
-             $data_consulta_cond, $data_consulta, $data_consulta_dia, $data_consulta_mes, $data_consulta_ano, $data_consulta_hor, $data_consulta_min, $data_consulta_seg, $data_consulta_input_2_dia, $data_consulta_input_2_mes, $data_consulta_input_2_ano, $data_consulta_input_2_min, $data_consulta_input_2_hor, $data_consulta_input_2_seg,
-             $id_cond, $id,
-             $detento_id_cond, $detento_id,
-             $medico_id_cond, $medico_id,
+             $c_detento_id_cond, $c_detento_id,
+             $c_medico_id_cond, $c_medico_id,
+             $c_data_consulta_cond, $c_data_consulta, $c_data_consulta_dia, $c_data_consulta_mes, $c_data_consulta_ano, $c_data_consulta_hor, $c_data_consulta_min, $c_data_consulta_seg,
+             $c_status_id_cond, $c_status_id,
              $nm_url_saida, $nm_apl_dependente, $nmgp_parms, $bprocessa, $nmgp_save_name, $NM_operador, $NM_filters, $nmgp_save_option, $NM_filters_del, $Script_BI;
       $Script_BI = "";
       $this->nmgp_botoes['clear'] = "on";
@@ -2187,122 +2174,99 @@ function nm_open_popup(parms)
           {
               $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca'] = NM_conv_charset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca'], $_SESSION['scriptcase']['charset'], "UTF-8");
           }
-          $data_consulta_dia = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_dia']; 
-          $data_consulta_mes = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_mes']; 
-          $data_consulta_ano = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_ano']; 
-          $data_consulta_input_2_dia = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_dia']; 
-          $data_consulta_input_2_mes = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_mes']; 
-          $data_consulta_input_2_ano = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_ano']; 
-          $data_consulta_hor = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_hor']; 
-          $data_consulta_min = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_min']; 
-          $data_consulta_seg = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_seg']; 
-          $data_consulta_input_2_hor = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_hor']; 
-          $data_consulta_input_2_min = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_min']; 
-          $data_consulta_input_2_seg = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_seg']; 
-          $data_consulta_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_cond']; 
-          $id = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['id']; 
-          $id_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['id_cond']; 
-          $detento_id = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['detento_id']; 
-          $detento_id_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['detento_id_cond']; 
-          $medico_id = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['medico_id']; 
-          $medico_id_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['medico_id_cond']; 
+          $c_detento_id = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_detento_id']; 
+          $c_detento_id_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_detento_id_cond']; 
+          $c_medico_id = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_medico_id']; 
+          $c_medico_id_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_medico_id_cond']; 
+          $c_data_consulta_dia = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_dia']; 
+          $c_data_consulta_mes = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_mes']; 
+          $c_data_consulta_ano = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_ano']; 
+          $c_data_consulta_hor = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_hor']; 
+          $c_data_consulta_min = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_min']; 
+          $c_data_consulta_seg = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_seg']; 
+          $c_data_consulta_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_cond']; 
+          $c_status_id = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_status_id']; 
+          $c_status_id_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_status_id_cond']; 
           $this->NM_operador = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['NM_operador']; 
-          if (strtoupper($id_cond) != "II" && strtoupper($id_cond) != "QP" && strtoupper($id_cond) != "NP" && strtoupper($id_cond) != "IN") 
-          { 
-              nmgp_Form_Num_Val($id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-          } 
-          if (strtoupper($detento_id_cond) != "II" && strtoupper($detento_id_cond) != "QP" && strtoupper($detento_id_cond) != "NP" && strtoupper($detento_id_cond) != "IN") 
-          { 
-              nmgp_Form_Num_Val($detento_id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-          } 
-          if (strtoupper($medico_id_cond) != "II" && strtoupper($medico_id_cond) != "QP" && strtoupper($medico_id_cond) != "NP" && strtoupper($medico_id_cond) != "IN") 
-          { 
-              nmgp_Form_Num_Val($medico_id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-          } 
       } 
-      if (!isset($data_consulta_cond) || empty($data_consulta_cond))
+      if (!isset($c_detento_id_cond) || empty($c_detento_id_cond))
       {
-         $data_consulta_cond = "eq";
+         $c_detento_id_cond = "qp";
       }
-      if (!isset($id_cond) || empty($id_cond))
+      if (!isset($c_medico_id_cond) || empty($c_medico_id_cond))
       {
-         $id_cond = "gt";
+         $c_medico_id_cond = "qp";
       }
-      if (!isset($detento_id_cond) || empty($detento_id_cond))
+      if (!isset($c_data_consulta_cond) || empty($c_data_consulta_cond))
       {
-         $detento_id_cond = "gt";
+         $c_data_consulta_cond = "qp";
       }
-      if (!isset($medico_id_cond) || empty($medico_id_cond))
+      if (!isset($c_status_id_cond) || empty($c_status_id_cond))
       {
-         $medico_id_cond = "gt";
+         $c_status_id_cond = "qp";
       }
       $display_aberto  = "style=display:";
       $display_fechado = "style=display:none";
       $opc_hide_input = array("nu","nn","ep","ne");
-      $str_hide_data_consulta = (in_array($data_consulta_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
-      $str_hide_id = (in_array($id_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
-      $str_hide_detento_id = (in_array($detento_id_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
-      $str_hide_medico_id = (in_array($medico_id_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
+      $str_hide_c_detento_id = (in_array($c_detento_id_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
+      $str_hide_c_medico_id = (in_array($c_medico_id_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
+      $str_hide_c_data_consulta = (in_array($c_data_consulta_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
+      $str_hide_c_status_id = (in_array($c_status_id_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
 
-      $str_display_data_consulta = ('bw' == $data_consulta_cond) ? $display_aberto : $display_fechado;
-      $str_display_id = ('bw' == $id_cond) ? $display_aberto : $display_fechado;
-      $str_display_detento_id = ('bw' == $detento_id_cond) ? $display_aberto : $display_fechado;
-      $str_display_medico_id = ('bw' == $medico_id_cond) ? $display_aberto : $display_fechado;
-
-      if (!isset($data_consulta) || $data_consulta == "")
+      if (!isset($c_detento_id) || $c_detento_id == "")
       {
-          $data_consulta = "";
+          $c_detento_id = "";
       }
-      if (isset($data_consulta) && !empty($data_consulta))
+      if (isset($c_detento_id) && !empty($c_detento_id))
       {
-         $tmp_pos = strpos($data_consulta, "##@@");
+         $tmp_pos = strpos($c_detento_id, "##@@");
          if ($tmp_pos === false)
          { }
          else
          {
-         $data_consulta = substr($data_consulta, 0, $tmp_pos);
+         $c_detento_id = substr($c_detento_id, 0, $tmp_pos);
          }
       }
-      if (!isset($id) || $id == "")
+      if (!isset($c_medico_id) || $c_medico_id == "")
       {
-          $id = "";
+          $c_medico_id = "";
       }
-      if (isset($id) && !empty($id))
+      if (isset($c_medico_id) && !empty($c_medico_id))
       {
-         $tmp_pos = strpos($id, "##@@");
+         $tmp_pos = strpos($c_medico_id, "##@@");
          if ($tmp_pos === false)
          { }
          else
          {
-         $id = substr($id, 0, $tmp_pos);
+         $c_medico_id = substr($c_medico_id, 0, $tmp_pos);
          }
       }
-      if (!isset($detento_id) || $detento_id == "")
+      if (!isset($c_data_consulta) || $c_data_consulta == "")
       {
-          $detento_id = "";
+          $c_data_consulta = "";
       }
-      if (isset($detento_id) && !empty($detento_id))
+      if (isset($c_data_consulta) && !empty($c_data_consulta))
       {
-         $tmp_pos = strpos($detento_id, "##@@");
+         $tmp_pos = strpos($c_data_consulta, "##@@");
          if ($tmp_pos === false)
          { }
          else
          {
-         $detento_id = substr($detento_id, 0, $tmp_pos);
+         $c_data_consulta = substr($c_data_consulta, 0, $tmp_pos);
          }
       }
-      if (!isset($medico_id) || $medico_id == "")
+      if (!isset($c_status_id) || $c_status_id == "")
       {
-          $medico_id = "";
+          $c_status_id = "";
       }
-      if (isset($medico_id) && !empty($medico_id))
+      if (isset($c_status_id) && !empty($c_status_id))
       {
-         $tmp_pos = strpos($medico_id, "##@@");
+         $tmp_pos = strpos($c_status_id, "##@@");
          if ($tmp_pos === false)
          { }
          else
          {
-         $medico_id = substr($medico_id, 0, $tmp_pos);
+         $c_status_id = substr($c_status_id, 0, $tmp_pos);
          }
       }
 ?>
@@ -2317,25 +2281,178 @@ function nm_open_popup(parms)
 
 
    
+      <INPUT type="hidden" id="SC_c_detento_id_cond" name="c_detento_id_cond" value="qp">
+
     <TD nowrap class="scFilterLabelOdd" style="vertical-align: top" > <?php
- $SC_Label = (isset($this->New_label['data_consulta'])) ? $this->New_label['data_consulta'] : "Data da Consulta";
- $nmgp_tab_label .= "data_consulta?#?" . $SC_Label . "?@?";
+ $SC_Label = (isset($this->New_label['c_detento_id'])) ? $this->New_label['c_detento_id'] : "Detento";
+ $nmgp_tab_label .= "c_detento_id?#?" . $SC_Label . "?@?";
  $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
  if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
  {
      $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
  }
 ?>
-<span class="SC_Field_label_Mob"><?php echo $SC_Label ?></span><br>
-      <SELECT class="SC_Cond_Selector scFilterObjectOdd" id="SC_data_consulta_cond" name="data_consulta_cond" onChange="nm_campos_between(document.getElementById('id_vis_data_consulta'), this, 'data_consulta')">
-       <OPTION value="eq" <?php if ("eq" == $data_consulta_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_exac'] ?></OPTION>
-       <OPTION value="gt" <?php if ("gt" == $data_consulta_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_grtr'] ?></OPTION>
-       <OPTION value="lt" <?php if ("lt" == $data_consulta_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_less'] ?></OPTION>
-       <OPTION value="bw" <?php if ("bw" == $data_consulta_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_betw'] ?></OPTION>
-      </SELECT>
-      <br><span id="id_hide_data_consulta"  <?php echo $str_hide_data_consulta?>>
+<span class="SC_Field_label_Mob"><?php echo $SC_Label ?></span><br><span id="id_hide_c_detento_id"  <?php echo $str_hide_c_detento_id?>>
 <?php
-  $Form_base = "ddmmyyyyhhiiss";
+      $c_detento_id_look = substr($this->Db->qstr($c_detento_id), 1, -1); 
+      $nmgp_def_dados = "" ; 
+      $nm_comando = "SELECT id, nome  FROM detento  ORDER BY nome"; 
+      unset($cmp1,$cmp2);
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      if ($rs = $this->Db->Execute($nm_comando)) 
+      { 
+         $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_detento_id'] = array();
+         while (!$rs->EOF) 
+         { 
+            $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_detento_id'][] = trim($rs->fields[0]);
+            $nmgp_def_dados .= trim($rs->fields[1]) . "?#?" ; 
+            $nmgp_def_dados .= trim($rs->fields[0]) . "?#?N?@?" ; 
+            $rs->MoveNext() ; 
+         } 
+         $rs->Close() ; 
+      } 
+      else  
+      {  
+         $this->Erro->mensagem (__FILE__, __LINE__, "banco", $this->Ini->Nm_lang['lang_errm_dber'], $this->Db->ErrorMsg()); 
+         exit; 
+      } 
+?>
+   <span id="idAjaxSelect_c_detento_id">
+      <SELECT class="scFilterObjectOdd" id="SC_c_detento_id" name="c_detento_id"  size="1">
+<?php
+      $nm_opcoesx = str_replace("?#?@?#?", "?#?@ ?#?", $nmgp_def_dados);
+      $nm_opcoes  = explode("?@?", $nm_opcoesx);
+      foreach ($nm_opcoes as $nm_opcao)
+      {
+         if (!empty($nm_opcao))
+         {
+            $temp_bug_list = explode("?#?", $nm_opcao);
+            list($nm_opc_val, $nm_opc_cod, $nm_opc_sel) = $temp_bug_list;
+            if ($nm_opc_cod == "@ ") {$nm_opc_cod = trim($nm_opc_cod); }
+            if ("" != $c_detento_id)
+            {
+                    $c_detento_id_sel = ($nm_opc_cod === $c_detento_id) ? "selected" : "";
+            }
+            else
+            {
+               $c_detento_id_sel = ("S" == $nm_opc_sel) ? "selected" : "";
+            }
+            $nm_sc_valor = $nm_opc_val;
+            $nm_opc_val = $nm_sc_valor;
+?>
+       <OPTION value="<?php echo NM_encode_input($nm_opc_cod . $delimitador . $nm_opc_val); ?>" <?php echo $c_detento_id_sel; ?>><?php echo $nm_opc_val; ?></OPTION>
+<?php
+         }
+      }
+?>
+      </SELECT>
+   </span>
+<?php
+?>
+         </TD>
+   
+
+
+
+   </tr><tr>
+
+
+
+   
+      <INPUT type="hidden" id="SC_c_medico_id_cond" name="c_medico_id_cond" value="qp">
+
+    <TD nowrap class="scFilterLabelEven" style="vertical-align: top" > <?php
+ $SC_Label = (isset($this->New_label['c_medico_id'])) ? $this->New_label['c_medico_id'] : "Médico";
+ $nmgp_tab_label .= "c_medico_id?#?" . $SC_Label . "?@?";
+ $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
+ if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
+ {
+     $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
+ }
+?>
+<span class="SC_Field_label_Mob"><?php echo $SC_Label ?></span><br><span id="id_hide_c_medico_id"  <?php echo $str_hide_c_medico_id?>>
+<?php
+      $c_medico_id_look = substr($this->Db->qstr($c_medico_id), 1, -1); 
+      $nmgp_def_dados = "" ; 
+      $nm_comando = "SELECT id, nome  FROM funcionario  WHERE funcao_id = 4  ORDER BY nome"; 
+      unset($cmp1,$cmp2);
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      if ($rs = $this->Db->Execute($nm_comando)) 
+      { 
+         $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_medico_id'] = array();
+         while (!$rs->EOF) 
+         { 
+            $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_medico_id'][] = trim($rs->fields[0]);
+            $nmgp_def_dados .= trim($rs->fields[1]) . "?#?" ; 
+            $nmgp_def_dados .= trim($rs->fields[0]) . "?#?N?@?" ; 
+            $rs->MoveNext() ; 
+         } 
+         $rs->Close() ; 
+      } 
+      else  
+      {  
+         $this->Erro->mensagem (__FILE__, __LINE__, "banco", $this->Ini->Nm_lang['lang_errm_dber'], $this->Db->ErrorMsg()); 
+         exit; 
+      } 
+?>
+   <span id="idAjaxSelect_c_medico_id">
+      <SELECT class="scFilterObjectEven" id="SC_c_medico_id" name="c_medico_id"  size="1">
+<?php
+      $nm_opcoesx = str_replace("?#?@?#?", "?#?@ ?#?", $nmgp_def_dados);
+      $nm_opcoes  = explode("?@?", $nm_opcoesx);
+      foreach ($nm_opcoes as $nm_opcao)
+      {
+         if (!empty($nm_opcao))
+         {
+            $temp_bug_list = explode("?#?", $nm_opcao);
+            list($nm_opc_val, $nm_opc_cod, $nm_opc_sel) = $temp_bug_list;
+            if ($nm_opc_cod == "@ ") {$nm_opc_cod = trim($nm_opc_cod); }
+            if ("" != $c_medico_id)
+            {
+                    $c_medico_id_sel = ($nm_opc_cod === $c_medico_id) ? "selected" : "";
+            }
+            else
+            {
+               $c_medico_id_sel = ("S" == $nm_opc_sel) ? "selected" : "";
+            }
+            $nm_sc_valor = $nm_opc_val;
+            $nm_opc_val = $nm_sc_valor;
+?>
+       <OPTION value="<?php echo NM_encode_input($nm_opc_cod . $delimitador . $nm_opc_val); ?>" <?php echo $c_medico_id_sel; ?>><?php echo $nm_opc_val; ?></OPTION>
+<?php
+         }
+      }
+?>
+      </SELECT>
+   </span>
+<?php
+?>
+         </TD>
+   
+
+
+
+   </tr><tr>
+
+
+
+   
+      <INPUT type="hidden" id="SC_c_data_consulta_cond" name="c_data_consulta_cond" value="qp">
+
+    <TD nowrap class="scFilterLabelOdd" style="vertical-align: top" > <?php
+ $SC_Label = (isset($this->New_label['c_data_consulta'])) ? $this->New_label['c_data_consulta'] : "Data da Consulta";
+ $nmgp_tab_label .= "c_data_consulta?#?" . $SC_Label . "?@?";
+ $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
+ if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
+ {
+     $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
+ }
+?>
+<span class="SC_Field_label_Mob"><?php echo $SC_Label ?></span><br><span id="id_hide_c_data_consulta"  <?php echo $str_hide_c_data_consulta?>>
+<?php
+  $Form_base = "mmyyyy";
   $date_format_show = "";
   $Str_date = str_replace("a", "y", strtolower($_SESSION['scriptcase']['reg_conf']['date_format']));
   $Lim   = strlen($Str_date);
@@ -2416,22 +2533,11 @@ foreach ($Arr_format as $Part_date)
 {
 ?>
 <?php
-  if (substr($Part_date, 0,1) == "d")
-  {
-?>
-<span id='id_date_part_data_consulta_DD' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_dia" name="data_consulta_dia" value="<?php echo NM_encode_input($data_consulta_dia); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
-
-<?php
-  }
-?>
-<?php
   if (substr($Part_date, 0,1) == "m")
   {
 ?>
-<span id='id_date_part_data_consulta_MM' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_mes" name="data_consulta_mes" value="<?php echo NM_encode_input($data_consulta_mes); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
+<span id='id_date_part_c_data_consulta_MM' style='display: inline-block'>
+<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_c_data_consulta_mes" name="c_data_consulta_mes" value="<?php echo NM_encode_input($c_data_consulta_mes); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
 </span>
 
 <?php
@@ -2441,42 +2547,9 @@ foreach ($Arr_format as $Part_date)
   if (substr($Part_date, 0,1) == "y")
   {
 ?>
-<span id='id_date_part_data_consulta_AAAA' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_ano" name="data_consulta_ano" value="<?php echo NM_encode_input($data_consulta_ano); ?>" size="4" alt="{datatype: 'mask', maskList: '9999', alignRight: true, maxLength: 4, autoTab: true, enterTab: false}">
+<span id='id_date_part_c_data_consulta_AAAA' style='display: inline-block'>
+<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_c_data_consulta_ano" name="c_data_consulta_ano" value="<?php echo NM_encode_input($c_data_consulta_ano); ?>" size="4" alt="{datatype: 'mask', maskList: '9999', alignRight: true, maxLength: 4, autoTab: true, enterTab: false}">
  </span>
-
-<?php
-  }
-?>
-<?php
-  if (substr($Part_date, 0,1) == "h")
-  {
-?>
-<span id='id_date_part_data_consulta_HH' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_hor" name="data_consulta_hor" value="<?php echo NM_encode_input($data_consulta_hor); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
-
-<?php
-  }
-?>
-<?php
-  if (substr($Part_date, 0,1) == "i")
-  {
-?>
-<span id='id_date_part_data_consulta_II' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_min" name="data_consulta_min" value="<?php echo NM_encode_input($data_consulta_min); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
-
-<?php
-  }
-?>
-<?php
-  if (substr($Part_date, 0,1) == "s")
-  {
-?>
-<span id='id_date_part_data_consulta_SS' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_seg" name="data_consulta_seg" value="<?php echo NM_encode_input($data_consulta_seg); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
 
 <?php
   }
@@ -2487,91 +2560,8 @@ foreach ($Arr_format as $Part_date)
 }
 
 ?>
-        <SPAN id="id_css_data_consulta"  class="scFilterFieldFontOdd">
+        <SPAN id="id_css_c_data_consulta"  class="scFilterFieldFontOdd">
  <?php echo $date_format_show ?>         </SPAN>
-                  <br />
-        <SPAN id="id_vis_data_consulta"  <?php echo $str_display_data_consulta; ?> class="scFilterFieldFontOdd">
-         <?php echo $date_sep_bw ?> 
-         <BR>
-         
-         <?php
-
-foreach ($Arr_format as $Part_date)
-{
-?>
-<?php
-  if (substr($Part_date, 0,1) == "d")
-  {
-?>
-<span id='id_date_part_data_consulta_input_2_DD' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_input_2_dia" name="data_consulta_input_2_dia" value="<?php echo NM_encode_input($data_consulta_input_2_dia); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
-
-<?php
-  }
-?>
-<?php
-  if (substr($Part_date, 0,1) == "m")
-  {
-?>
-<span id='id_date_part_data_consulta_input_2_MM' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_input_2_mes" name="data_consulta_input_2_mes" value="<?php echo NM_encode_input($data_consulta_input_2_mes); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
-
-<?php
-  }
-?>
-<?php
-  if (substr($Part_date, 0,1) == "y")
-  {
-?>
-<span id='id_date_part_data_consulta_input_2_AAAA' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_input_2_ano" name="data_consulta_input_2_ano" value="<?php echo NM_encode_input($data_consulta_input_2_ano); ?>" size="4" alt="{datatype: 'mask', maskList: '9999', alignRight: true, maxLength: 4, autoTab: true, enterTab: false}">
- </span>
-
-<?php
-  }
-?>
-<?php
-  if (substr($Part_date, 0,1) == "h")
-  {
-?>
-<span id='id_date_part_data_consulta_input_2_HH' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_input_2_hor" name="data_consulta_input_2_hor" value="<?php echo NM_encode_input($data_consulta_input_2_hor); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
-
-<?php
-  }
-?>
-<?php
-  if (substr($Part_date, 0,1) == "i")
-  {
-?>
-<span id='id_date_part_data_consulta_input_2_II' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_input_2_min" name="data_consulta_input_2_min" value="<?php echo NM_encode_input($data_consulta_input_2_min); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
-
-<?php
-  }
-?>
-<?php
-  if (substr($Part_date, 0,1) == "s")
-  {
-?>
-<span id='id_date_part_data_consulta_input_2_SS' style='display: inline-block'>
-<INPUT class="sc-js-input scFilterObjectOdd" type="text" id="SC_data_consulta_input_2_seg" name="data_consulta_input_2_seg" value="<?php echo NM_encode_input($data_consulta_input_2_seg); ?>" size="2" alt="{datatype: 'mask', maskList: '99', alignRight: true, maxLength: 2, autoTab: true, enterTab: false}">
-</span>
-
-<?php
-  }
-?>
-
-<?php
-
-}
-
-?>
-         </SPAN>
           </TD>
    
 
@@ -2582,75 +2572,76 @@ foreach ($Arr_format as $Part_date)
 
 
    
+      <INPUT type="hidden" id="SC_c_status_id_cond" name="c_status_id_cond" value="qp">
+
     <TD nowrap class="scFilterLabelEven" style="vertical-align: top" > <?php
- $SC_Label = (isset($this->New_label['id'])) ? $this->New_label['id'] : "Id";
- $nmgp_tab_label .= "id?#?" . $SC_Label . "?@?";
+ $SC_Label = (isset($this->New_label['c_status_id'])) ? $this->New_label['c_status_id'] : "Status";
+ $nmgp_tab_label .= "c_status_id?#?" . $SC_Label . "?@?";
  $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
  if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
  {
      $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
  }
 ?>
-<span class="SC_Field_label_Mob"><?php echo $SC_Label ?></span><br>
-      <SELECT class="SC_Cond_Selector scFilterObjectEven" id="SC_id_cond" name="id_cond" onChange="nm_campos_between(document.getElementById('id_vis_id'), this, 'id')">
-       <OPTION value="gt" <?php if ("gt" == $id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_grtr'] ?></OPTION>
-       <OPTION value="lt" <?php if ("lt" == $id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_less'] ?></OPTION>
-       <OPTION value="eq" <?php if ("eq" == $id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_exac'] ?></OPTION>
-      </SELECT>
-      <br><span id="id_hide_id"  <?php echo $str_hide_id?>><INPUT  type="text" id="SC_id" name="id" value="<?php echo NM_encode_input($id) ?>" size=11 alt="{datatype: 'integer', maxLength: 11, thousandsSep: '<?php echo $_SESSION['scriptcase']['reg_conf']['grup_num'] ?>', allowNegative: false, onlyNegative: false, enterTab: false}" class="sc-js-input scFilterObjectEven">
- </TD>
-   
-
-
-
-   </tr><tr>
-
-
-
-   
-    <TD nowrap class="scFilterLabelOdd" style="vertical-align: top" > <?php
- $SC_Label = (isset($this->New_label['detento_id'])) ? $this->New_label['detento_id'] : "Detento";
- $nmgp_tab_label .= "detento_id?#?" . $SC_Label . "?@?";
- $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
- if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
- {
-     $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
- }
+<span class="SC_Field_label_Mob"><?php echo $SC_Label ?></span><br><span id="id_hide_c_status_id"  <?php echo $str_hide_c_status_id?>>
+<?php
+      $c_status_id_look = substr($this->Db->qstr($c_status_id), 1, -1); 
+      $nmgp_def_dados = "" ; 
+      $nm_comando = "SELECT id, descricao  FROM status_consulta  ORDER BY descricao"; 
+      unset($cmp1,$cmp2);
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      if ($rs = $this->Db->Execute($nm_comando)) 
+      { 
+         $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_status_id'] = array();
+         while (!$rs->EOF) 
+         { 
+            $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_status_id'][] = trim($rs->fields[0]);
+            $nmgp_def_dados .= trim($rs->fields[1]) . "?#?" ; 
+            $nmgp_def_dados .= trim($rs->fields[0]) . "?#?N?@?" ; 
+            $rs->MoveNext() ; 
+         } 
+         $rs->Close() ; 
+      } 
+      else  
+      {  
+         $this->Erro->mensagem (__FILE__, __LINE__, "banco", $this->Ini->Nm_lang['lang_errm_dber'], $this->Db->ErrorMsg()); 
+         exit; 
+      } 
 ?>
-<span class="SC_Field_label_Mob"><?php echo $SC_Label ?></span><br>
-      <SELECT class="SC_Cond_Selector scFilterObjectOdd" id="SC_detento_id_cond" name="detento_id_cond" onChange="nm_campos_between(document.getElementById('id_vis_detento_id'), this, 'detento_id')">
-       <OPTION value="gt" <?php if ("gt" == $detento_id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_grtr'] ?></OPTION>
-       <OPTION value="lt" <?php if ("lt" == $detento_id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_less'] ?></OPTION>
-       <OPTION value="eq" <?php if ("eq" == $detento_id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_exac'] ?></OPTION>
-      </SELECT>
-      <br><span id="id_hide_detento_id"  <?php echo $str_hide_detento_id?>><INPUT  type="text" id="SC_detento_id" name="detento_id" value="<?php echo NM_encode_input($detento_id) ?>" size=10 alt="{datatype: 'integer', maxLength: 10, thousandsSep: '<?php echo $_SESSION['scriptcase']['reg_conf']['grup_num'] ?>', allowNegative: false, onlyNegative: false, enterTab: false}" class="sc-js-input scFilterObjectOdd">
- </TD>
-   
-
-
-
-   </tr><tr>
-
-
-
-   
-    <TD nowrap class="scFilterLabelEven" style="vertical-align: top" > <?php
- $SC_Label = (isset($this->New_label['medico_id'])) ? $this->New_label['medico_id'] : "Médico";
- $nmgp_tab_label .= "medico_id?#?" . $SC_Label . "?@?";
- $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
- if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
- {
-     $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
- }
+   <span id="idAjaxSelect_c_status_id">
+      <SELECT class="scFilterObjectEven" id="SC_c_status_id" name="c_status_id"  size="1">
+<?php
+      $nm_opcoesx = str_replace("?#?@?#?", "?#?@ ?#?", $nmgp_def_dados);
+      $nm_opcoes  = explode("?@?", $nm_opcoesx);
+      foreach ($nm_opcoes as $nm_opcao)
+      {
+         if (!empty($nm_opcao))
+         {
+            $temp_bug_list = explode("?#?", $nm_opcao);
+            list($nm_opc_val, $nm_opc_cod, $nm_opc_sel) = $temp_bug_list;
+            if ($nm_opc_cod == "@ ") {$nm_opc_cod = trim($nm_opc_cod); }
+            if ("" != $c_status_id)
+            {
+                    $c_status_id_sel = ($nm_opc_cod === $c_status_id) ? "selected" : "";
+            }
+            else
+            {
+               $c_status_id_sel = ("S" == $nm_opc_sel) ? "selected" : "";
+            }
+            $nm_sc_valor = $nm_opc_val;
+            $nm_opc_val = $nm_sc_valor;
 ?>
-<span class="SC_Field_label_Mob"><?php echo $SC_Label ?></span><br>
-      <SELECT class="SC_Cond_Selector scFilterObjectEven" id="SC_medico_id_cond" name="medico_id_cond" onChange="nm_campos_between(document.getElementById('id_vis_medico_id'), this, 'medico_id')">
-       <OPTION value="gt" <?php if ("gt" == $medico_id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_grtr'] ?></OPTION>
-       <OPTION value="lt" <?php if ("lt" == $medico_id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_less'] ?></OPTION>
-       <OPTION value="eq" <?php if ("eq" == $medico_id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_exac'] ?></OPTION>
+       <OPTION value="<?php echo NM_encode_input($nm_opc_cod . $delimitador . $nm_opc_val); ?>" <?php echo $c_status_id_sel; ?>><?php echo $nm_opc_val; ?></OPTION>
+<?php
+         }
+      }
+?>
       </SELECT>
-      <br><span id="id_hide_medico_id"  <?php echo $str_hide_medico_id?>><INPUT  type="text" id="SC_medico_id" name="medico_id" value="<?php echo NM_encode_input($medico_id) ?>" size=10 alt="{datatype: 'integer', maxLength: 10, thousandsSep: '<?php echo $_SESSION['scriptcase']['reg_conf']['grup_num'] ?>', allowNegative: false, onlyNegative: false, enterTab: false}" class="sc-js-input scFilterObjectEven">
- </TD>
+   </span>
+<?php
+?>
+         </TD>
    
 
 
@@ -2681,13 +2672,13 @@ foreach ($Arr_format as $Part_date)
     <td class="scFilterToolbarPadding" align="left" width="33%" nowrap>
     </td>
     <td class="scFilterToolbarPadding" align="center" width="33%" nowrap>
-   <?php echo nmButtonOutput($this->arr_buttons, "bpesquisa", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "sc_b_pesq_bot", "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone'] . "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone_hint'] . "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+   <?php echo nmButtonOutput($this->arr_buttons, "bpesquisa", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "sc_b_pesq_bot", "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone'] . "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + Enter)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    if ($this->nmgp_botoes['clear'] == "on")
    {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "blimpar", "limpa_form();", "limpa_form();", "limpa_frm_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "blimpar", "limpa_form();", "limpa_form();", "limpa_frm_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + K)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -2738,7 +2729,7 @@ foreach ($Arr_format as $Part_date)
    if ($this->nmgp_botoes['save'] == "on")
    {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "bedit_filter", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "Ativa_save_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "bedit_filter", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "Ativa_save_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + E)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -2757,7 +2748,7 @@ foreach ($Arr_format as $Part_date)
               if (!empty($Tmp1[0]) && isset($Tmp1[1]) && !empty($Tmp1[1]) && $Tmp1[0] == "fil" && is_file($this->Ini->root . $this->Ini->path_help . $Tmp1[1]))
               {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "bhelp", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "sc_b_help_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "bhelp", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "sc_b_help_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (F1)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
               }
@@ -2769,14 +2760,14 @@ foreach ($Arr_format as $Part_date)
    if (isset($_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['start']) && $_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['start'] == 'filter' && $nm_apl_dependente != 1)
    {
 ?>
-       <?php echo nmButtonOutput($this->arr_buttons, "bsair", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       <?php echo nmButtonOutput($this->arr_buttons, "bsair", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Alt + Q)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
    else
    {
 ?>
-       <?php echo nmButtonOutput($this->arr_buttons, "bvoltar", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       <?php echo nmButtonOutput($this->arr_buttons, "bvoltar", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Alt + Q)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -2888,64 +2879,13 @@ foreach ($Arr_format as $Part_date)
     <td class="scFilterToolbarPadding" align="left" width="33%" nowrap>
     </td>
     <td class="scFilterToolbarPadding" align="center" width="33%" nowrap>
-   <?php echo nmButtonOutput($this->arr_buttons, "bpesquisa", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "sc_b_pesq_bot", "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone'] . "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone_hint'] . "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+   <?php echo nmButtonOutput($this->arr_buttons, "bpesquisa", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "sc_b_pesq_bot", "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone'] . "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + Enter)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    if ($this->nmgp_botoes['clear'] == "on")
    {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "blimpar", "limpa_form();", "limpa_form();", "limpa_frm_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
-?>
-<?php
-   }
-?>
-<?php
-   if (!isset($this->nmgp_botoes['save']) || $this->nmgp_botoes['save'] == "on")
-   {
-       $this->NM_fil_ant = $this->gera_array_filtros();
-?>
-     <span id="idAjaxSelect_NM_filters_bot">
-       <SELECT class="scFilterToolbar_obj" id="sel_recup_filters_bot" name="NM_filters_bot" onChange="nm_submit_filter(this, 'bot');" size="1">
-           <option value=""></option>
-<?php
-          $Nome_filter = "";
-          foreach ($this->NM_fil_ant as $Cada_filter => $Tipo_filter)
-          {
-              $Select = "";
-              if ($Cada_filter == $this->NM_curr_fil)
-              {
-                  $Select = "selected";
-              }
-              if (NM_is_utf8($Cada_filter) && $_SESSION['scriptcase']['charset'] != "UTF-8")
-              {
-                  $Cada_filter    = sc_convert_encoding($Cada_filter, $_SESSION['scriptcase']['charset'], "UTF-8");
-                  $Tipo_filter[0] = sc_convert_encoding($Tipo_filter[0], $_SESSION['scriptcase']['charset'], "UTF-8");
-              }
-              elseif (!NM_is_utf8($Cada_filter) && $_SESSION['scriptcase']['charset'] == "UTF-8")
-              {
-                  $Cada_filter    = sc_convert_encoding($Cada_filter, "UTF-8", $_SESSION['scriptcase']['charset']);
-                  $Tipo_filter[0] = sc_convert_encoding($Tipo_filter[0], "UTF-8", $_SESSION['scriptcase']['charset']);
-              }
-              if ($Tipo_filter[1] != $Nome_filter)
-              {
-                  $Nome_filter = $Tipo_filter[1];
-                  echo "           <option value=\"\">" . NM_encode_input($Nome_filter) . "</option>\r\n";
-              }
-?>
-           <option value="<?php echo NM_encode_input($Tipo_filter[0]) . "\" " . $Select . ">.." . $Cada_filter ?></option>
-<?php
-          }
-?>
-       </SELECT>
-     </span>
-<?php
-   }
-?>
-<?php
-   if ($this->nmgp_botoes['save'] == "on")
-   {
-?>
-          <?php echo nmButtonOutput($this->arr_buttons, "bedit_filter", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "Ativa_save_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "blimpar", "limpa_form();", "limpa_form();", "limpa_frm_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + K)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -2964,7 +2904,7 @@ foreach ($Arr_format as $Part_date)
               if (!empty($Tmp1[0]) && isset($Tmp1[1]) && !empty($Tmp1[1]) && $Tmp1[0] == "fil" && is_file($this->Ini->root . $this->Ini->path_help . $Tmp1[1]))
               {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "bhelp", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "sc_b_help_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "bhelp", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "sc_b_help_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (F1)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
               }
@@ -2976,14 +2916,14 @@ foreach ($Arr_format as $Part_date)
    if (isset($_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['start']) && $_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['start'] == 'filter' && $nm_apl_dependente != 1)
    {
 ?>
-       <?php echo nmButtonOutput($this->arr_buttons, "bsair", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       <?php echo nmButtonOutput($this->arr_buttons, "bsair", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Alt + Q)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
    else
    {
 ?>
-       <?php echo nmButtonOutput($this->arr_buttons, "bvoltar", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       <?php echo nmButtonOutput($this->arr_buttons, "bvoltar", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Alt + Q)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -3139,8 +3079,6 @@ foreach ($Arr_format as $Part_date)
        else
        {
 ?>
-      document.getElementById('Apaga_filters_bot').style.display = 'none';
-      document.getElementById('sel_recup_filters_bot').style.display = 'none';
 <?php
        }
    }
@@ -3162,89 +3100,69 @@ foreach ($Arr_format as $Part_date)
    {
        document.F1.NM_filters.selectedIndex = -1;
    }
-   document.getElementById('Salvar_filters_bot').style.display = 'none';
-   document.F1.data_consulta_cond.value = 'eq';
-   nm_campos_between(document.getElementById('id_vis_data_consulta'), document.F1.data_consulta_cond, 'data_consulta');
-   document.F1.data_consulta_dia.value = "";
-   document.F1.data_consulta_mes.value = "";
-   document.F1.data_consulta_ano.value = "";
-   document.F1.data_consulta_input_2_dia.value = "";
-   document.F1.data_consulta_input_2_mes.value = "";
-   document.F1.data_consulta_input_2_ano.value = "";
-   document.F1.data_consulta_hor.value = "";
-   document.F1.data_consulta_min.value = "";
-   document.F1.data_consulta_seg.value = "";
-   document.F1.data_consulta_input_2_hor.value = "";
-   document.F1.data_consulta_input_2_min.value = "";
-   document.F1.data_consulta_input_2_seg.value = "";
-   document.F1.id_cond.value = 'gt';
-   nm_campos_between(document.getElementById('id_vis_id'), document.F1.id_cond, 'id');
-   document.F1.id.value = "";
-   document.F1.detento_id_cond.value = 'gt';
-   nm_campos_between(document.getElementById('id_vis_detento_id'), document.F1.detento_id_cond, 'detento_id');
-   document.F1.detento_id.value = "";
-   document.F1.medico_id_cond.value = 'gt';
-   nm_campos_between(document.getElementById('id_vis_medico_id'), document.F1.medico_id_cond, 'medico_id');
-   document.F1.medico_id.value = "";
+   document.F1.c_detento_id_cond.value = 'qp';
+   nm_campos_between(document.getElementById('id_vis_c_detento_id'), document.F1.c_detento_id_cond, 'c_detento_id');
+   document.F1.c_detento_id.value = "";
+   document.F1.c_medico_id_cond.value = 'qp';
+   nm_campos_between(document.getElementById('id_vis_c_medico_id'), document.F1.c_medico_id_cond, 'c_medico_id');
+   document.F1.c_medico_id.value = "";
+   document.F1.c_data_consulta_cond.value = 'qp';
+   nm_campos_between(document.getElementById('id_vis_c_data_consulta'), document.F1.c_data_consulta_cond, 'c_data_consulta');
+   document.F1.c_data_consulta_mes.value = "";
+   document.F1.c_data_consulta_ano.value = "";
+   document.F1.c_status_id_cond.value = 'qp';
+   nm_campos_between(document.getElementById('id_vis_c_status_id'), document.F1.c_status_id_cond, 'c_status_id');
+   document.F1.c_status_id.value = "";
+   Sc_carga_select2('all');
+ }
+ function Sc_carga_select2(Field)
+ {
+    if (Field == 'all' || Field == 'c_detento_id') {
+       Sc_carga_select2_c_detento_id();
+    }
+    if (Field == 'all' || Field == 'c_medico_id') {
+       Sc_carga_select2_c_medico_id();
+    }
+ }
+ function Sc_carga_select2_c_detento_id()
+ {
+  $("#SC_c_detento_id").select2(
+    {
+      language: {
+        noResults: function() {
+          return "<?php echo $this->Ini->Nm_lang['lang_autocomp_notfound'] ?>";
+        },
+        searching: function() {
+          return "<?php echo $this->Ini->Nm_lang['lang_autocomp_searching'] ?>";
+        }
+      }
+    }
+  );
+ }
+ function Sc_carga_select2_c_medico_id()
+ {
+  $("#SC_c_medico_id").select2(
+    {
+      language: {
+        noResults: function() {
+          return "<?php echo $this->Ini->Nm_lang['lang_autocomp_notfound'] ?>";
+        },
+        searching: function() {
+          return "<?php echo $this->Ini->Nm_lang['lang_autocomp_searching'] ?>";
+        }
+      }
+    }
+  );
  }
  function SC_carga_evt_jquery()
  {
-    $('#SC_data_consulta_dia').bind('change', function() {sc_grid_consulta_valida_dia(this)});
-    $('#SC_data_consulta_hor').bind('change', function() {sc_grid_consulta_valida_hora(this)});
-    $('#SC_data_consulta_input_2_dia').bind('change', function() {sc_grid_consulta_valida_dia(this)});
-    $('#SC_data_consulta_input_2_hor').bind('change', function() {sc_grid_consulta_valida_hora(this)});
-    $('#SC_data_consulta_input_2_mes').bind('change', function() {sc_grid_consulta_valida_mes(this)});
-    $('#SC_data_consulta_input_2_min').bind('change', function() {sc_grid_consulta_valida_min(this)});
-    $('#SC_data_consulta_input_2_seg').bind('change', function() {sc_grid_consulta_valida_seg(this)});
-    $('#SC_data_consulta_mes').bind('change', function() {sc_grid_consulta_valida_mes(this)});
-    $('#SC_data_consulta_min').bind('change', function() {sc_grid_consulta_valida_min(this)});
-    $('#SC_data_consulta_seg').bind('change', function() {sc_grid_consulta_valida_seg(this)});
- }
- function sc_grid_consulta_valida_dia(obj)
- {
-     if (obj.value != "" && (obj.value < 1 || obj.value > 31))
-     {
-         if (confirm (Nm_erro['lang_jscr_ivdt'] +  " " + Nm_erro['lang_jscr_iday'] +  " " + Nm_erro['lang_jscr_wfix']))
-         {
-            Xfocus = setTimeout(function() { obj.focus(); }, 10);
-         }
-     }
+    $('#SC_c_data_consulta_mes').bind('change', function() {sc_grid_consulta_valida_mes(this)});
  }
  function sc_grid_consulta_valida_mes(obj)
  {
      if (obj.value != "" && (obj.value < 1 || obj.value > 12))
      {
          if (confirm (Nm_erro['lang_jscr_ivdt'] +  " " + Nm_erro['lang_jscr_mnth'] +  " " + Nm_erro['lang_jscr_wfix']))
-         {
-            Xfocus = setTimeout(function() { obj.focus(); }, 10);
-         }
-     }
- }
- function sc_grid_consulta_valida_hora(obj)
- {
-     if (obj.value != "" && (obj.value < 0 || obj.value > 23))
-     {
-         if (confirm (Nm_erro['lang_jscr_ivtm'] +  " " + Nm_erro['lang_jscr_wfix']))
-         {
-            Xfocus = setTimeout(function() { obj.focus(); }, 10);
-         }
-     }
- }
- function sc_grid_consulta_valida_min(obj)
- {
-     if (obj.value != "" && (obj.value < 0 || obj.value > 59))
-     {
-         if (confirm (Nm_erro['lang_jscr_ivdt'] +  " " + Nm_erro['lang_jscr_mint'] +  " " + Nm_erro['lang_jscr_wfix']))
-         {
-            Xfocus = setTimeout(function() { obj.focus(); }, 10);
-         }
-     }
- }
- function sc_grid_consulta_valida_seg(obj)
- {
-     if (obj.value != "" && (obj.value < 0 || obj.value > 59))
-     {
-         if (confirm (Nm_erro['lang_jscr_ivdt'] +  " " + Nm_erro['lang_jscr_secd'] +  " " + Nm_erro['lang_jscr_wfix']))
          {
             Xfocus = setTimeout(function() { obj.focus(); }, 10);
          }
@@ -3415,25 +3333,25 @@ foreach ($Arr_format as $Part_date)
       $tp_fields     = array();
       $tb_fields_esp = array();
       $old_bi_opcs   = array("TP","HJ","OT","U7","SP","US","MM","UM","AM","PS","SS","P3","PM","P7","CY","LY","YY","M6","M3","M18","M24");
-      $tp_fields['SC_data_consulta_cond'] = 'cond';
-      $tp_fields['SC_data_consulta_dia'] = 'text';
-      $tp_fields['SC_data_consulta_mes'] = 'text';
-      $tp_fields['SC_data_consulta_ano'] = 'text';
-      $tp_fields['SC_data_consulta_input_2_dia'] = 'text';
-      $tp_fields['SC_data_consulta_input_2_mes'] = 'text';
-      $tp_fields['SC_data_consulta_input_2_ano'] = 'text';
-      $tp_fields['SC_data_consulta_hor'] = 'text';
-      $tp_fields['SC_data_consulta_min'] = 'text';
-      $tp_fields['SC_data_consulta_seg'] = 'text';
-      $tp_fields['SC_data_consulta_input_2_hor'] = 'text';
-      $tp_fields['SC_data_consulta_input_2_min'] = 'text';
-      $tp_fields['SC_data_consulta_input_2_seg'] = 'text';
-      $tp_fields['SC_id_cond'] = 'cond';
-      $tp_fields['SC_id'] = 'text';
-      $tp_fields['SC_detento_id_cond'] = 'cond';
-      $tp_fields['SC_detento_id'] = 'text';
-      $tp_fields['SC_medico_id_cond'] = 'cond';
-      $tp_fields['SC_medico_id'] = 'text';
+      $tp_fields['SC_c_detento_id_cond'] = 'cond';
+      $tp_fields['SC_c_detento_id'] = 'select';
+      $tp_fields['SC_c_medico_id_cond'] = 'cond';
+      $tp_fields['SC_c_medico_id'] = 'select';
+      $tp_fields['SC_c_data_consulta_cond'] = 'cond';
+      $tp_fields['SC_c_data_consulta_dia'] = 'text';
+      $tp_fields['SC_c_data_consulta_mes'] = 'text';
+      $tp_fields['SC_c_data_consulta_ano'] = 'text';
+      $tp_fields['SC_c_data_consulta_input_2_dia'] = 'text';
+      $tp_fields['SC_c_data_consulta_input_2_mes'] = 'text';
+      $tp_fields['SC_c_data_consulta_input_2_ano'] = 'text';
+      $tp_fields['SC_c_data_consulta_hor'] = 'text';
+      $tp_fields['SC_c_data_consulta_min'] = 'text';
+      $tp_fields['SC_c_data_consulta_seg'] = 'text';
+      $tp_fields['SC_c_data_consulta_input_2_hor'] = 'text';
+      $tp_fields['SC_c_data_consulta_input_2_min'] = 'text';
+      $tp_fields['SC_c_data_consulta_input_2_seg'] = 'text';
+      $tp_fields['SC_c_status_id_cond'] = 'cond';
+      $tp_fields['SC_c_status_id'] = 'select';
       $tp_fields['SC_NM_operador'] = 'text';
       if (is_file($NM_patch))
       {
@@ -3577,10 +3495,10 @@ foreach ($Arr_format as $Part_date)
     */
    function trata_campos()
    {
-      global $data_consulta_cond, $data_consulta, $data_consulta_dia, $data_consulta_mes, $data_consulta_ano, $data_consulta_hor, $data_consulta_min, $data_consulta_seg, $data_consulta_input_2_dia, $data_consulta_input_2_mes, $data_consulta_input_2_ano, $data_consulta_input_2_min, $data_consulta_input_2_hor, $data_consulta_input_2_seg,
-             $id_cond, $id,
-             $detento_id_cond, $detento_id,
-             $medico_id_cond, $medico_id, $nmgp_tab_label;
+      global $c_detento_id_cond, $c_detento_id,
+             $c_medico_id_cond, $c_medico_id,
+             $c_data_consulta_cond, $c_data_consulta, $c_data_consulta_dia, $c_data_consulta_mes, $c_data_consulta_ano, $c_data_consulta_hor, $c_data_consulta_min, $c_data_consulta_seg,
+             $c_status_id_cond, $c_status_id, $nmgp_tab_label;
 
       $C_formatado = true;
       if ($this->NM_ajax_flag && ($this->NM_ajax_opcao == "ajax_grid_search" || $this->NM_ajax_opcao == "ajax_grid_search_change_fil"))
@@ -3603,164 +3521,146 @@ foreach ($Arr_format as $Part_date)
       $this->Ini->sc_Include($this->Ini->path_lib_php . "/nm_conv_dados.php", "F", "nm_conv_limpa_dado") ; 
       $this->Ini->sc_Include($this->Ini->path_lib_php . "/nm_edit.php", "F", "nmgp_Form_Num_Val") ; 
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq'] = array();
-      $data_consulta_cond_salva = $data_consulta_cond; 
-      if (!isset($data_consulta_input_2_dia) || $data_consulta_input_2_dia == "")
+      $c_detento_id_cond_salva = $c_detento_id_cond; 
+      if (!isset($c_detento_id_input_2) || $c_detento_id_input_2 == "")
       {
-          $data_consulta_input_2_dia = $data_consulta_dia;
+          $c_detento_id_input_2 = $c_detento_id;
       }
-      if (!isset($data_consulta_input_2_mes) || $data_consulta_input_2_mes == "")
+      $c_medico_id_cond_salva = $c_medico_id_cond; 
+      if (!isset($c_medico_id_input_2) || $c_medico_id_input_2 == "")
       {
-          $data_consulta_input_2_mes = $data_consulta_mes;
+          $c_medico_id_input_2 = $c_medico_id;
       }
-      if (!isset($data_consulta_input_2_ano) || $data_consulta_input_2_ano == "")
+      $c_data_consulta_cond_salva = $c_data_consulta_cond; 
+      $c_status_id_cond_salva = $c_status_id_cond; 
+      if (!isset($c_status_id_input_2) || $c_status_id_input_2 == "")
       {
-          $data_consulta_input_2_ano = $data_consulta_ano;
+          $c_status_id_input_2 = $c_status_id;
       }
-      if (!isset($data_consulta_input_2_hor) || $data_consulta_input_2_hor == "")
-      {
-          $data_consulta_input_2_hor = $data_consulta_hor;
+      $tmp_pos = strpos($c_detento_id, "##@@");
+      if ($tmp_pos === false) {
+          $L_lookup = $c_detento_id;
       }
-      if (!isset($data_consulta_input_2_min) || $data_consulta_input_2_min == "")
-      {
-          $data_consulta_input_2_min = $data_consulta_min;
+      else {
+          $L_lookup = substr($c_detento_id, 0, $tmp_pos);
       }
-      if (!isset($data_consulta_input_2_seg) || $data_consulta_input_2_seg == "")
-      {
-          $data_consulta_input_2_seg = $data_consulta_seg;
+      if ($this->NM_ajax_opcao != "ajax_grid_search_change_fil" && !empty($L_lookup) && !in_array($L_lookup, $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_detento_id'])) {
+          if (!empty($this->Campos_Mens_erro)) {$this->Campos_Mens_erro .= "<br>";}$this->Campos_Mens_erro .= "Detento : " . $this->Ini->Nm_lang['lang_errm_ajax_data'];
       }
-      $id_cond_salva = $id_cond; 
-      if (!isset($id_input_2) || $id_input_2 == "")
-      {
-          $id_input_2 = $id;
+      $tmp_pos = strpos($c_medico_id, "##@@");
+      if ($tmp_pos === false) {
+          $L_lookup = $c_medico_id;
       }
-      $detento_id_cond_salva = $detento_id_cond; 
-      if (!isset($detento_id_input_2) || $detento_id_input_2 == "")
-      {
-          $detento_id_input_2 = $detento_id;
+      else {
+          $L_lookup = substr($c_medico_id, 0, $tmp_pos);
       }
-      $medico_id_cond_salva = $medico_id_cond; 
-      if (!isset($medico_id_input_2) || $medico_id_input_2 == "")
-      {
-          $medico_id_input_2 = $medico_id;
+      if ($this->NM_ajax_opcao != "ajax_grid_search_change_fil" && !empty($L_lookup) && !in_array($L_lookup, $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_medico_id'])) {
+          if (!empty($this->Campos_Mens_erro)) {$this->Campos_Mens_erro .= "<br>";}$this->Campos_Mens_erro .= "Médico : " . $this->Ini->Nm_lang['lang_errm_ajax_data'];
       }
-      if ($id_cond != "in")
-      {
-          nm_limpa_numero($id, $_SESSION['scriptcase']['reg_conf']['grup_num']) ; 
+      $tmp_pos = strpos($c_status_id, "##@@");
+      if ($tmp_pos === false) {
+          $L_lookup = $c_status_id;
       }
-      if ($detento_id_cond != "in")
-      {
-          nm_limpa_numero($detento_id, $_SESSION['scriptcase']['reg_conf']['grup_num']) ; 
+      else {
+          $L_lookup = substr($c_status_id, 0, $tmp_pos);
       }
-      if ($medico_id_cond != "in")
-      {
-          nm_limpa_numero($medico_id, $_SESSION['scriptcase']['reg_conf']['grup_num']) ; 
+      if ($this->NM_ajax_opcao != "ajax_grid_search_change_fil" && !empty($L_lookup) && !in_array($L_lookup, $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret']['c_status_id'])) {
+          if (!empty($this->Campos_Mens_erro)) {$this->Campos_Mens_erro .= "<br>";}$this->Campos_Mens_erro .= "Status : " . $this->Ini->Nm_lang['lang_errm_ajax_data'];
       }
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']  = array(); 
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search']  = array(); 
       $I_Grid = 0;
       $Dyn_ok = false;
       $Grid_ok = false;
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_dia'] = $data_consulta_dia; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_mes'] = $data_consulta_mes; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_ano'] = $data_consulta_ano; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_dia'] = $data_consulta_input_2_dia; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_mes'] = $data_consulta_input_2_mes; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_ano'] = $data_consulta_input_2_ano; 
-      if (!empty($data_consulta_dia) || !empty($data_consulta_mes) || !empty($data_consulta_ano) || $data_consulta_cond_salva == "nu" || $data_consulta_cond_salva == "nn" || $data_consulta_cond_salva == "ep" || $data_consulta_cond_salva == "ne")
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_detento_id'] = $c_detento_id; 
+      if (is_array($c_detento_id) && !empty($c_detento_id))
       {
           $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "D:" . $data_consulta_dia;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "M:" . $data_consulta_mes;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "Y:" . $data_consulta_ano;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][1][] = "D:" . $data_consulta_input_2_dia;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][1][] = "M:" . $data_consulta_input_2_mes;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][1][] = "Y:" . $data_consulta_input_2_ano;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0] = $c_detento_id;
       }
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_hor'] = $data_consulta_hor; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_min'] = $data_consulta_min; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_seg'] = $data_consulta_seg; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_hor'] = $data_consulta_input_2_hor; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_min'] = $data_consulta_input_2_min; 
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2_seg'] = $data_consulta_input_2_seg; 
-      if (!empty($data_consulta_hor) || !empty($data_consulta_min) || !empty($data_consulta_seg) || $data_consulta_cond_salva == "nu" || $data_consulta_cond_salva == "nn" || $data_consulta_cond_salva == "ep" || $data_consulta_cond_salva == "ne")
+      elseif ($c_detento_id_cond_salva == "nu" || $c_detento_id_cond_salva == "nn" || $c_detento_id_cond_salva == "ep" || $c_detento_id_cond_salva == "ne" || !empty($c_detento_id))
       {
           $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "H:" . $data_consulta_hor;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "I:" . $data_consulta_min;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "S:" . $data_consulta_seg;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][1][] = "H:" . $data_consulta_input_2_hor;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][1][] = "I:" . $data_consulta_input_2_min;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][1][] = "S:" . $data_consulta_input_2_seg;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][0] = $c_detento_id;
       }
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_cond'] = $data_consulta_cond_salva; 
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_detento_id_cond'] = $c_detento_id_cond_salva; 
       if ($Grid_ok)
       {
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['cmp'] = "data_consulta"; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['opc'] = $data_consulta_cond_salva; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['data_consulta'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid];
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['cmp'] = "c_detento_id"; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['opc'] = $c_detento_id_cond_salva; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['c_detento_id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid];
           $I_Grid++;
       }
       $Dyn_ok = false;
       $Grid_ok = false;
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['id'] = $id; 
-      if (is_array($id) && !empty($id))
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_medico_id'] = $c_medico_id; 
+      if (is_array($c_medico_id) && !empty($c_medico_id))
       {
           $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0] = $id;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0] = $c_medico_id;
       }
-      elseif ($id_cond_salva == "nu" || $id_cond_salva == "nn" || $id_cond_salva == "ep" || $id_cond_salva == "ne" || !empty($id))
+      elseif ($c_medico_id_cond_salva == "nu" || $c_medico_id_cond_salva == "nn" || $c_medico_id_cond_salva == "ep" || $c_medico_id_cond_salva == "ne" || !empty($c_medico_id))
       {
           $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][0] = $id;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][0] = $c_medico_id;
       }
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['id_cond'] = $id_cond_salva; 
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_medico_id_cond'] = $c_medico_id_cond_salva; 
       if ($Grid_ok)
       {
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['cmp'] = "id"; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['opc'] = $id_cond_salva; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid];
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['cmp'] = "c_medico_id"; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['opc'] = $c_medico_id_cond_salva; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['c_medico_id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid];
           $I_Grid++;
       }
       $Dyn_ok = false;
       $Grid_ok = false;
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['detento_id'] = $detento_id; 
-      if (is_array($detento_id) && !empty($detento_id))
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_dia'] = $c_data_consulta_dia; 
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_mes'] = $c_data_consulta_mes; 
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_ano'] = $c_data_consulta_ano; 
+      if (!empty($c_data_consulta_dia) || !empty($c_data_consulta_mes) || !empty($c_data_consulta_ano) || $c_data_consulta_cond_salva == "nu" || $c_data_consulta_cond_salva == "nn" || $c_data_consulta_cond_salva == "ep" || $c_data_consulta_cond_salva == "ne")
       {
           $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0] = $detento_id;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "D:" . $c_data_consulta_dia;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "M:" . $c_data_consulta_mes;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "Y:" . $c_data_consulta_ano;
       }
-      elseif ($detento_id_cond_salva == "nu" || $detento_id_cond_salva == "nn" || $detento_id_cond_salva == "ep" || $detento_id_cond_salva == "ne" || !empty($detento_id))
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_hor'] = $c_data_consulta_hor; 
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_min'] = $c_data_consulta_min; 
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_seg'] = $c_data_consulta_seg; 
+      if (!empty($c_data_consulta_hor) || !empty($c_data_consulta_min) || !empty($c_data_consulta_seg) || $c_data_consulta_cond_salva == "nu" || $c_data_consulta_cond_salva == "nn" || $c_data_consulta_cond_salva == "ep" || $c_data_consulta_cond_salva == "ne")
       {
           $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][0] = $detento_id;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "H:" . $c_data_consulta_hor;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "I:" . $c_data_consulta_min;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][] = "S:" . $c_data_consulta_seg;
       }
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['detento_id_cond'] = $detento_id_cond_salva; 
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_cond'] = $c_data_consulta_cond_salva; 
       if ($Grid_ok)
       {
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['cmp'] = "detento_id"; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['opc'] = $detento_id_cond_salva; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['detento_id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid];
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['cmp'] = "c_data_consulta"; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['opc'] = $c_data_consulta_cond_salva; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['c_data_consulta'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid];
           $I_Grid++;
       }
       $Dyn_ok = false;
       $Grid_ok = false;
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['medico_id'] = $medico_id; 
-      if (is_array($medico_id) && !empty($medico_id))
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_status_id'] = $c_status_id; 
+      if (is_array($c_status_id) && !empty($c_status_id))
       {
           $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0] = $medico_id;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0] = $c_status_id;
       }
-      elseif ($medico_id_cond_salva == "nu" || $medico_id_cond_salva == "nn" || $medico_id_cond_salva == "ep" || $medico_id_cond_salva == "ne" || !empty($medico_id))
+      elseif ($c_status_id_cond_salva == "nu" || $c_status_id_cond_salva == "nn" || $c_status_id_cond_salva == "ep" || $c_status_id_cond_salva == "ne" || !empty($c_status_id))
       {
           $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][0] = $medico_id;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['val'][0][0] = $c_status_id;
       }
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['medico_id_cond'] = $medico_id_cond_salva; 
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_status_id_cond'] = $c_status_id_cond_salva; 
       if ($Grid_ok)
       {
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['cmp'] = "medico_id"; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['opc'] = $medico_id_cond_salva; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['medico_id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid];
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['cmp'] = "c_status_id"; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid]['opc'] = $c_status_id_cond_salva; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['c_status_id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['Grid_search'][$I_Grid];
           $I_Grid++;
       }
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['NM_operador'] = $this->NM_operador; 
@@ -3772,106 +3672,106 @@ foreach ($Arr_format as $Part_date)
       {
           return;
       }
-      $Conteudo = $id;
-      if (strtoupper($id_cond) != "II" && strtoupper($id_cond) != "QP" && strtoupper($id_cond) != "NP" && strtoupper($id_cond) != "IN") 
-      { 
-          nmgp_Form_Num_Val($Conteudo, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-      } 
-      $this->cmp_formatado['id'] = $Conteudo;
-      $Conteudo = $detento_id;
-      if (strtoupper($detento_id_cond) != "II" && strtoupper($detento_id_cond) != "QP" && strtoupper($detento_id_cond) != "NP" && strtoupper($detento_id_cond) != "IN") 
-      { 
-          nmgp_Form_Num_Val($Conteudo, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-      } 
-      $this->cmp_formatado['detento_id'] = $Conteudo;
-      $Conteudo = $medico_id;
-      if (strtoupper($medico_id_cond) != "II" && strtoupper($medico_id_cond) != "QP" && strtoupper($medico_id_cond) != "NP" && strtoupper($medico_id_cond) != "IN") 
-      { 
-          nmgp_Form_Num_Val($Conteudo, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-      } 
-      $this->cmp_formatado['medico_id'] = $Conteudo;
-
-      //----- $data_consulta
-      $this->Date_part = false;
-      if ($data_consulta_cond != "bi_TP")
+      $Conteudo = $c_detento_id;
+      if (strpos($Conteudo, "##@@") !== false)
       {
-          $data_consulta_cond = strtoupper($data_consulta_cond);
+          $Conteudo = substr($Conteudo, strpos($Conteudo, "##@@") + 4);
+      }
+      $this->cmp_formatado['c_detento_id'] = $Conteudo;
+      $Conteudo = $c_medico_id;
+      if (strpos($Conteudo, "##@@") !== false)
+      {
+          $Conteudo = substr($Conteudo, strpos($Conteudo, "##@@") + 4);
+      }
+      $this->cmp_formatado['c_medico_id'] = $Conteudo;
+      $Conteudo = $c_status_id;
+      if (strpos($Conteudo, "##@@") !== false)
+      {
+          $Conteudo = substr($Conteudo, strpos($Conteudo, "##@@") + 4);
+      }
+      $this->cmp_formatado['c_status_id'] = $Conteudo;
+
+      //----- $c_detento_id
+      $this->Date_part = false;
+      if (isset($c_detento_id))
+      {
+         $this->monta_condicao("c.detento_id", $c_detento_id_cond, $c_detento_id, "", "c_detento_id");
+      }
+
+      //----- $c_medico_id
+      $this->Date_part = false;
+      if (isset($c_medico_id))
+      {
+         $this->monta_condicao("c.medico_id", $c_medico_id_cond, $c_medico_id, "", "c_medico_id");
+      }
+
+      //----- $c_data_consulta
+      $this->Date_part = false;
+      if ($c_data_consulta_cond != "bi_TP")
+      {
+          $c_data_consulta_cond = strtoupper($c_data_consulta_cond);
           $Dtxt = "";
           $val  = array();
-          $Dtxt .= $data_consulta_ano;
-          $Dtxt .= $data_consulta_mes;
-          $Dtxt .= $data_consulta_dia;
-          $Dtxt .= $data_consulta_hor;
-          $Dtxt .= $data_consulta_min;
-          $Dtxt .= $data_consulta_seg;
-          $val[0]['ano'] = $data_consulta_ano;
-          $val[0]['mes'] = $data_consulta_mes;
-          $val[0]['dia'] = $data_consulta_dia;
-          $val[0]['hor'] = $data_consulta_hor;
-          $val[0]['min'] = $data_consulta_min;
-          $val[0]['seg'] = $data_consulta_seg;
-          if ($data_consulta_cond == "BW")
+          $Dtxt .= $c_data_consulta_ano;
+          $Dtxt .= $c_data_consulta_mes;
+          $Dtxt .= $c_data_consulta_dia;
+          $Dtxt .= $c_data_consulta_hor;
+          $Dtxt .= $c_data_consulta_min;
+          $Dtxt .= $c_data_consulta_seg;
+          $val[0]['ano'] = $c_data_consulta_ano;
+          $val[0]['mes'] = $c_data_consulta_mes;
+          $val[0]['dia'] = $c_data_consulta_dia;
+          $val[0]['hor'] = $c_data_consulta_hor;
+          $val[0]['min'] = $c_data_consulta_min;
+          $val[0]['seg'] = $c_data_consulta_seg;
+          if ($c_data_consulta_cond == "BW")
           {
-              $val[1]['ano'] = $data_consulta_input_2_ano;
-              $val[1]['mes'] = $data_consulta_input_2_mes;
-              $val[1]['dia'] = $data_consulta_input_2_dia;
-              $val[1]['hor'] = $data_consulta_input_2_hor;
-              $val[1]['min'] = $data_consulta_input_2_min;
-              $val[1]['seg'] = $data_consulta_input_2_seg;
+              $val[1]['ano'] = $c_data_consulta_input_2_ano;
+              $val[1]['mes'] = $c_data_consulta_input_2_mes;
+              $val[1]['dia'] = $c_data_consulta_input_2_dia;
+              $val[1]['hor'] = $c_data_consulta_input_2_hor;
+              $val[1]['min'] = $c_data_consulta_input_2_min;
+              $val[1]['seg'] = $c_data_consulta_input_2_seg;
           }
           $this->Operador_date_part = "";
           $this->Lang_date_part     = "";
-          $this->nm_prep_date($val, "DH", "DATETIME", $data_consulta_cond, "", "datahora");
+          $this->nm_prep_date($val, "DH", "DATETIME", $c_data_consulta_cond, "", "datahora");
           if (!$this->Date_part) {
               $val[0] = $this->Ini->sc_Date_Protect($val[0]);
           }
-          $data_consulta = $val[0];
-          $this->cmp_formatado['data_consulta'] = $val[0];
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta'] = $val[0];
-          $this->nm_data->SetaData($this->cmp_formatado['data_consulta'], "YYYY-MM-DD HH:II:SS");
-          $this->cmp_formatado['data_consulta'] = $this->nm_data->FormataSaida($this->nm_data->FormatRegion("DH", "dmY his"));
-          if ($data_consulta_cond == "BW")
+          $c_data_consulta = $val[0];
+          $this->cmp_formatado['c_data_consulta'] = $val[0];
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta'] = $val[0];
+          $this->nm_data->SetaData($this->cmp_formatado['c_data_consulta'], "YYYY-MM-DD HH:II:SS");
+          $this->cmp_formatado['c_data_consulta'] = $this->nm_data->FormataSaida($this->nm_data->FormatRegion("DH", "mY"));
+          if ($c_data_consulta_cond == "BW")
           {
               if (!$this->Date_part) {
                   $val[1] = $this->Ini->sc_Date_Protect($val[1]);
               }
-              $data_consulta_input_2     = $val[1];
-              $this->cmp_formatado['data_consulta_input_2'] = $val[1];
-              $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['data_consulta_input_2'] = $val[1];
-              $this->nm_data->SetaData($this->cmp_formatado['data_consulta_input_2'], "YYYY-MM-DD HH:II:SS");
-              $this->cmp_formatado['data_consulta_input_2'] = $this->nm_data->FormataSaida($this->nm_data->FormatRegion("DH", "dmY his"));
+              $c_data_consulta_input_2     = $val[1];
+              $this->cmp_formatado['c_data_consulta_input_2'] = $val[1];
+              $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca']['c_data_consulta_input_2'] = $val[1];
+              $this->nm_data->SetaData($this->cmp_formatado['c_data_consulta_input_2'], "YYYY-MM-DD HH:II:SS");
+              $this->cmp_formatado['c_data_consulta_input_2'] = $this->nm_data->FormataSaida($this->nm_data->FormatRegion("DH", "mY"));
           }
-          if (!empty($Dtxt) || $data_consulta_cond == "NU" || $data_consulta_cond == "NN"|| $data_consulta_cond == "EP"|| $data_consulta_cond == "NE")
+          if (!empty($Dtxt) || $c_data_consulta_cond == "NU" || $c_data_consulta_cond == "NN"|| $c_data_consulta_cond == "EP"|| $c_data_consulta_cond == "NE")
           {
-              $this->monta_condicao("data_consulta", $data_consulta_cond, $data_consulta, $data_consulta_input_2, 'data_consulta', 'DATETIME');
+              $this->monta_condicao("c.data_consulta", $c_data_consulta_cond, $c_data_consulta, $c_data_consulta_input_2, 'c_data_consulta', 'DATETIME');
           }
       }
       else
       {
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['data_consulta']['label'] = $nmgp_tab_label['data_consulta'];
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['data_consulta']['descr'] = $nmgp_tab_label['data_consulta'] . " " . $this->Ini->Nm_lang['lang_srch_ever'];
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['data_consulta']['hint']  = $nmgp_tab_label['data_consulta'] . " " . $this->Ini->Nm_lang['lang_srch_ever'];
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['c_data_consulta']['label'] = $nmgp_tab_label['c_data_consulta'];
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['c_data_consulta']['descr'] = $nmgp_tab_label['c_data_consulta'] . " " . $this->Ini->Nm_lang['lang_srch_ever'];
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['grid_pesq']['c_data_consulta']['hint']  = $nmgp_tab_label['c_data_consulta'] . " " . $this->Ini->Nm_lang['lang_srch_ever'];
       }
 
-      //----- $id
+      //----- $c_status_id
       $this->Date_part = false;
-      if (isset($id) || $id_cond == "nu" || $id_cond == "nn" || $id_cond == "ep" || $id_cond == "ne")
+      if (isset($c_status_id))
       {
-         $this->monta_condicao("id", $id_cond, $id, "", "id");
-      }
-
-      //----- $detento_id
-      $this->Date_part = false;
-      if (isset($detento_id) || $detento_id_cond == "nu" || $detento_id_cond == "nn" || $detento_id_cond == "ep" || $detento_id_cond == "ne")
-      {
-         $this->monta_condicao("detento_id", $detento_id_cond, $detento_id, "", "detento_id");
-      }
-
-      //----- $medico_id
-      $this->Date_part = false;
-      if (isset($medico_id) || $medico_id_cond == "nu" || $medico_id_cond == "nn" || $medico_id_cond == "ep" || $medico_id_cond == "ne")
-      {
-         $this->monta_condicao("medico_id", $medico_id_cond, $medico_id, "", "medico_id");
+         $this->monta_condicao("c.status_id", $c_status_id_cond, $c_status_id, "", "c_status_id");
       }
    }
 
@@ -3966,6 +3866,17 @@ foreach ($Arr_format as $Part_date)
          return;
       }
       $this->retorna_pesq();
+   }
+   
+   function css_obj_select_ajax($Obj)
+   {
+      switch ($Obj)
+      {
+         case "c_detento_id" : return ('class="scFilterObjectOdd"'); break;
+         case "c_medico_id" : return ('class="scFilterObjectEven"'); break;
+         case "c_status_id" : return ('class="scFilterObjectEven"'); break;
+         default       : return ("");
+      }
    }
    function nm_gera_mask(&$nm_campo, $nm_mask)
    { 

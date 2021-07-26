@@ -223,30 +223,29 @@ class grid_visita_xml
           {
               $Busca_temp = NM_conv_charset($Busca_temp, $_SESSION['scriptcase']['charset'], "UTF-8");
           }
-          $this->data_nascimento = $Busca_temp['data_nascimento']; 
-          $tmp_pos = strpos($this->data_nascimento, "##@@");
-          if ($tmp_pos !== false && !is_array($this->data_nascimento))
-          {
-              $this->data_nascimento = substr($this->data_nascimento, 0, $tmp_pos);
-          }
-          $this->data_nascimento_2 = $Busca_temp['data_nascimento_input_2']; 
-          $this->id = $Busca_temp['id']; 
-          $tmp_pos = strpos($this->id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->id))
-          {
-              $this->id = substr($this->id, 0, $tmp_pos);
-          }
           $this->nome = $Busca_temp['nome']; 
           $tmp_pos = strpos($this->nome, "##@@");
           if ($tmp_pos !== false && !is_array($this->nome))
           {
               $this->nome = substr($this->nome, 0, $tmp_pos);
           }
-          $this->cpf = $Busca_temp['cpf']; 
-          $tmp_pos = strpos($this->cpf, "##@@");
-          if ($tmp_pos !== false && !is_array($this->cpf))
+          $this->tipo_id = $Busca_temp['tipo_id']; 
+          $tmp_pos = strpos($this->tipo_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->tipo_id))
           {
-              $this->cpf = substr($this->cpf, 0, $tmp_pos);
+              $this->tipo_id = substr($this->tipo_id, 0, $tmp_pos);
+          }
+          $this->detento_id = $Busca_temp['detento_id']; 
+          $tmp_pos = strpos($this->detento_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->detento_id))
+          {
+              $this->detento_id = substr($this->detento_id, 0, $tmp_pos);
+          }
+          $this->status_id = $Busca_temp['status_id']; 
+          $tmp_pos = strpos($this->status_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->status_id))
+          {
+              $this->status_id = substr($this->status_id, 0, $tmp_pos);
           }
       } 
       if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['xml_name']))

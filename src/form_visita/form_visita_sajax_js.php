@@ -2969,7 +2969,10 @@ sajax_show_javascript();
     var nomeCampo_data_nascimento = "data_nascimento";
     var var_data_nascimento = scAjaxGetFieldText(nomeCampo_data_nascimento);
     var var_script_case_init = document.F1.script_case_init.value;
-    x_ajax_form_visita_validate_data_nascimento(var_data_nascimento, var_script_case_init, do_ajax_form_visita_validate_data_nascimento_cb);
+    setTimeout(function() {
+      var var_data_nascimento = scAjaxGetFieldText(nomeCampo_data_nascimento);
+      x_ajax_form_visita_validate_data_nascimento(var_data_nascimento, var_script_case_init, do_ajax_form_visita_validate_data_nascimento_cb);
+    }, 200);
   } // do_ajax_form_visita_validate_data_nascimento
 
   function do_ajax_form_visita_validate_data_nascimento_cb(sResp)
@@ -2980,7 +2983,7 @@ sajax_show_javascript();
     scEventControl_onBlur(sFieldValid);
     scAjaxUpdateFieldErrors(sFieldValid, "valid");
     sFieldErrors = scAjaxListFieldErrors(sFieldValid, false);
-    if ("" == sFieldErrors)
+    if ("" == sFieldErrors || ($("#ui-datepicker-div").length && $("#ui-datepicker-div").filter(":visible").length))
     {
       var sImgStatus = sc_img_status_ok;
       scAjaxHideErrorDisplay(sFieldValid);

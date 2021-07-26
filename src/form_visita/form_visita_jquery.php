@@ -445,7 +445,7 @@ function scJQCalendarAdd(iSeqRow) {
       sc_jq_calendar_value["#id_sc_field_data_nascimento" + iSeqRow] = $oField.val();
     },
     onClose: function(dateText, inst) {
-      do_ajax_form_visita_validate_data_nascimento(iSeqRow);
+      setTimeout(function() { do_ajax_form_visita_validate_data_nascimento(iSeqRow); }, 200);
     },
     showWeek: true,
     numberOfMonths: 1,

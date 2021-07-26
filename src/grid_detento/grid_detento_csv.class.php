@@ -213,18 +213,6 @@ class grid_detento_csv
           {
               $Busca_temp = NM_conv_charset($Busca_temp, $_SESSION['scriptcase']['charset'], "UTF-8");
           }
-          $this->cpf = $Busca_temp['cpf']; 
-          $tmp_pos = strpos($this->cpf, "##@@");
-          if ($tmp_pos !== false && !is_array($this->cpf))
-          {
-              $this->cpf = substr($this->cpf, 0, $tmp_pos);
-          }
-          $this->id = $Busca_temp['id']; 
-          $tmp_pos = strpos($this->id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->id))
-          {
-              $this->id = substr($this->id, 0, $tmp_pos);
-          }
           $this->nome = $Busca_temp['nome']; 
           $tmp_pos = strpos($this->nome, "##@@");
           if ($tmp_pos !== false && !is_array($this->nome))
@@ -236,6 +224,12 @@ class grid_detento_csv
           if ($tmp_pos !== false && !is_array($this->matricula))
           {
               $this->matricula = substr($this->matricula, 0, $tmp_pos);
+          }
+          $this->cpf = $Busca_temp['cpf']; 
+          $tmp_pos = strpos($this->cpf, "##@@");
+          if ($tmp_pos !== false && !is_array($this->cpf))
+          {
+              $this->cpf = substr($this->cpf, 0, $tmp_pos);
           }
       } 
       if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['csv_name']))

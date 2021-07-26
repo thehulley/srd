@@ -114,6 +114,18 @@ function scEventControl_onFocus(oField, iSeq) {
   if ("status_id" + iSeq == fieldName) {
     scEventControl_data[fieldName]["blur"] = false;
   }
+  if ("cpf" + iSeq == fieldName) {
+    scEventControl_data[fieldName]["change"]   = true;
+    scEventControl_data[fieldName]["original"] = $(oField).val();
+    scEventControl_data[fieldName]["calculated"] = $(oField).val();
+    return;
+  }
+  if ("matricula" + iSeq == fieldName) {
+    scEventControl_data[fieldName]["change"]   = true;
+    scEventControl_data[fieldName]["original"] = $(oField).val();
+    scEventControl_data[fieldName]["calculated"] = $(oField).val();
+    return;
+  }
   scEventControl_data[fieldName]["change"] = false;
 } // scEventControl_onFocus
 
@@ -189,6 +201,7 @@ function sc_form_detento_matricula_onblur(oThis, iSeqRow) {
 
 function sc_form_detento_matricula_onchange(oThis, iSeqRow) {
   scMarkFormAsChanged();
+  do_ajax_form_detento_event_matricula_onchange();
 }
 
 function sc_form_detento_matricula_onfocus(oThis, iSeqRow) {
@@ -203,6 +216,7 @@ function sc_form_detento_cpf_onblur(oThis, iSeqRow) {
 
 function sc_form_detento_cpf_onchange(oThis, iSeqRow) {
   scMarkFormAsChanged();
+  do_ajax_form_detento_event_cpf_onchange();
 }
 
 function sc_form_detento_cpf_onfocus(oThis, iSeqRow) {
@@ -380,7 +394,7 @@ function scJQCalendarAdd(iSeqRow) {
       sc_jq_calendar_value["#id_sc_field_data_nascimento" + iSeqRow] = $oField.val();
     },
     onClose: function(dateText, inst) {
-      do_ajax_form_detento_validate_data_nascimento(iSeqRow);
+      setTimeout(function() { do_ajax_form_detento_validate_data_nascimento(iSeqRow); }, 200);
     },
     showWeek: true,
     numberOfMonths: 1,
@@ -428,7 +442,7 @@ elseif ('' != $miniCalendarButton[0]) {
       sc_jq_calendar_value["#id_sc_field_data_inicio_pena" + iSeqRow] = $oField.val();
     },
     onClose: function(dateText, inst) {
-      do_ajax_form_detento_validate_data_inicio_pena(iSeqRow);
+      setTimeout(function() { do_ajax_form_detento_validate_data_inicio_pena(iSeqRow); }, 200);
     },
     showWeek: true,
     numberOfMonths: 1,

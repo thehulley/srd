@@ -76,10 +76,9 @@ function ajax_save_filter(save_name, save_opt, parm, pos)
 
 // ---------- select_filter
 var Table_sv_fil = new Array();
-Table_sv_fil[0] = "cpf";
-Table_sv_fil[1] = "id";
-Table_sv_fil[2] = "nome";
-Table_sv_fil[3] = "matricula";
+Table_sv_fil[0] = "nome";
+Table_sv_fil[1] = "matricula";
+Table_sv_fil[2] = "cpf";
 function ajax_select_filter(parm)
 {
     nmAjaxProcOn();

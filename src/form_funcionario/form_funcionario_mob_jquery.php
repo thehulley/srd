@@ -128,6 +128,18 @@ function scEventControl_onFocus(oField, iSeq) {
   if ("funcao_id" + iSeq == fieldName) {
     scEventControl_data[fieldName]["blur"] = false;
   }
+  if ("cpf" + iSeq == fieldName) {
+    scEventControl_data[fieldName]["change"]   = true;
+    scEventControl_data[fieldName]["original"] = $(oField).val();
+    scEventControl_data[fieldName]["calculated"] = $(oField).val();
+    return;
+  }
+  if ("matricula" + iSeq == fieldName) {
+    scEventControl_data[fieldName]["change"]   = true;
+    scEventControl_data[fieldName]["original"] = $(oField).val();
+    scEventControl_data[fieldName]["calculated"] = $(oField).val();
+    return;
+  }
   scEventControl_data[fieldName]["change"] = false;
 } // scEventControl_onFocus
 
@@ -154,8 +166,10 @@ function scJQEventsAdd(iSeqRow) {
   $('#id_sc_field_nome' + iSeqRow).bind('blur', function() { sc_form_funcionario_nome_onblur(this, iSeqRow) })
                                   .bind('focus', function() { sc_form_funcionario_nome_onfocus(this, iSeqRow) });
   $('#id_sc_field_cpf' + iSeqRow).bind('blur', function() { sc_form_funcionario_cpf_onblur(this, iSeqRow) })
+                                 .bind('change', function() { sc_form_funcionario_cpf_onchange(this, iSeqRow) })
                                  .bind('focus', function() { sc_form_funcionario_cpf_onfocus(this, iSeqRow) });
   $('#id_sc_field_matricula' + iSeqRow).bind('blur', function() { sc_form_funcionario_matricula_onblur(this, iSeqRow) })
+                                       .bind('change', function() { sc_form_funcionario_matricula_onchange(this, iSeqRow) })
                                        .bind('focus', function() { sc_form_funcionario_matricula_onfocus(this, iSeqRow) });
   $('#id_sc_field_telefone' + iSeqRow).bind('blur', function() { sc_form_funcionario_telefone_onblur(this, iSeqRow) })
                                       .bind('focus', function() { sc_form_funcionario_telefone_onfocus(this, iSeqRow) });
@@ -187,6 +201,10 @@ function sc_form_funcionario_cpf_onblur(oThis, iSeqRow) {
   scCssBlur(oThis);
 }
 
+function sc_form_funcionario_cpf_onchange(oThis, iSeqRow) {
+  do_ajax_form_funcionario_mob_event_cpf_onchange();
+}
+
 function sc_form_funcionario_cpf_onfocus(oThis, iSeqRow) {
   scEventControl_onFocus(oThis, iSeqRow);
   scCssFocus(oThis);
@@ -195,6 +213,10 @@ function sc_form_funcionario_cpf_onfocus(oThis, iSeqRow) {
 function sc_form_funcionario_matricula_onblur(oThis, iSeqRow) {
   do_ajax_form_funcionario_mob_validate_matricula();
   scCssBlur(oThis);
+}
+
+function sc_form_funcionario_matricula_onchange(oThis, iSeqRow) {
+  do_ajax_form_funcionario_mob_event_matricula_onchange();
 }
 
 function sc_form_funcionario_matricula_onfocus(oThis, iSeqRow) {
@@ -378,7 +400,7 @@ function scJQCalendarAdd(iSeqRow) {
       sc_jq_calendar_value["#id_sc_field_data_nascimento" + iSeqRow] = $oField.val();
     },
     onClose: function(dateText, inst) {
-      do_ajax_form_funcionario_mob_validate_data_nascimento(iSeqRow);
+      setTimeout(function() { do_ajax_form_funcionario_mob_validate_data_nascimento(iSeqRow); }, 200);
     },
     showWeek: true,
     numberOfMonths: 1,

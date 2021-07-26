@@ -240,14 +240,6 @@ class grid_detento_pesq
               $this->Arr_result['setValue'][] = array('field' => "id_sel_filters_del", 'value' => $Ajax_select);
               return;
           }
-          $Ajax_select  = "<SELECT id=\"sel_recup_filters_bot\" name=\"NM_filters_bot\" onChange=\"nm_submit_filter(this, 'bot');\" size=\"1\">\r\n";
-          $Ajax_select .= $Opt_filter;
-          $Ajax_select .= "</SELECT>\r\n";
-          $this->Arr_result['setValue'][] = array('field' => "idAjaxSelect_NM_filters_bot", 'value' => $Ajax_select);
-          $Ajax_select = "<SELECT id=\"sel_filters_del_bot\" class=\"scFilterToolbar_obj\" name=\"NM_filters_del_bot\" size=\"1\">\r\n";
-          $Ajax_select .= $Opt_filter;
-          $Ajax_select .= "</SELECT>\r\n";
-          $this->Arr_result['setValue'][] = array('field' => "idAjaxSelect_NM_filters_del_bot", 'value' => $Ajax_select);
       }
 
       if ($this->NM_ajax_opcao == "ajax_filter_delete")
@@ -283,14 +275,6 @@ class grid_detento_pesq
               $this->Arr_result['setValue'][] = array('field' => "id_sel_filters_del", 'value' => $Ajax_select);
               return;
           }
-          $Ajax_select  = "<SELECT id=\"sel_recup_filters_bot\" class=\"scFilterToolbar_obj\" style=\"display:". (count($this->NM_fil_ant)>0?'':'none') .";\" name=\"NM_filters_bot\" onChange=\"nm_submit_filter(this, 'bot');\" size=\"1\">\r\n";
-          $Ajax_select .= $Opt_filter;
-          $Ajax_select .= "</SELECT>\r\n";
-          $this->Arr_result['setValue'][] = array('field' => "idAjaxSelect_NM_filters_bot", 'value' => $Ajax_select);
-          $Ajax_select = "<SELECT id=\"sel_filters_del_bot\" class=\"scFilterToolbar_obj\" name=\"NM_filters_del_bot\" size=\"1\">\r\n";
-          $Ajax_select .= $Opt_filter;
-          $Ajax_select .= "</SELECT>\r\n";
-          $this->Arr_result['setValue'][] = array('field' => "idAjaxSelect_NM_filters_del_bot", 'value' => $Ajax_select);
       }
       if ($this->NM_ajax_opcao == "ajax_filter_select")
       {
@@ -299,38 +283,6 @@ class grid_detento_pesq
           $this->Arr_result = $this->recupera_filtro($NM_filters);
       }
 
-      if ($this->NM_ajax_opcao == 'autocomp_cpf')
-      {
-          $cpf = ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($_GET['q'])) ? sc_convert_encoding($_GET['q'], $_SESSION['scriptcase']['charset'], "UTF-8") : $_GET['q'];
-          $nmgp_def_dados = $this->lookup_ajax_cpf($cpf);
-          ob_end_clean();
-          ob_end_clean();
-          $count_aut_comp = 0;
-          $resp_aut_comp  = array();
-          foreach ($nmgp_def_dados as $Ind => $Lista)
-          {
-             if (is_array($Lista))
-             {
-                 foreach ($Lista as $Cod => $Valor)
-                 {
-                     if ($_GET['cod_desc'] == "S")
-                     {
-                         $Valor = $Cod . " - " . $Valor;
-                     }
-                     $resp_aut_comp[] = array('label' => $Valor , 'value' => $Cod);
-                     $count_aut_comp++;
-                 }
-             }
-             if ($count_aut_comp == $_GET['max_itens'])
-             {
-                 break;
-             }
-          }
-          $oJson = new Services_JSON();
-          echo $oJson->encode($resp_aut_comp);
-          $this->Db->Close(); 
-          exit;
-      }
       if ($this->NM_ajax_opcao == 'autocomp_nome')
       {
           $nome = ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($_GET['q'])) ? sc_convert_encoding($_GET['q'], $_SESSION['scriptcase']['charset'], "UTF-8") : $_GET['q'];
@@ -364,34 +316,6 @@ class grid_detento_pesq
           exit;
       }
    }
-   function lookup_ajax_cpf($cpf)
-   {
-      $cpf = substr($this->Db->qstr($cpf), 1, -1);
-            $cpf_look = substr($this->Db->qstr($cpf), 1, -1); 
-      $nmgp_def_dados = array(); 
-      $nm_comando = "select distinct cpf from " . $this->Ini->nm_tabela . " where  cpf like '%" . $cpf . "%' order by cpf"; 
-      unset($cmp1,$cmp2);
-      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
-      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
-      if ($rs = $this->Db->SelectLimit($nm_comando, 10, 0)) 
-      { 
-         while (!$rs->EOF) 
-         { 
-            $cmp1 = NM_charset_to_utf8(trim($rs->fields[0]));
-            $nmgp_def_dados[] = array($cmp1 => $cmp1); 
-            $rs->MoveNext() ; 
-         } 
-         $rs->Close() ; 
-      } 
-      else  
-      {  
-         $this->Erro->mensagem (__FILE__, __LINE__, "banco", $this->Ini->Nm_lang['lang_errm_dber'], $this->Db->ErrorMsg()); 
-         exit; 
-      } 
-
-      return $nmgp_def_dados;
-   }
-   
    function lookup_ajax_nome($nome)
    {
       $nome = substr($this->Db->qstr($nome), 1, -1);
@@ -2036,16 +1960,13 @@ var nmdg_Form = "F1";
       return;
   }
   var str_out = "";
-  str_out += 'SC_cpf_cond#NMF#' + search_get_sel_txt('SC_cpf_cond') + '@NMF@';
-  str_out += 'SC_cpf#NMF#' + search_get_text('SC_cpf') + '@NMF@';
-  str_out += 'id_ac_cpf#NMF#' + search_get_text('id_ac_cpf') + '@NMF@';
-  str_out += 'SC_id_cond#NMF#' + search_get_sel_txt('SC_id_cond') + '@NMF@';
-  str_out += 'SC_id#NMF#' + search_get_text('SC_id') + '@NMF@';
   str_out += 'SC_nome_cond#NMF#' + search_get_sel_txt('SC_nome_cond') + '@NMF@';
   str_out += 'SC_nome#NMF#' + search_get_text('SC_nome') + '@NMF@';
   str_out += 'id_ac_nome#NMF#' + search_get_text('id_ac_nome') + '@NMF@';
   str_out += 'SC_matricula_cond#NMF#' + search_get_sel_txt('SC_matricula_cond') + '@NMF@';
   str_out += 'SC_matricula#NMF#' + search_get_text('SC_matricula') + '@NMF@';
+  str_out += 'SC_cpf_cond#NMF#' + search_get_sel_txt('SC_cpf_cond') + '@NMF@';
+  str_out += 'SC_cpf#NMF#' + search_get_text('SC_cpf') + '@NMF@';
   str_out += 'SC_NM_operador#NMF#' + search_get_text('SC_NM_operador');
   str_out  = str_out.replace(/[+]/g, "__NM_PLUS__");
   str_out  = str_out.replace(/[&]/g, "__NM_AMP__");
@@ -2219,47 +2140,6 @@ function nm_open_popup(parms)
        }
      }
    });
-   scClass = $("#id_ac_cpf").attr('class').split(' ');
-   scClass = scClass[ scClass.length-1 ];
-   $("#id_ac_cpf").autocomplete({
-     minLength: 1,
-     classes: { 'ui-autocomplete': scClass + 'Ac' },
-     source: function (request, response) {
-     $.ajax({
-       url: "index.php",
-       dataType: "json",
-       data: {
-          q: request.term,
-          nmgp_opcao: "ajax_autocomp",
-          nmgp_parms: "NM_ajax_opcao?#?autocomp_cpf",
-          max_itens: "10",
-          cod_desc: "N",
-          script_case_init: <?php echo $this->Ini->sc_page ?>
-        },
-       success: function (data) {
-         if (data == "ss_time_out") {
-             nm_move();
-         }
-         response(data);
-       }
-      });
-    },
-     select: function (event, ui) {
-       $("#SC_cpf").val(ui.item.value);
-       $(this).val(ui.item.label);
-       event.preventDefault();
-     },
-     focus: function (event, ui) {
-       $("#SC_cpf").val(ui.item.value);
-       $(this).val(ui.item.label);
-       event.preventDefault();
-     },
-     change: function (event, ui) {
-       if (null == ui.item) {
-          $("#SC_cpf").val( $(this).val() );
-       }
-     }
-   });
  });
 </script>
  <FORM name="F1" action="./" method="post" target="_self"> 
@@ -2338,10 +2218,9 @@ function nm_open_popup(parms)
    function monta_form()
    {
       global 
-             $cpf_cond, $cpf, $cpf_autocomp,
-             $id_cond, $id,
              $nome_cond, $nome, $nome_autocomp,
              $matricula_cond, $matricula,
+             $cpf_cond, $cpf,
              $nm_url_saida, $nm_apl_dependente, $nmgp_parms, $bprocessa, $nmgp_save_name, $NM_operador, $NM_filters, $nmgp_save_option, $NM_filters_del, $Script_BI;
       $Script_BI = "";
       $this->nmgp_botoes['clear'] = "on";
@@ -2380,76 +2259,37 @@ function nm_open_popup(parms)
           {
               $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca'] = NM_conv_charset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca'], $_SESSION['scriptcase']['charset'], "UTF-8");
           }
-          $cpf = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['cpf']; 
-          $cpf_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['cpf_cond']; 
-          $id = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['id']; 
-          $id_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['id_cond']; 
           $nome = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['nome']; 
           $nome_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['nome_cond']; 
           $matricula = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['matricula']; 
           $matricula_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['matricula_cond']; 
+          $cpf = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['cpf']; 
+          $cpf_cond = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['cpf_cond']; 
           $this->NM_operador = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['NM_operador']; 
-          if (strtoupper($id_cond) != "II" && strtoupper($id_cond) != "QP" && strtoupper($id_cond) != "NP" && strtoupper($id_cond) != "IN") 
-          { 
-              nmgp_Form_Num_Val($id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-          } 
           if (strtoupper($matricula_cond) != "II" && strtoupper($matricula_cond) != "QP" && strtoupper($matricula_cond) != "NP" && strtoupper($matricula_cond) != "IN") 
           { 
               nmgp_Form_Num_Val($matricula, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
           } 
       } 
-      if (!isset($cpf_cond) || empty($cpf_cond))
-      {
-         $cpf_cond = "qp";
-      }
-      if (!isset($id_cond) || empty($id_cond))
-      {
-         $id_cond = "gt";
-      }
       if (!isset($nome_cond) || empty($nome_cond))
       {
          $nome_cond = "qp";
       }
       if (!isset($matricula_cond) || empty($matricula_cond))
       {
-         $matricula_cond = "gt";
+         $matricula_cond = "qp";
+      }
+      if (!isset($cpf_cond) || empty($cpf_cond))
+      {
+         $cpf_cond = "qp";
       }
       $display_aberto  = "style=display:";
       $display_fechado = "style=display:none";
       $opc_hide_input = array("nu","nn","ep","ne");
-      $str_hide_cpf = (in_array($cpf_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
-      $str_hide_id = (in_array($id_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
       $str_hide_nome = (in_array($nome_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
       $str_hide_matricula = (in_array($matricula_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
+      $str_hide_cpf = (in_array($cpf_cond, $opc_hide_input)) ? $display_fechado : $display_aberto;
 
-      if (!isset($cpf) || $cpf == "")
-      {
-          $cpf = "";
-      }
-      if (isset($cpf) && !empty($cpf))
-      {
-         $tmp_pos = strpos($cpf, "##@@");
-         if ($tmp_pos === false)
-         { }
-         else
-         {
-         $cpf = substr($cpf, 0, $tmp_pos);
-         }
-      }
-      if (!isset($id) || $id == "")
-      {
-          $id = "";
-      }
-      if (isset($id) && !empty($id))
-      {
-         $tmp_pos = strpos($id, "##@@");
-         if ($tmp_pos === false)
-         { }
-         else
-         {
-         $id = substr($id, 0, $tmp_pos);
-         }
-      }
       if (!isset($nome) || $nome == "")
       {
           $nome = "";
@@ -2478,6 +2318,20 @@ function nm_open_popup(parms)
          $matricula = substr($matricula, 0, $tmp_pos);
          }
       }
+      if (!isset($cpf) || $cpf == "")
+      {
+          $cpf = "";
+      }
+      if (isset($cpf) && !empty($cpf))
+      {
+         $tmp_pos = strpos($cpf, "##@@");
+         if ($tmp_pos === false)
+         { }
+         else
+         {
+         $cpf = substr($cpf, 0, $tmp_pos);
+         }
+      }
 ?>
  <TR align="center">
   <TD class="scFilterTableTd">
@@ -2491,121 +2345,11 @@ function nm_open_popup(parms)
 
 
 
-      <TD id='SC_cpf_label' class="scFilterLabelOdd"><?php echo (isset($this->New_label['cpf'])) ? $this->New_label['cpf'] : "CPF"; ?></TD>
-     <TD class="scFilterFieldOdd"> 
-      <SELECT class="scFilterObjectOdd" id="SC_cpf_cond" name="cpf_cond" onChange="nm_campos_between(document.getElementById('id_vis_cpf'), this, 'cpf')">
-       <OPTION value="qp" <?php if ("qp" == $cpf_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_like'] ?></OPTION>
-       <OPTION value="np" <?php if ("np" == $cpf_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_not_like'] ?></OPTION>
-       <OPTION value="eq" <?php if ("eq" == $cpf_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_exac'] ?></OPTION>
-       <OPTION value="ep" <?php if ("ep" == $cpf_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_empty'] ?></OPTION>
-      </SELECT>
-       </TD>
-     <TD  class="scFilterFieldOdd">
-      <TABLE  border="0" cellpadding="0" cellspacing="0">
-       <TR id="id_hide_cpf" <?php echo $str_hide_cpf?> valign="top">
-        <TD class="scFilterFieldFontOdd">
-           <?php
- $SC_Label = (isset($this->New_label['cpf'])) ? $this->New_label['cpf'] : "CPF";
- $nmgp_tab_label .= "cpf?#?" . $SC_Label . "?@?";
- $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
- if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
- {
-     $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
- }
-?>
-<?php
-      if ($cpf != "")
-      {
-      $cpf_look = substr($this->Db->qstr($cpf), 1, -1); 
-      $nmgp_def_dados = array(); 
-      $nm_comando = "select distinct cpf from " . $this->Ini->nm_tabela . " where cpf = '$cpf_look' order by cpf"; 
-      unset($cmp1,$cmp2);
-      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
-      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
-      if ($rs = $this->Db->SelectLimit($nm_comando, 10, 0)) 
-      { 
-         while (!$rs->EOF) 
-         { 
-            $cmp1 = trim($rs->fields[0]);
-            $nmgp_def_dados[] = array($cmp1 => $cmp1); 
-            $rs->MoveNext() ; 
-         } 
-         $rs->Close() ; 
-      } 
-      else  
-      {  
-         $this->Erro->mensagem (__FILE__, __LINE__, "banco", $this->Ini->Nm_lang['lang_errm_dber'], $this->Db->ErrorMsg()); 
-         exit; 
-      } 
-      }
-      if (isset($nmgp_def_dados[0][$cpf]))
-      {
-          $sAutocompValue = $nmgp_def_dados[0][$cpf];
-      }
-      else
-      {
-          $sAutocompValue = $cpf;
-      }
-?>
-<INPUT  type="text" id="SC_cpf" name="cpf" value="<?php echo NM_encode_input($cpf) ?>"  size=20 alt="{datatype: 'text', maxLength: 20, allowedChars: '', lettersCase: '', autoTab: false, enterTab: false}" style="display: none">
-<input class="sc-js-input scFilterObjectOdd" type="text" id="id_ac_cpf" name="cpf_autocomp" size="20"  value="<?php echo NM_encode_input($sAutocompValue); ?>" alt="{datatype: 'text', maxLength: 20, allowedChars: '', lettersCase: '', autoTab: false, enterTab: false}">
-
-
-        </TD>
-       </TR>
-      </TABLE>
-     </TD>
-
-   </tr><tr>
-
-
-
-
-
-      <TD id='SC_id_label' class="scFilterLabelEven"><?php echo (isset($this->New_label['id'])) ? $this->New_label['id'] : "Id"; ?></TD>
-     <TD class="scFilterFieldEven"> 
-      <SELECT class="scFilterObjectEven" id="SC_id_cond" name="id_cond" onChange="nm_campos_between(document.getElementById('id_vis_id'), this, 'id')">
-       <OPTION value="gt" <?php if ("gt" == $id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_grtr'] ?></OPTION>
-       <OPTION value="lt" <?php if ("lt" == $id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_less'] ?></OPTION>
-       <OPTION value="eq" <?php if ("eq" == $id_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_exac'] ?></OPTION>
-      </SELECT>
-       </TD>
-     <TD  class="scFilterFieldEven">
-      <TABLE  border="0" cellpadding="0" cellspacing="0">
-       <TR id="id_hide_id" <?php echo $str_hide_id?> valign="top">
-        <TD class="scFilterFieldFontEven">
-           <?php
- $SC_Label = (isset($this->New_label['id'])) ? $this->New_label['id'] : "Id";
- $nmgp_tab_label .= "id?#?" . $SC_Label . "?@?";
- $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
- if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
- {
-     $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
- }
-?>
-<INPUT  type="text" id="SC_id" name="id" value="<?php echo NM_encode_input($id) ?>" size=11 alt="{datatype: 'integer', maxLength: 11, thousandsSep: '<?php echo $_SESSION['scriptcase']['reg_conf']['grup_num'] ?>', allowNegative: false, onlyNegative: false, enterTab: false}" class="sc-js-input scFilterObjectEven">
-
-        </TD>
-       </TR>
-      </TABLE>
-     </TD>
-
-   </tr><tr>
-
-
-
-
-
       <TD id='SC_nome_label' class="scFilterLabelOdd"><?php echo (isset($this->New_label['nome'])) ? $this->New_label['nome'] : "Nome"; ?></TD>
-     <TD class="scFilterFieldOdd"> 
-      <SELECT class="scFilterObjectOdd" id="SC_nome_cond" name="nome_cond" onChange="nm_campos_between(document.getElementById('id_vis_nome'), this, 'nome')">
-       <OPTION value="qp" <?php if ("qp" == $nome_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_like'] ?></OPTION>
-       <OPTION value="np" <?php if ("np" == $nome_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_not_like'] ?></OPTION>
-       <OPTION value="eq" <?php if ("eq" == $nome_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_exac'] ?></OPTION>
-       <OPTION value="ep" <?php if ("ep" == $nome_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_empty'] ?></OPTION>
-      </SELECT>
-       </TD>
-     <TD  class="scFilterFieldOdd">
+      
+      <INPUT type="hidden" id="SC_nome_cond" name="nome_cond" value="qp">
+ 
+     <TD colspan=2 class="scFilterFieldOdd">
       <TABLE  border="0" cellpadding="0" cellspacing="0">
        <TR id="id_hide_nome" <?php echo $str_hide_nome?> valign="top">
         <TD class="scFilterFieldFontOdd">
@@ -2668,14 +2412,10 @@ function nm_open_popup(parms)
 
 
       <TD id='SC_matricula_label' class="scFilterLabelEven"><?php echo (isset($this->New_label['matricula'])) ? $this->New_label['matricula'] : "Matrícula"; ?></TD>
-     <TD class="scFilterFieldEven"> 
-      <SELECT class="scFilterObjectEven" id="SC_matricula_cond" name="matricula_cond" onChange="nm_campos_between(document.getElementById('id_vis_matricula'), this, 'matricula')">
-       <OPTION value="gt" <?php if ("gt" == $matricula_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_grtr'] ?></OPTION>
-       <OPTION value="lt" <?php if ("lt" == $matricula_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_less'] ?></OPTION>
-       <OPTION value="eq" <?php if ("eq" == $matricula_cond) { echo "selected"; } ?>><?php echo $this->Ini->Nm_lang['lang_srch_exac'] ?></OPTION>
-      </SELECT>
-       </TD>
-     <TD  class="scFilterFieldEven">
+      
+      <INPUT type="hidden" id="SC_matricula_cond" name="matricula_cond" value="qp">
+ 
+     <TD colspan=2 class="scFilterFieldEven">
       <TABLE  border="0" cellpadding="0" cellspacing="0">
        <TR id="id_hide_matricula" <?php echo $str_hide_matricula?> valign="top">
         <TD class="scFilterFieldFontEven">
@@ -2689,6 +2429,36 @@ function nm_open_popup(parms)
  }
 ?>
 <INPUT  type="text" id="SC_matricula" name="matricula" value="<?php echo NM_encode_input($matricula) ?>" size=20 alt="{datatype: 'integer', maxLength: 20, thousandsSep: '<?php echo $_SESSION['scriptcase']['reg_conf']['grup_num'] ?>', allowNegative: false, onlyNegative: false, enterTab: false}" class="sc-js-input scFilterObjectEven">
+
+        </TD>
+       </TR>
+      </TABLE>
+     </TD>
+
+   </tr><tr>
+
+
+
+
+
+      <TD id='SC_cpf_label' class="scFilterLabelOdd"><?php echo (isset($this->New_label['cpf'])) ? $this->New_label['cpf'] : "CPF"; ?></TD>
+      
+      <INPUT type="hidden" id="SC_cpf_cond" name="cpf_cond" value="qp">
+ 
+     <TD colspan=2 class="scFilterFieldOdd">
+      <TABLE  border="0" cellpadding="0" cellspacing="0">
+       <TR id="id_hide_cpf" <?php echo $str_hide_cpf?> valign="top">
+        <TD class="scFilterFieldFontOdd">
+           <?php
+ $SC_Label = (isset($this->New_label['cpf'])) ? $this->New_label['cpf'] : "CPF";
+ $nmgp_tab_label .= "cpf?#?" . $SC_Label . "?@?";
+ $date_sep_bw = " " . $this->Ini->Nm_lang['lang_srch_between_values'] . " ";
+ if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($date_sep_bw))
+ {
+     $date_sep_bw = sc_convert_encoding($date_sep_bw, $_SESSION['scriptcase']['charset'], "UTF-8");
+ }
+?>
+<INPUT  type="text" id="SC_cpf" name="cpf" value="<?php echo NM_encode_input($cpf) ?>" size=20 alt="{datatype: 'cpf', autoTab: false, enterTab: false}" class="sc-js-input scFilterObjectOdd">
 
         </TD>
        </TR>
@@ -2721,13 +2491,13 @@ function nm_open_popup(parms)
     <td class="scFilterToolbarPadding" align="left" width="33%" nowrap>
     </td>
     <td class="scFilterToolbarPadding" align="center" width="33%" nowrap>
-   <?php echo nmButtonOutput($this->arr_buttons, "bpesquisa", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "sc_b_pesq_bot", "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone'] . "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone_hint'] . "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+   <?php echo nmButtonOutput($this->arr_buttons, "bpesquisa", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "sc_b_pesq_bot", "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone'] . "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + Enter)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    if ($this->nmgp_botoes['clear'] == "on")
    {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "blimpar", "limpa_form();", "limpa_form();", "limpa_frm_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "blimpar", "limpa_form();", "limpa_form();", "limpa_frm_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + K)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -2778,7 +2548,7 @@ function nm_open_popup(parms)
    if ($this->nmgp_botoes['save'] == "on")
    {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "bedit_filter", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "Ativa_save_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "bedit_filter", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "Ativa_save_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + E)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -2797,7 +2567,7 @@ function nm_open_popup(parms)
               if (!empty($Tmp1[0]) && isset($Tmp1[1]) && !empty($Tmp1[1]) && $Tmp1[0] == "fil" && is_file($this->Ini->root . $this->Ini->path_help . $Tmp1[1]))
               {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "bhelp", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "sc_b_help_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "bhelp", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "sc_b_help_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (F1)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
               }
@@ -2809,14 +2579,14 @@ function nm_open_popup(parms)
    if (isset($_SESSION['scriptcase']['sc_apl_conf']['grid_detento']['start']) && $_SESSION['scriptcase']['sc_apl_conf']['grid_detento']['start'] == 'filter' && $nm_apl_dependente != 1)
    {
 ?>
-       <?php echo nmButtonOutput($this->arr_buttons, "bsair", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       <?php echo nmButtonOutput($this->arr_buttons, "bsair", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Alt + Q)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
    else
    {
 ?>
-       <?php echo nmButtonOutput($this->arr_buttons, "bvoltar", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       <?php echo nmButtonOutput($this->arr_buttons, "bvoltar", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Alt + Q)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -2928,64 +2698,13 @@ function nm_open_popup(parms)
     <td class="scFilterToolbarPadding" align="left" width="33%" nowrap>
     </td>
     <td class="scFilterToolbarPadding" align="center" width="33%" nowrap>
-   <?php echo nmButtonOutput($this->arr_buttons, "bpesquisa", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "sc_b_pesq_bot", "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone'] . "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone_hint'] . "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+   <?php echo nmButtonOutput($this->arr_buttons, "bpesquisa", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "document.F1.bprocessa.value='pesq'; setTimeout(function() {nm_submit_form()}, 200);", "sc_b_pesq_bot", "", "" . $this->Ini->Nm_lang['lang_btns_srch_lone'] . "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + Enter)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    if ($this->nmgp_botoes['clear'] == "on")
    {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "blimpar", "limpa_form();", "limpa_form();", "limpa_frm_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
-?>
-<?php
-   }
-?>
-<?php
-   if (!isset($this->nmgp_botoes['save']) || $this->nmgp_botoes['save'] == "on")
-   {
-       $this->NM_fil_ant = $this->gera_array_filtros();
-?>
-     <span id="idAjaxSelect_NM_filters_bot">
-       <SELECT class="scFilterToolbar_obj" id="sel_recup_filters_bot" name="NM_filters_bot" onChange="nm_submit_filter(this, 'bot');" size="1">
-           <option value=""></option>
-<?php
-          $Nome_filter = "";
-          foreach ($this->NM_fil_ant as $Cada_filter => $Tipo_filter)
-          {
-              $Select = "";
-              if ($Cada_filter == $this->NM_curr_fil)
-              {
-                  $Select = "selected";
-              }
-              if (NM_is_utf8($Cada_filter) && $_SESSION['scriptcase']['charset'] != "UTF-8")
-              {
-                  $Cada_filter    = sc_convert_encoding($Cada_filter, $_SESSION['scriptcase']['charset'], "UTF-8");
-                  $Tipo_filter[0] = sc_convert_encoding($Tipo_filter[0], $_SESSION['scriptcase']['charset'], "UTF-8");
-              }
-              elseif (!NM_is_utf8($Cada_filter) && $_SESSION['scriptcase']['charset'] == "UTF-8")
-              {
-                  $Cada_filter    = sc_convert_encoding($Cada_filter, "UTF-8", $_SESSION['scriptcase']['charset']);
-                  $Tipo_filter[0] = sc_convert_encoding($Tipo_filter[0], "UTF-8", $_SESSION['scriptcase']['charset']);
-              }
-              if ($Tipo_filter[1] != $Nome_filter)
-              {
-                  $Nome_filter = $Tipo_filter[1];
-                  echo "           <option value=\"\">" . NM_encode_input($Nome_filter) . "</option>\r\n";
-              }
-?>
-           <option value="<?php echo NM_encode_input($Tipo_filter[0]) . "\" " . $Select . ">.." . $Cada_filter ?></option>
-<?php
-          }
-?>
-       </SELECT>
-     </span>
-<?php
-   }
-?>
-<?php
-   if ($this->nmgp_botoes['save'] == "on")
-   {
-?>
-          <?php echo nmButtonOutput($this->arr_buttons, "bedit_filter", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "document.getElementById('Salvar_filters_bot').style.display = ''; document.F1.nmgp_save_name_bot.focus();", "Ativa_save_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "blimpar", "limpa_form();", "limpa_form();", "limpa_frm_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + K)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -3004,7 +2723,7 @@ function nm_open_popup(parms)
               if (!empty($Tmp1[0]) && isset($Tmp1[1]) && !empty($Tmp1[1]) && $Tmp1[0] == "fil" && is_file($this->Ini->root . $this->Ini->path_help . $Tmp1[1]))
               {
 ?>
-          <?php echo nmButtonOutput($this->arr_buttons, "bhelp", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "sc_b_help_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+          <?php echo nmButtonOutput($this->arr_buttons, "bhelp", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "nm_open_popup('" . $this->Ini->path_help . $Tmp1[1] . "');", "sc_b_help_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (F1)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
               }
@@ -3016,14 +2735,14 @@ function nm_open_popup(parms)
    if (isset($_SESSION['scriptcase']['sc_apl_conf']['grid_detento']['start']) && $_SESSION['scriptcase']['sc_apl_conf']['grid_detento']['start'] == 'filter' && $nm_apl_dependente != 1)
    {
 ?>
-       <?php echo nmButtonOutput($this->arr_buttons, "bsair", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       <?php echo nmButtonOutput($this->arr_buttons, "bsair", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Alt + Q)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
    else
    {
 ?>
-       <?php echo nmButtonOutput($this->arr_buttons, "bvoltar", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       <?php echo nmButtonOutput($this->arr_buttons, "bvoltar", "document.form_cancel.submit();", "document.form_cancel.submit();", "sc_b_cancel_bot", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Alt + Q)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
 ?>
 <?php
    }
@@ -3179,8 +2898,6 @@ function nm_open_popup(parms)
        else
        {
 ?>
-      document.getElementById('Apaga_filters_bot').style.display = 'none';
-      document.getElementById('sel_recup_filters_bot').style.display = 'none';
 <?php
        }
    }
@@ -3202,24 +2919,90 @@ function nm_open_popup(parms)
    {
        document.F1.NM_filters.selectedIndex = -1;
    }
-   document.getElementById('Salvar_filters_bot').style.display = 'none';
-   document.F1.cpf_cond.value = 'qp';
-   nm_campos_between(document.getElementById('id_vis_cpf'), document.F1.cpf_cond, 'cpf');
-   document.F1.cpf.value = "";
-   document.F1.cpf_autocomp.value = "";
-   document.F1.id_cond.value = 'gt';
-   nm_campos_between(document.getElementById('id_vis_id'), document.F1.id_cond, 'id');
-   document.F1.id.value = "";
    document.F1.nome_cond.value = 'qp';
    nm_campos_between(document.getElementById('id_vis_nome'), document.F1.nome_cond, 'nome');
    document.F1.nome.value = "";
    document.F1.nome_autocomp.value = "";
-   document.F1.matricula_cond.value = 'gt';
+   document.F1.matricula_cond.value = 'qp';
    nm_campos_between(document.getElementById('id_vis_matricula'), document.F1.matricula_cond, 'matricula');
    document.F1.matricula.value = "";
+   document.F1.cpf_cond.value = 'qp';
+   nm_campos_between(document.getElementById('id_vis_cpf'), document.F1.cpf_cond, 'cpf');
+   document.F1.cpf.value = "";
  }
  function SC_carga_evt_jquery()
  {
+    $('#SC_cpf').bind('change', function() {sc_grid_detento_valida_cic(this)});
+ }
+ function sc_grid_detento_valida_cic(obj)
+ {
+     var x        = 0;
+     var y        = 0;
+     var soma     = 0;
+     var resto    = 0;
+     var CicIn    = obj.value;
+     var Cic_calc = 0;
+     CicIn = CicIn.replace(/[.]/g, '');
+     CicIn = CicIn.replace(/[-]/g, '');
+     if (CicIn.length == 0)
+     {
+         return true;
+     }
+     Cic_calc = CicIn.substring(0, 9);
+     x = CicIn.substring(0, 1);
+     for (y = 1; y < 11; y++)
+     {
+         if (CicIn.substr(y , 1) != x)
+         {
+             break;
+         }
+         else
+         {
+              soma++;
+         }
+     }
+     if (soma == 10) 
+     {
+         Cic_calc = "1";
+     }
+     soma = 0;
+     y = 10;
+     for (x = 0 ; x < 9 ; x++)
+     {
+         soma = soma + (parseInt(Cic_calc.substr(x , 1)) * y );
+         y--;
+     }
+     soma = soma * 10;
+     resto = soma % 11;
+     if (resto == 10)
+     {
+         resto = 0;
+     }
+     Cic_calc = Cic_calc + resto.toString();
+     x = 0;
+     y = 11;
+     soma = 0;
+     for (x = 0 ; x < 10 ; x++)
+     {
+         soma = soma + (parseInt(Cic_calc.substr(x , 1)) * y );
+         y--;
+     }
+     soma = soma * 10;
+     resto = soma % 11;
+     if (resto == 10)
+     {
+          resto = 0;
+     }
+     Cic_calc = Cic_calc + resto.toString();
+     if (Cic_calc != CicIn)
+     {
+         if (confirm ("CIC " + SC_crit_inv + " " + Nm_erro['lang_jscr_wfix']))
+         {
+            Xfocus = setTimeout(function() { obj.focus(); }, 10);
+            return false;
+         }
+     }
+     return true;
  }
    function process_hotkeys(hotkey)
    {
@@ -3386,16 +3169,13 @@ function nm_open_popup(parms)
       $tp_fields     = array();
       $tb_fields_esp = array();
       $old_bi_opcs   = array("TP","HJ","OT","U7","SP","US","MM","UM","AM","PS","SS","P3","PM","P7","CY","LY","YY","M6","M3","M18","M24");
-      $tp_fields['SC_cpf_cond'] = 'cond';
-      $tp_fields['SC_cpf'] = 'text_aut';
-      $tp_fields['id_ac_cpf'] = 'text_aut';
-      $tp_fields['SC_id_cond'] = 'cond';
-      $tp_fields['SC_id'] = 'text';
       $tp_fields['SC_nome_cond'] = 'cond';
       $tp_fields['SC_nome'] = 'text_aut';
       $tp_fields['id_ac_nome'] = 'text_aut';
       $tp_fields['SC_matricula_cond'] = 'cond';
       $tp_fields['SC_matricula'] = 'text';
+      $tp_fields['SC_cpf_cond'] = 'cond';
+      $tp_fields['SC_cpf'] = 'text';
       $tp_fields['SC_NM_operador'] = 'text';
       if (is_file($NM_patch))
       {
@@ -3539,10 +3319,9 @@ function nm_open_popup(parms)
     */
    function trata_campos()
    {
-      global $cpf_cond, $cpf, $cpf_autocomp,
-             $id_cond, $id,
-             $nome_cond, $nome, $nome_autocomp,
-             $matricula_cond, $matricula, $nmgp_tab_label;
+      global $nome_cond, $nome, $nome_autocomp,
+             $matricula_cond, $matricula,
+             $cpf_cond, $cpf, $nmgp_tab_label;
 
       $C_formatado = true;
       if ($this->NM_ajax_flag && ($this->NM_ajax_opcao == "ajax_grid_search" || $this->NM_ajax_opcao == "ajax_grid_search_change_fil"))
@@ -3565,23 +3344,9 @@ function nm_open_popup(parms)
       $this->Ini->sc_Include($this->Ini->path_lib_php . "/nm_conv_dados.php", "F", "nm_conv_limpa_dado") ; 
       $this->Ini->sc_Include($this->Ini->path_lib_php . "/nm_edit.php", "F", "nmgp_Form_Num_Val") ; 
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['grid_pesq'] = array();
-      if (!empty($cpf_autocomp) && empty($cpf))
-      {
-          $cpf = $cpf_autocomp;
-      }
       if (!empty($nome_autocomp) && empty($nome))
       {
           $nome = $nome_autocomp;
-      }
-      $cpf_cond_salva = $cpf_cond; 
-      if (!isset($cpf_input_2) || $cpf_input_2 == "")
-      {
-          $cpf_input_2 = $cpf;
-      }
-      $id_cond_salva = $id_cond; 
-      if (!isset($id_input_2) || $id_input_2 == "")
-      {
-          $id_input_2 = $id;
       }
       $nome_cond_salva = $nome_cond; 
       if (!isset($nome_input_2) || $nome_input_2 == "")
@@ -3593,9 +3358,10 @@ function nm_open_popup(parms)
       {
           $matricula_input_2 = $matricula;
       }
-      if ($id_cond != "in")
+      $cpf_cond_salva = $cpf_cond; 
+      if (!isset($cpf_input_2) || $cpf_input_2 == "")
       {
-          nm_limpa_numero($id, $_SESSION['scriptcase']['reg_conf']['grup_num']) ; 
+          $cpf_input_2 = $cpf;
       }
       if ($matricula_cond != "in")
       {
@@ -3604,48 +3370,6 @@ function nm_open_popup(parms)
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']  = array(); 
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search']  = array(); 
       $I_Grid = 0;
-      $Dyn_ok = false;
-      $Grid_ok = false;
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['cpf'] = $cpf; 
-      if (is_array($cpf) && !empty($cpf))
-      {
-          $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['val'][0] = $cpf;
-      }
-      elseif ($cpf_cond_salva == "nu" || $cpf_cond_salva == "nn" || $cpf_cond_salva == "ep" || $cpf_cond_salva == "ne" || !empty($cpf))
-      {
-          $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['val'][0][0] = $cpf;
-      }
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['cpf_cond'] = $cpf_cond_salva; 
-      if ($Grid_ok)
-      {
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['cmp'] = "cpf"; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['opc'] = $cpf_cond_salva; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['grid_pesq']['cpf'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid];
-          $I_Grid++;
-      }
-      $Dyn_ok = false;
-      $Grid_ok = false;
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['id'] = $id; 
-      if (is_array($id) && !empty($id))
-      {
-          $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['val'][0] = $id;
-      }
-      elseif ($id_cond_salva == "nu" || $id_cond_salva == "nn" || $id_cond_salva == "ep" || $id_cond_salva == "ne" || !empty($id))
-      {
-          $Grid_ok = true;
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['val'][0][0] = $id;
-      }
-      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['id_cond'] = $id_cond_salva; 
-      if ($Grid_ok)
-      {
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['cmp'] = "id"; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['opc'] = $id_cond_salva; 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['grid_pesq']['id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid];
-          $I_Grid++;
-      }
       $Dyn_ok = false;
       $Grid_ok = false;
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['nome'] = $nome; 
@@ -3688,66 +3412,37 @@ function nm_open_popup(parms)
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['grid_pesq']['matricula'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid];
           $I_Grid++;
       }
+      $Dyn_ok = false;
+      $Grid_ok = false;
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['cpf'] = $cpf; 
+      if (is_array($cpf) && !empty($cpf))
+      {
+          $Grid_ok = true;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['val'][0] = $cpf;
+      }
+      elseif ($cpf_cond_salva == "nu" || $cpf_cond_salva == "nn" || $cpf_cond_salva == "ep" || $cpf_cond_salva == "ne" || !empty($cpf))
+      {
+          $Grid_ok = true;
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['val'][0][0] = $cpf;
+      }
+      $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['cpf_cond'] = $cpf_cond_salva; 
+      if ($Grid_ok)
+      {
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['cmp'] = "cpf"; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid]['opc'] = $cpf_cond_salva; 
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['grid_pesq']['cpf'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['Grid_search'][$I_Grid];
+          $I_Grid++;
+      }
       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca']['NM_operador'] = $this->NM_operador; 
       if ($this->NM_ajax_flag && $this->NM_ajax_opcao == "ajax_grid_search")
       {
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['campos_busca'] = $Temp_Busca;
       }
+      nm_limpa_ciccnpj($cpf) ; 
       if (!empty($this->Campos_Mens_erro)) 
       {
           return;
       }
-      $nmgp_def_dados = array();
-    if ($cpf != '') {
-      $cpf_look = substr($this->Db->qstr($cpf), 1, -1); 
-      $nmgp_def_dados = array(); 
-      $nm_comando = "select distinct cpf from " . $this->Ini->nm_tabela . " where cpf = '$cpf_look' order by cpf"; 
-      unset($cmp1,$cmp2);
-      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
-      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
-      if ($rs = $this->Db->SelectLimit($nm_comando, 10, 0)) 
-      { 
-         while (!$rs->EOF) 
-         { 
-            $cmp1 = NM_charset_to_utf8(trim($rs->fields[0]));
-            $nmgp_def_dados[] = array($cmp1 => $cmp1); 
-            $rs->MoveNext() ; 
-         } 
-         $rs->Close() ; 
-      } 
-      else  
-      {  
-         $this->Erro->mensagem (__FILE__, __LINE__, "banco", $this->Ini->Nm_lang['lang_errm_dber'], $this->Db->ErrorMsg()); 
-         exit; 
-      } 
-
-    }
-      if (!empty($nmgp_def_dados) && isset($cmp2) && !empty($cmp2))
-      {
-          if ($_SESSION['scriptcase']['charset'] != "UTF-8")
-          {
-             $cmp2 = NM_conv_charset($cmp2, $_SESSION['scriptcase']['charset'], "UTF-8");
-          }
-          $this->cmp_formatado['cpf'] = $cmp2;
-      }
-      elseif (!empty($nmgp_def_dados) && isset($cmp1) && !empty($cmp1))
-      {
-          if ($_SESSION['scriptcase']['charset'] != "UTF-8")
-          {
-             $cmp1 = NM_conv_charset($cmp1, $_SESSION['scriptcase']['charset'], "UTF-8");
-          }
-          $this->cmp_formatado['cpf'] = $cmp1;
-      }
-      else
-      {
-          $this->cmp_formatado['cpf'] = $cpf;
-      }
-      $Conteudo = $id;
-      if (strtoupper($id_cond) != "II" && strtoupper($id_cond) != "QP" && strtoupper($id_cond) != "NP" && strtoupper($id_cond) != "IN") 
-      { 
-          nmgp_Form_Num_Val($Conteudo, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-      } 
-      $this->cmp_formatado['id'] = $Conteudo;
       $nmgp_def_dados = array();
     if ($nome != '') {
       $nome_look = substr($this->Db->qstr($nome), 1, -1); 
@@ -3799,20 +3494,12 @@ function nm_open_popup(parms)
           nmgp_Form_Num_Val($Conteudo, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
       } 
       $this->cmp_formatado['matricula'] = $Conteudo;
-
-      //----- $cpf
-      $this->Date_part = false;
-      if (isset($cpf) || $cpf_cond == "nu" || $cpf_cond == "nn" || $cpf_cond == "ep" || $cpf_cond == "ne")
-      {
-         $this->monta_condicao("cpf", $cpf_cond, $cpf, "", "cpf");
-      }
-
-      //----- $id
-      $this->Date_part = false;
-      if (isset($id) || $id_cond == "nu" || $id_cond == "nn" || $id_cond == "ep" || $id_cond == "ne")
-      {
-         $this->monta_condicao("id", $id_cond, $id, "", "id");
-      }
+      $Conteudo = $cpf;
+      if (strlen($Conteudo) == 11 || strlen($Conteudo) == 14) 
+      { 
+          nmgp_Form_CicCnpj($Conteudo) ; 
+      } 
+      $this->cmp_formatado['cpf'] = $Conteudo;
 
       //----- $nome
       $this->Date_part = false;
@@ -3826,6 +3513,13 @@ function nm_open_popup(parms)
       if (isset($matricula) || $matricula_cond == "nu" || $matricula_cond == "nn" || $matricula_cond == "ep" || $matricula_cond == "ne")
       {
          $this->monta_condicao("matricula", $matricula_cond, $matricula, "", "matricula");
+      }
+
+      //----- $cpf
+      $this->Date_part = false;
+      if (isset($cpf) || $cpf_cond == "nu" || $cpf_cond == "nn" || $cpf_cond == "ep" || $cpf_cond == "ne")
+      {
+         $this->monta_condicao("cpf", $cpf_cond, $cpf, "", "cpf");
       }
    }
 

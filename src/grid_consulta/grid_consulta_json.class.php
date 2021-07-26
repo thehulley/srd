@@ -209,30 +209,29 @@ class grid_consulta_json
           {
               $Busca_temp = NM_conv_charset($Busca_temp, $_SESSION['scriptcase']['charset'], "UTF-8");
           }
-          $this->data_consulta = $Busca_temp['data_consulta']; 
-          $tmp_pos = strpos($this->data_consulta, "##@@");
-          if ($tmp_pos !== false && !is_array($this->data_consulta))
+          $this->c_detento_id = $Busca_temp['c_detento_id']; 
+          $tmp_pos = strpos($this->c_detento_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->c_detento_id))
           {
-              $this->data_consulta = substr($this->data_consulta, 0, $tmp_pos);
+              $this->c_detento_id = substr($this->c_detento_id, 0, $tmp_pos);
           }
-          $this->data_consulta_2 = $Busca_temp['data_consulta_input_2']; 
-          $this->id = $Busca_temp['id']; 
-          $tmp_pos = strpos($this->id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->id))
+          $this->c_medico_id = $Busca_temp['c_medico_id']; 
+          $tmp_pos = strpos($this->c_medico_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->c_medico_id))
           {
-              $this->id = substr($this->id, 0, $tmp_pos);
+              $this->c_medico_id = substr($this->c_medico_id, 0, $tmp_pos);
           }
-          $this->detento_id = $Busca_temp['detento_id']; 
-          $tmp_pos = strpos($this->detento_id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->detento_id))
+          $this->c_data_consulta = $Busca_temp['c_data_consulta']; 
+          $tmp_pos = strpos($this->c_data_consulta, "##@@");
+          if ($tmp_pos !== false && !is_array($this->c_data_consulta))
           {
-              $this->detento_id = substr($this->detento_id, 0, $tmp_pos);
+              $this->c_data_consulta = substr($this->c_data_consulta, 0, $tmp_pos);
           }
-          $this->medico_id = $Busca_temp['medico_id']; 
-          $tmp_pos = strpos($this->medico_id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->medico_id))
+          $this->c_status_id = $Busca_temp['c_status_id']; 
+          $tmp_pos = strpos($this->c_status_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->c_status_id))
           {
-              $this->medico_id = substr($this->medico_id, 0, $tmp_pos);
+              $this->c_status_id = substr($this->c_status_id, 0, $tmp_pos);
           }
       } 
       if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['json_name']))
@@ -266,27 +265,27 @@ class grid_consulta_json
       $nmgp_select_count = "SELECT count(*) AS countTest from " . $this->Ini->nm_tabela; 
       if (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_sybase))
       { 
-          $nmgp_select = "SELECT detento_id, medico_id, motivo, outras_infomacoes, str_replace (convert(char(10),data_consulta,102), '.', '-') + ' ' + convert(char(8),data_consulta,20), status_id, id from " . $this->Ini->nm_tabela; 
+          $nmgp_select = "SELECT c.detento_id as c_detento_id, c.medico_id as c_medico_id, str_replace (convert(char(10),c.data_consulta,102), '.', '-') + ' ' + convert(char(8),c.data_consulta,20) as c_data_consulta, c.motivo as c_motivo, c.outras_infomacoes as c_outras_infomacoes, c.status_id as c_status_id, c.id as c_id from " . $this->Ini->nm_tabela; 
       } 
       elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mysql))
       { 
-          $nmgp_select = "SELECT detento_id, medico_id, motivo, outras_infomacoes, data_consulta, status_id, id from " . $this->Ini->nm_tabela; 
+          $nmgp_select = "SELECT c.detento_id as c_detento_id, c.medico_id as c_medico_id, c.data_consulta as c_data_consulta, c.motivo as c_motivo, c.outras_infomacoes as c_outras_infomacoes, c.status_id as c_status_id, c.id as c_id from " . $this->Ini->nm_tabela; 
       } 
       elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mssql))
       { 
-       $nmgp_select = "SELECT detento_id, medico_id, motivo, outras_infomacoes, convert(char(23),data_consulta,121), status_id, id from " . $this->Ini->nm_tabela; 
+       $nmgp_select = "SELECT c.detento_id as c_detento_id, c.medico_id as c_medico_id, convert(char(23),c.data_consulta,121) as c_data_consulta, c.motivo as c_motivo, c.outras_infomacoes as c_outras_infomacoes, c.status_id as c_status_id, c.id as c_id from " . $this->Ini->nm_tabela; 
       } 
       elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_oracle))
       { 
-          $nmgp_select = "SELECT detento_id, medico_id, motivo, outras_infomacoes, data_consulta, status_id, id from " . $this->Ini->nm_tabela; 
+          $nmgp_select = "SELECT c.detento_id as c_detento_id, c.medico_id as c_medico_id, c.data_consulta as c_data_consulta, c.motivo as c_motivo, c.outras_infomacoes as c_outras_infomacoes, c.status_id as c_status_id, c.id as c_id from " . $this->Ini->nm_tabela; 
       } 
       elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_informix))
       { 
-          $nmgp_select = "SELECT detento_id, medico_id, motivo, outras_infomacoes, EXTEND(data_consulta, YEAR TO FRACTION), status_id, id from " . $this->Ini->nm_tabela; 
+          $nmgp_select = "SELECT c.detento_id as c_detento_id, c.medico_id as c_medico_id, EXTEND(c.data_consulta, YEAR TO FRACTION) as c_data_consulta, c.motivo as c_motivo, c.outras_infomacoes as c_outras_infomacoes, c.status_id as c_status_id, c.id as c_id from " . $this->Ini->nm_tabela; 
       } 
       else 
       { 
-          $nmgp_select = "SELECT detento_id, medico_id, motivo, outras_infomacoes, data_consulta, status_id, id from " . $this->Ini->nm_tabela; 
+          $nmgp_select = "SELECT c.detento_id as c_detento_id, c.medico_id as c_medico_id, c.data_consulta as c_data_consulta, c.motivo as c_motivo, c.outras_infomacoes as c_outras_infomacoes, c.status_id as c_status_id, c.id as c_id from " . $this->Ini->nm_tabela; 
       } 
       $nmgp_select .= " " . $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['where_pesq'];
       $nmgp_select_count .= " " . $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['where_pesq'];
@@ -320,29 +319,29 @@ class grid_consulta_json
              $this->pb->setProgressbarMessage($Mens_bar . ": " . $this->SC_seq_register . $PB_tot);
              $this->pb->addSteps(1);
          }
-         $this->detento_id = $rs->fields[0] ;  
-         $this->detento_id = (string)$this->detento_id;
-         $this->medico_id = $rs->fields[1] ;  
-         $this->medico_id = (string)$this->medico_id;
-         $this->motivo = $rs->fields[2] ;  
-         $this->outras_infomacoes = $rs->fields[3] ;  
-         $this->data_consulta = $rs->fields[4] ;  
-         $this->status_id = $rs->fields[5] ;  
-         $this->status_id = (string)$this->status_id;
-         $this->id = $rs->fields[6] ;  
-         $this->id = (string)$this->id;
-         //----- lookup - detento_id
-         $this->look_detento_id = $this->detento_id; 
-         $this->Lookup->lookup_detento_id($this->look_detento_id, $this->detento_id) ; 
-         $this->look_detento_id = ($this->look_detento_id == "&nbsp;") ? "" : $this->look_detento_id; 
-         //----- lookup - medico_id
-         $this->look_medico_id = $this->medico_id; 
-         $this->Lookup->lookup_medico_id($this->look_medico_id, $this->medico_id) ; 
-         $this->look_medico_id = ($this->look_medico_id == "&nbsp;") ? "" : $this->look_medico_id; 
-         //----- lookup - status_id
-         $this->look_status_id = $this->status_id; 
-         $this->Lookup->lookup_status_id($this->look_status_id, $this->status_id) ; 
-         $this->look_status_id = ($this->look_status_id == "&nbsp;") ? "" : $this->look_status_id; 
+         $this->c_detento_id = $rs->fields[0] ;  
+         $this->c_detento_id = (string)$this->c_detento_id;
+         $this->c_medico_id = $rs->fields[1] ;  
+         $this->c_medico_id = (string)$this->c_medico_id;
+         $this->c_data_consulta = $rs->fields[2] ;  
+         $this->c_motivo = $rs->fields[3] ;  
+         $this->c_outras_infomacoes = $rs->fields[4] ;  
+         $this->c_status_id = $rs->fields[5] ;  
+         $this->c_status_id = (string)$this->c_status_id;
+         $this->c_id = $rs->fields[6] ;  
+         $this->c_id = (string)$this->c_id;
+         //----- lookup - c_detento_id
+         $this->look_c_detento_id = $this->c_detento_id; 
+         $this->Lookup->lookup_c_detento_id($this->look_c_detento_id, $this->c_detento_id) ; 
+         $this->look_c_detento_id = ($this->look_c_detento_id == "&nbsp;") ? "" : $this->look_c_detento_id; 
+         //----- lookup - c_medico_id
+         $this->look_c_medico_id = $this->c_medico_id; 
+         $this->Lookup->lookup_c_medico_id($this->look_c_medico_id, $this->c_medico_id) ; 
+         $this->look_c_medico_id = ($this->look_c_medico_id == "&nbsp;") ? "" : $this->look_c_medico_id; 
+         //----- lookup - c_status_id
+         $this->look_c_status_id = $this->c_status_id; 
+         $this->Lookup->lookup_c_status_id($this->look_c_status_id, $this->c_status_id) ; 
+         $this->look_c_status_id = ($this->look_c_status_id == "&nbsp;") ? "" : $this->look_c_status_id; 
          $this->sc_proc_grid = true; 
          foreach ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'] as $Cada_col)
          { 
@@ -478,133 +477,115 @@ class grid_consulta_json
       }
       $rs->Close();
    }
-   //----- detento_id
-   function NM_export_detento_id()
+   //----- c_detento_id
+   function NM_export_c_detento_id()
    {
-         nmgp_Form_Num_Val($this->look_detento_id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "2", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-         $this->look_detento_id = NM_charset_to_utf8($this->look_detento_id);
+         nmgp_Form_Num_Val($this->look_c_detento_id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "2", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
+         $this->look_c_detento_id = NM_charset_to_utf8($this->look_c_detento_id);
          if ($this->Json_use_label)
          {
-             $SC_Label = (isset($this->New_label['detento_id'])) ? $this->New_label['detento_id'] : "Detento"; 
+             $SC_Label = (isset($this->New_label['c_detento_id'])) ? $this->New_label['c_detento_id'] : "Detento"; 
          }
          else
          {
-             $SC_Label = "detento_id"; 
+             $SC_Label = "c_detento_id"; 
          }
          $SC_Label = NM_charset_to_utf8($SC_Label); 
-         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->look_detento_id;
+         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->look_c_detento_id;
    }
-   //----- medico_id
-   function NM_export_medico_id()
+   //----- c_medico_id
+   function NM_export_c_medico_id()
    {
-         nmgp_Form_Num_Val($this->look_medico_id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "2", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-         $this->look_medico_id = NM_charset_to_utf8($this->look_medico_id);
+         nmgp_Form_Num_Val($this->look_c_medico_id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "2", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
+         $this->look_c_medico_id = NM_charset_to_utf8($this->look_c_medico_id);
          if ($this->Json_use_label)
          {
-             $SC_Label = (isset($this->New_label['medico_id'])) ? $this->New_label['medico_id'] : "Médico"; 
+             $SC_Label = (isset($this->New_label['c_medico_id'])) ? $this->New_label['c_medico_id'] : "Médico"; 
          }
          else
          {
-             $SC_Label = "medico_id"; 
+             $SC_Label = "c_medico_id"; 
          }
          $SC_Label = NM_charset_to_utf8($SC_Label); 
-         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->look_medico_id;
+         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->look_c_medico_id;
    }
-   //----- motivo
-   function NM_export_motivo()
-   {
-         $this->motivo = NM_charset_to_utf8($this->motivo);
-         if ($this->Json_use_label)
-         {
-             $SC_Label = (isset($this->New_label['motivo'])) ? $this->New_label['motivo'] : "Motivo"; 
-         }
-         else
-         {
-             $SC_Label = "motivo"; 
-         }
-         $SC_Label = NM_charset_to_utf8($SC_Label); 
-         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->motivo;
-   }
-   //----- outras_infomacoes
-   function NM_export_outras_infomacoes()
-   {
-         $this->outras_infomacoes = NM_charset_to_utf8($this->outras_infomacoes);
-         if ($this->Json_use_label)
-         {
-             $SC_Label = (isset($this->New_label['outras_infomacoes'])) ? $this->New_label['outras_infomacoes'] : "Outras Informações"; 
-         }
-         else
-         {
-             $SC_Label = "outras_infomacoes"; 
-         }
-         $SC_Label = NM_charset_to_utf8($SC_Label); 
-         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->outras_infomacoes;
-   }
-   //----- data_consulta
-   function NM_export_data_consulta()
+   //----- c_data_consulta
+   function NM_export_c_data_consulta()
    {
          if ($this->Json_format)
          {
-             if (substr($this->data_consulta, 10, 1) == "-") 
+             if (substr($this->c_data_consulta, 10, 1) == "-") 
              { 
-                 $this->data_consulta = substr($this->data_consulta, 0, 10) . " " . substr($this->data_consulta, 11);
+                 $this->c_data_consulta = substr($this->c_data_consulta, 0, 10) . " " . substr($this->c_data_consulta, 11);
              } 
-             if (substr($this->data_consulta, 13, 1) == ".") 
+             if (substr($this->c_data_consulta, 13, 1) == ".") 
              { 
-                $this->data_consulta = substr($this->data_consulta, 0, 13) . ":" . substr($this->data_consulta, 14, 2) . ":" . substr($this->data_consulta, 17);
+                $this->c_data_consulta = substr($this->c_data_consulta, 0, 13) . ":" . substr($this->c_data_consulta, 14, 2) . ":" . substr($this->c_data_consulta, 17);
              } 
-             $conteudo_x =  $this->data_consulta;
+             $conteudo_x =  $this->c_data_consulta;
              nm_conv_limpa_dado($conteudo_x, "YYYY-MM-DD HH:II:SS");
              if (is_numeric($conteudo_x) && strlen($conteudo_x) > 0) 
              { 
-                 $this->nm_data->SetaData($this->data_consulta, "YYYY-MM-DD HH:II:SS  ");
-                 $this->data_consulta = $this->nm_data->FormataSaida($this->nm_data->FormatRegion("DH", "ddmmaaaa;hhii"));
+                 $this->nm_data->SetaData($this->c_data_consulta, "YYYY-MM-DD HH:II:SS  ");
+                 $this->c_data_consulta = $this->nm_data->FormataSaida($this->nm_data->FormatRegion("DH", "ddmmaaaa;hhiiss"));
              } 
          }
          if ($this->Json_use_label)
          {
-             $SC_Label = (isset($this->New_label['data_consulta'])) ? $this->New_label['data_consulta'] : "Data da Consulta"; 
+             $SC_Label = (isset($this->New_label['c_data_consulta'])) ? $this->New_label['c_data_consulta'] : "Data da Consulta"; 
          }
          else
          {
-             $SC_Label = "data_consulta"; 
+             $SC_Label = "c_data_consulta"; 
          }
          $SC_Label = NM_charset_to_utf8($SC_Label); 
-         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->data_consulta;
+         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->c_data_consulta;
    }
-   //----- status_id
-   function NM_export_status_id()
+   //----- c_motivo
+   function NM_export_c_motivo()
    {
-         nmgp_Form_Num_Val($this->look_status_id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "2", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-         $this->look_status_id = NM_charset_to_utf8($this->look_status_id);
+         $this->c_motivo = NM_charset_to_utf8($this->c_motivo);
          if ($this->Json_use_label)
          {
-             $SC_Label = (isset($this->New_label['status_id'])) ? $this->New_label['status_id'] : "Status"; 
+             $SC_Label = (isset($this->New_label['c_motivo'])) ? $this->New_label['c_motivo'] : "Motivo"; 
          }
          else
          {
-             $SC_Label = "status_id"; 
+             $SC_Label = "c_motivo"; 
          }
          $SC_Label = NM_charset_to_utf8($SC_Label); 
-         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->look_status_id;
+         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->c_motivo;
    }
-   //----- id
-   function NM_export_id()
+   //----- c_outras_infomacoes
+   function NM_export_c_outras_infomacoes()
    {
-         if ($this->Json_format)
-         {
-             nmgp_Form_Num_Val($this->id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "2", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-         }
+         $this->c_outras_infomacoes = NM_charset_to_utf8($this->c_outras_infomacoes);
          if ($this->Json_use_label)
          {
-             $SC_Label = (isset($this->New_label['id'])) ? $this->New_label['id'] : "Id"; 
+             $SC_Label = (isset($this->New_label['c_outras_infomacoes'])) ? $this->New_label['c_outras_infomacoes'] : "Outras Informações"; 
          }
          else
          {
-             $SC_Label = "id"; 
+             $SC_Label = "c_outras_infomacoes"; 
          }
          $SC_Label = NM_charset_to_utf8($SC_Label); 
-         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->id;
+         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->c_outras_infomacoes;
+   }
+   //----- c_status_id
+   function NM_export_c_status_id()
+   {
+         nmgp_Form_Num_Val($this->look_c_status_id, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "2", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
+         $this->look_c_status_id = NM_charset_to_utf8($this->look_c_status_id);
+         if ($this->Json_use_label)
+         {
+             $SC_Label = (isset($this->New_label['c_status_id'])) ? $this->New_label['c_status_id'] : "Status"; 
+         }
+         else
+         {
+             $SC_Label = "c_status_id"; 
+         }
+         $SC_Label = NM_charset_to_utf8($SC_Label); 
+         $this->json_registro[$this->SC_seq_json][$SC_Label] = $this->look_c_status_id;
    }
 
    function nm_conv_data_db($dt_in, $form_in, $form_out)

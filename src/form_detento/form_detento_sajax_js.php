@@ -2969,7 +2969,10 @@ sajax_show_javascript();
     var nomeCampo_data_nascimento = "data_nascimento";
     var var_data_nascimento = scAjaxGetFieldText(nomeCampo_data_nascimento);
     var var_script_case_init = document.F1.script_case_init.value;
-    x_ajax_form_detento_validate_data_nascimento(var_data_nascimento, var_script_case_init, do_ajax_form_detento_validate_data_nascimento_cb);
+    setTimeout(function() {
+      var var_data_nascimento = scAjaxGetFieldText(nomeCampo_data_nascimento);
+      x_ajax_form_detento_validate_data_nascimento(var_data_nascimento, var_script_case_init, do_ajax_form_detento_validate_data_nascimento_cb);
+    }, 200);
   } // do_ajax_form_detento_validate_data_nascimento
 
   function do_ajax_form_detento_validate_data_nascimento_cb(sResp)
@@ -2980,7 +2983,7 @@ sajax_show_javascript();
     scEventControl_onBlur(sFieldValid);
     scAjaxUpdateFieldErrors(sFieldValid, "valid");
     sFieldErrors = scAjaxListFieldErrors(sFieldValid, false);
-    if ("" == sFieldErrors)
+    if ("" == sFieldErrors || ($("#ui-datepicker-div").length && $("#ui-datepicker-div").filter(":visible").length))
     {
       var sImgStatus = sc_img_status_ok;
       scAjaxHideErrorDisplay(sFieldValid);
@@ -3006,7 +3009,10 @@ sajax_show_javascript();
     var nomeCampo_data_inicio_pena = "data_inicio_pena";
     var var_data_inicio_pena = scAjaxGetFieldText(nomeCampo_data_inicio_pena);
     var var_script_case_init = document.F1.script_case_init.value;
-    x_ajax_form_detento_validate_data_inicio_pena(var_data_inicio_pena, var_script_case_init, do_ajax_form_detento_validate_data_inicio_pena_cb);
+    setTimeout(function() {
+      var var_data_inicio_pena = scAjaxGetFieldText(nomeCampo_data_inicio_pena);
+      x_ajax_form_detento_validate_data_inicio_pena(var_data_inicio_pena, var_script_case_init, do_ajax_form_detento_validate_data_inicio_pena_cb);
+    }, 200);
   } // do_ajax_form_detento_validate_data_inicio_pena
 
   function do_ajax_form_detento_validate_data_inicio_pena_cb(sResp)
@@ -3017,7 +3023,7 @@ sajax_show_javascript();
     scEventControl_onBlur(sFieldValid);
     scAjaxUpdateFieldErrors(sFieldValid, "valid");
     sFieldErrors = scAjaxListFieldErrors(sFieldValid, false);
-    if ("" == sFieldErrors)
+    if ("" == sFieldErrors || ($("#ui-datepicker-div").length && $("#ui-datepicker-div").filter(":visible").length))
     {
       var sImgStatus = sc_img_status_ok;
       scAjaxHideErrorDisplay(sFieldValid);
@@ -3110,6 +3116,94 @@ sajax_show_javascript();
     scAjaxSetMaster();
     scAjaxSetFocus();
   } // do_ajax_form_detento_validate_data_cb
+
+  // ---------- Event onchange cpf
+  function do_ajax_form_detento_event_cpf_onchange()
+  {
+    var var_cpf = scAjaxGetFieldText("cpf");
+    var var_script_case_init = document.F2.script_case_init.value;
+    scAjaxProcOn(true);
+    x_ajax_form_detento_event_cpf_onchange(var_cpf, var_script_case_init, do_ajax_form_detento_event_cpf_onchange_cb);
+  } // do_ajax_form_detento_event_cpf_onchange
+
+  function do_ajax_form_detento_event_cpf_onchange_cb(sResp)
+  {
+    scAjaxProcOff(true);
+    oResp = scAjaxResponse(sResp);
+    sFieldValid = "cpf";
+    scEventControl_onChange(sFieldValid);
+    scAjaxUpdateFieldErrors(sFieldValid, "onchange");
+    sFieldErrors = scAjaxListFieldErrors(sFieldValid, false);
+    if ("" == sFieldErrors)
+    {
+      scAjaxHideErrorDisplay(sFieldValid);
+    }
+    else
+    {
+      scAjaxShowErrorDisplay(sFieldValid, sFieldErrors);
+    }
+    if (!scAjaxHasError())
+    {
+      scAjaxSetFields();
+      scAjaxSetVariables();
+    }
+    scAjaxShowDebug();
+    scAjaxSetDisplay();
+    scAjaxSetLabel();
+    scAjaxSetReadonly();
+    scAjaxSetMaster();
+    scAjaxAlert(do_ajax_form_detento_event_cpf_onchange_cb_after_alert);
+  } // do_ajax_form_detento_event_cpf_onchange_cb
+  function do_ajax_form_detento_event_cpf_onchange_cb_after_alert() {
+    scAjaxMessage();
+    scAjaxJavascript();
+    scAjaxSetFocus();
+    scAjaxRedir();
+  } // do_ajax_form_detento_event_cpf_onchange_cb_after_alert
+
+  // ---------- Event onchange matricula
+  function do_ajax_form_detento_event_matricula_onchange()
+  {
+    var var_matricula = scAjaxGetFieldText("matricula");
+    var var_script_case_init = document.F2.script_case_init.value;
+    scAjaxProcOn(true);
+    x_ajax_form_detento_event_matricula_onchange(var_matricula, var_script_case_init, do_ajax_form_detento_event_matricula_onchange_cb);
+  } // do_ajax_form_detento_event_matricula_onchange
+
+  function do_ajax_form_detento_event_matricula_onchange_cb(sResp)
+  {
+    scAjaxProcOff(true);
+    oResp = scAjaxResponse(sResp);
+    sFieldValid = "matricula";
+    scEventControl_onChange(sFieldValid);
+    scAjaxUpdateFieldErrors(sFieldValid, "onchange");
+    sFieldErrors = scAjaxListFieldErrors(sFieldValid, false);
+    if ("" == sFieldErrors)
+    {
+      scAjaxHideErrorDisplay(sFieldValid);
+    }
+    else
+    {
+      scAjaxShowErrorDisplay(sFieldValid, sFieldErrors);
+    }
+    if (!scAjaxHasError())
+    {
+      scAjaxSetFields();
+      scAjaxSetVariables();
+    }
+    scAjaxShowDebug();
+    scAjaxSetDisplay();
+    scAjaxSetLabel();
+    scAjaxSetReadonly();
+    scAjaxSetMaster();
+    scAjaxAlert(do_ajax_form_detento_event_matricula_onchange_cb_after_alert);
+  } // do_ajax_form_detento_event_matricula_onchange_cb
+  function do_ajax_form_detento_event_matricula_onchange_cb_after_alert() {
+    scAjaxMessage();
+    scAjaxJavascript();
+    scAjaxSetFocus();
+    scAjaxRedir();
+  } // do_ajax_form_detento_event_matricula_onchange_cb_after_alert
 function scAjaxShowErrorDisplay(sErrorId, sErrorMsg) {
 	if ("table" != sErrorId && !$("id_error_display_" + sErrorId + "_frame").hasClass('scFormToastDivFixed')) {
 		scAjaxShowErrorDisplay_default(sErrorId, sErrorMsg);

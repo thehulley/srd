@@ -37,6 +37,18 @@
 <div id="id_div_process_block" style="display: none; margin: 10px; whitespace: nowrap"><span class="scFormProcess"><img border="0" src="<?php echo $this->Ini->path_icones; ?>/scriptcase__NM__ajax_load.gif" align="absmiddle" />&nbsp;<?php echo $this->Ini->Nm_lang['lang_othr_prcs']; ?>...</span></div>
 <div id="id_fatal_error" class="scFormLabelOdd" style="display: none; position: absolute"></div>
 <script type="text/javascript"> 
+<?php
+  if (isset($this->nm_mens_alert) && !empty($this->nm_mens_alert))
+  {
+      foreach ($this->nm_mens_alert as $i_alert => $mensagem)
+      {
+          $alertParams = isset($this->nm_params_alert[$i_alert]) ? $this->sc_ajax_alert_params($this->nm_params_alert[$i_alert]) : array();
+          $jsonParams  = json_encode($alertParams);
+          echo "scJs_alert('" . html_entity_decode($mensagem, ENT_COMPAT, $_SESSION['scriptcase']['charset']) . "', null, $jsonParams);";
+          echo "sc_userSweetAlertDisplayed = true;";
+      }
+  }
+?> 
 var Crtl_btn_excluir_funcionario = false;
 function sc_btn_excluir_funcionario()
 {

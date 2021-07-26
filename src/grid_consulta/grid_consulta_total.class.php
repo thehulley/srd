@@ -21,31 +21,29 @@ class grid_consulta_total
           {
               $Busca_temp = NM_conv_charset($Busca_temp, $_SESSION['scriptcase']['charset'], "UTF-8");
           }
-          $this->data_consulta = $Busca_temp['data_consulta']; 
-          $tmp_pos = strpos($this->data_consulta, "##@@");
-          if ($tmp_pos !== false && !is_array($this->data_consulta))
+          $this->c_detento_id = $Busca_temp['c_detento_id']; 
+          $tmp_pos = strpos($this->c_detento_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->c_detento_id))
           {
-              $this->data_consulta = substr($this->data_consulta, 0, $tmp_pos);
+              $this->c_detento_id = substr($this->c_detento_id, 0, $tmp_pos);
           }
-          $data_consulta_2 = $Busca_temp['data_consulta_input_2']; 
-          $this->data_consulta_2 = $Busca_temp['data_consulta_input_2']; 
-          $this->id = $Busca_temp['id']; 
-          $tmp_pos = strpos($this->id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->id))
+          $this->c_medico_id = $Busca_temp['c_medico_id']; 
+          $tmp_pos = strpos($this->c_medico_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->c_medico_id))
           {
-              $this->id = substr($this->id, 0, $tmp_pos);
+              $this->c_medico_id = substr($this->c_medico_id, 0, $tmp_pos);
           }
-          $this->detento_id = $Busca_temp['detento_id']; 
-          $tmp_pos = strpos($this->detento_id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->detento_id))
+          $this->c_data_consulta = $Busca_temp['c_data_consulta']; 
+          $tmp_pos = strpos($this->c_data_consulta, "##@@");
+          if ($tmp_pos !== false && !is_array($this->c_data_consulta))
           {
-              $this->detento_id = substr($this->detento_id, 0, $tmp_pos);
+              $this->c_data_consulta = substr($this->c_data_consulta, 0, $tmp_pos);
           }
-          $this->medico_id = $Busca_temp['medico_id']; 
-          $tmp_pos = strpos($this->medico_id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->medico_id))
+          $this->c_status_id = $Busca_temp['c_status_id']; 
+          $tmp_pos = strpos($this->c_status_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->c_status_id))
           {
-              $this->medico_id = substr($this->medico_id, 0, $tmp_pos);
+              $this->c_status_id = substr($this->c_status_id, 0, $tmp_pos);
           }
       } 
    }
@@ -53,7 +51,7 @@ class grid_consulta_total
    //---- 
    function quebra_geral_sc_free_total($res_limit=false)
    {
-      global $nada, $nm_lang , $detento_id, $medico_id, $status_id;
+      global $nada, $nm_lang , $c_detento_id, $c_medico_id, $c_status_id;
       if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['contr_total_geral'] == "OK") 
       { 
           return; 

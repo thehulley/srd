@@ -273,10 +273,9 @@ class grid_funcionario_grid
    if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['pesq_tab_label']))
    {
        $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['pesq_tab_label'] = "";
-       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['pesq_tab_label'] .= "matricula?#?" . "Matrícula" . "?@?";
-       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['pesq_tab_label'] .= "id?#?" . "Id" . "?@?";
        $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['pesq_tab_label'] .= "nome?#?" . "Nome" . "?@?";
        $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['pesq_tab_label'] .= "cpf?#?" . "CPF" . "?@?";
+       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['pesq_tab_label'] .= "funcao_id?#?" . "Função" . "?@?";
    }
    if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['grid_search_add']))
    {
@@ -494,18 +493,6 @@ class grid_funcionario_grid
        {
            $Busca_temp = NM_conv_charset($Busca_temp, $_SESSION['scriptcase']['charset'], "UTF-8");
        }
-       $this->matricula = $Busca_temp['matricula']; 
-       $tmp_pos = strpos($this->matricula, "##@@");
-       if ($tmp_pos !== false && !is_array($this->matricula))
-       {
-           $this->matricula = substr($this->matricula, 0, $tmp_pos);
-       }
-       $this->id = $Busca_temp['id']; 
-       $tmp_pos = strpos($this->id, "##@@");
-       if ($tmp_pos !== false && !is_array($this->id))
-       {
-           $this->id = substr($this->id, 0, $tmp_pos);
-       }
        $this->nome = $Busca_temp['nome']; 
        $tmp_pos = strpos($this->nome, "##@@");
        if ($tmp_pos !== false && !is_array($this->nome))
@@ -517,6 +504,12 @@ class grid_funcionario_grid
        if ($tmp_pos !== false && !is_array($this->cpf))
        {
            $this->cpf = substr($this->cpf, 0, $tmp_pos);
+       }
+       $this->funcao_id = $Busca_temp['funcao_id']; 
+       $tmp_pos = strpos($this->funcao_id, "##@@");
+       if ($tmp_pos !== false && !is_array($this->funcao_id))
+       {
+           $this->funcao_id = substr($this->funcao_id, 0, $tmp_pos);
        }
    } 
    $this->nm_field_dinamico = array();
@@ -655,6 +648,7 @@ class grid_funcionario_grid
        if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['ordem_select']))  
        { 
            $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['ordem_select'] = array(); 
+           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['ordem_select']['nome'] = 'ASC'; 
            $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['ordem_select_orig'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['ordem_select']; 
        } 
    }
@@ -4106,6 +4100,12 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
          $nm_saida->saida("           $Cod_Btn \r\n");
          $NM_btn = true;
         }
+      if (!$this->Ini->SC_Link_View && $this->nmgp_botoes['filter'] == "on"  && !$this->grid_emb_form)
+      {
+           $Cod_Btn = nmButtonOutput($this->arr_buttons, "bpesquisa", "nm_gp_move('busca', '0', 'grid');", "nm_gp_move('busca', '0', 'grid');", "pesq_top", "", "Filtro", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + F)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+           $nm_saida->saida("           $Cod_Btn \r\n");
+           $NM_btn = true;
+      }
           $nm_saida->saida("         </td> \r\n");
           $nm_saida->saida("          <td class=\"" . $this->css_scGridToolbarPadd . "\" nowrap valign=\"middle\" align=\"right\" width=\"33%\"> \r\n");
         if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['SC_Ind_Groupby'] != "sc_free_total")
@@ -4695,7 +4695,7 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
       }
       if (!$this->Ini->SC_Link_View && $this->nmgp_botoes['filter'] == "on"  && !$this->grid_emb_form)
       {
-           $Cod_Btn = nmButtonOutput($this->arr_buttons, "bpesquisa", "nm_gp_move('busca', '0', 'grid');", "nm_gp_move('busca', '0', 'grid');", "pesq_top", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + F)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+           $Cod_Btn = nmButtonOutput($this->arr_buttons, "bpesquisa", "nm_gp_move('busca', '0', 'grid');", "nm_gp_move('busca', '0', 'grid');", "pesq_top", "", "Filtro", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + F)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
            $nm_saida->saida("           $Cod_Btn \r\n");
            $NM_btn = true;
       }
@@ -5148,18 +5148,6 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
                         $this->grid_search_seq++;
                         $lin_obj = $this->grid_search_tag_ini($cmp, $def, $this->grid_search_seq);
                         $nm_saida->saida("" . $lin_obj . "\r\n");
-                        if ($cmp == "matricula")
-                        {
-                           $this->grid_search_dat[$this->grid_search_seq] = "matricula";
-                           $lin_obj = $this->grid_search_matricula($this->grid_search_seq, 'N', $def['opc'], $def['val'], $def['label']);
-                           $nm_saida->saida("" . $lin_obj . "\r\n");
-                        }
-                        if ($cmp == "id")
-                        {
-                           $this->grid_search_dat[$this->grid_search_seq] = "id";
-                           $lin_obj = $this->grid_search_id($this->grid_search_seq, 'N', $def['opc'], $def['val'], $def['label']);
-                           $nm_saida->saida("" . $lin_obj . "\r\n");
-                        }
                         if ($cmp == "nome")
                         {
                            $this->grid_search_dat[$this->grid_search_seq] = "nome";
@@ -5170,6 +5158,12 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
                         {
                            $this->grid_search_dat[$this->grid_search_seq] = "cpf";
                            $lin_obj = $this->grid_search_cpf($this->grid_search_seq, 'N', $def['opc'], $def['val'], $def['label']);
+                           $nm_saida->saida("" . $lin_obj . "\r\n");
+                        }
+                        if ($cmp == "funcao_id")
+                        {
+                           $this->grid_search_dat[$this->grid_search_seq] = "funcao_id";
+                           $lin_obj = $this->grid_search_funcao_id($this->grid_search_seq, 'N', $def['opc'], $def['val'], $def['label']);
                            $nm_saida->saida("" . $lin_obj . "\r\n");
                         }
                         $lin_obj = $this->grid_search_tag_end();
@@ -5186,6 +5180,8 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        $nm_saida->saida("            </div>\r\n");
        $nm_saida->saida("        </form>\r\n");
        $nm_saida->saida("    </div>\r\n");
+     if ($_SESSION['scriptcase']['proc_mobile'])
+     { 
        $this->NM_fil_ant = $this->gera_array_filtros();
        $strDisplayFilter = (empty($this->NM_fil_ant))?'none':'';
        $nm_saida->saida("   <div id='save_grid_search' class='scGridFilterTagSave'>\r\n");
@@ -5220,7 +5216,7 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        }
        $nm_saida->saida("       </SELECT>\r\n");
        $nm_saida->saida("     </span>\r\n");
-       $Cod_Btn = nmButtonOutput($this->arr_buttons, "bedit_filter_appdiv", "document.getElementById('Salvar_filters').style.display = ''; document.Fgrid_search_save.nmgp_save_name.focus()", "document.getElementById('Salvar_filters').style.display = ''; document.Fgrid_search_save.nmgp_save_name.focus()", "Ativa_save", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       $Cod_Btn = nmButtonOutput($this->arr_buttons, "bedit_filter_appdiv", "document.getElementById('Salvar_filters').style.display = ''; document.Fgrid_search_save.nmgp_save_name.focus()", "document.getElementById('Salvar_filters').style.display = ''; document.Fgrid_search_save.nmgp_save_name.focus()", "Ativa_save", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + E)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
        $nm_saida->saida("       $Cod_Btn \r\n");
        $nm_saida->saida("    <DIV id=\"Salvar_filters\" style=\"display:none;z-index:9999;position: absolute;\">\r\n");
        $nm_saida->saida("     <TABLE align=\"center\" class=\"scFilterTable\">\r\n");
@@ -5303,6 +5299,7 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        $nm_saida->saida("    </DIV> \r\n");
        $nm_saida->saida("   </form>\r\n");
        $nm_saida->saida("  </div> \r\n");
+     } 
        $nm_saida->saida("    <div id='close_grid_search' class='scGridFilterTagClose' onclick=\"checkLastTag(true);setTimeout(function() {nm_proc_grid_search(0, 'del_grid_search_all', 'grid_search')}, 200);\"></div>\r\n");
        $nm_saida->saida("   </div>\r\n");
        $nm_saida->saida("   </td>\r\n");
@@ -5340,7 +5337,7 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
    function grid_search_add_tag()
    {
        $lin_obj  = "";
-       $All_cmp_search = array('matricula','id','nome','cpf');
+       $All_cmp_search = array('nome','cpf','funcao_id');
        $nmgp_tab_label = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['pesq_tab_label'];
        if (!empty($nmgp_tab_label))
        {
@@ -5352,7 +5349,7 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
               $nmgp_tab_label[$parte_campo[0]] = $parte_campo[1];
           }
        }
-       if (count($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['grid_pesq']) < 4)
+       if (count($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['grid_pesq']) < 3)
        {
            $lin_obj .= "<table id='id_grid_search_all_cmp' cellpadding=0 cellspacing=0>";
            foreach ($All_cmp_search as $cada_cmp)
@@ -5372,82 +5369,6 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        }
        return $lin_obj;
    }
-   function grid_search_matricula($ind, $ajax, $opc="", $val=array(), $label='')
-   {
-       $lin_obj  = "";
-       $lin_obj .= "     <div class='scGridFilterTagListFilter' id='grid_search_matricula_" . $ind . "' style='display:none'>";
-       $lin_obj .= "         <div class='scGridFilterTagListFilterLabel'>". NM_encode_input($label) ." <span class='scGridFilterTagListFilterLabelClose' onclick='closeAllTags(this);'></span></div>";
-       $lin_obj .= "         <div class='scGridFilterTagListFilterInputs'>";
-       if (empty($opc))
-       {
-           $opc = "gt";
-       }
-       $lin_obj .= "       <select id='grid_search_matricula_cond_" . $ind . "' name='cond_grid_search_matricula_" . $ind . "' class='" . $this->css_scAppDivToolbarInput . "' style='vertical-align: middle;' onChange='grid_search_hide_input(\"matricula\", $ind)'>";
-       $selected = ($opc == "gt") ? " selected" : "";
-       $lin_obj .= "        <option value='gt'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_grtr'] . "</option>";
-       $selected = ($opc == "lt") ? " selected" : "";
-       $lin_obj .= "        <option value='lt'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_less'] . "</option>";
-       $selected = ($opc == "eq") ? " selected" : "";
-       $lin_obj .= "        <option value='eq'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_exac'] . "</option>";
-       $lin_obj .= "       </select>";
-       if ($opc == "nu" || $opc == "nn" || $opc == "ep" || $opc == "ne")
-       {
-           $display_in_1 = "none";
-       }
-       else
-       {
-           $display_in_1 = "''";
-       }
-       $lin_obj .= "       <span id=\"grid_matricula_" . $ind . "\" style=\"display:" . $display_in_1 . "\">";
-       $val_cmp = (isset($val[0][0])) ? $val[0][0] : "";
-       nmgp_Form_Num_Val($val_cmp, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-       $lin_obj .= "     <input  type=\"text\" class='sc-js-input " . $this->css_scAppDivToolbarInput . "' id='grid_search_matricula_val_" . $ind . "' name='val_grid_search_matricula_" . $ind . "' value=\"" . NM_encode_input($val_cmp) . "\" size=11 alt=\"{datatype: 'decimal', maxLength: 11, precision: 0, decimalSep: '" . $_SESSION['scriptcase']['reg_conf']['dec_num'] . "', thousandsSep: '" . $_SESSION['scriptcase']['reg_conf']['grup_num'] . "', allowNegative: false, onlyNegative: false, enterTab: false}\">";
-       $lin_obj .= "       </span>";
-       $lin_obj .= "          </div>";
-       $lin_obj .= "          <div class='scGridFilterTagListFilterBar'>";
-       $lin_obj .= nmButtonOutput($this->arr_buttons, "bapply_appdiv", "closeAllTags();setTimeout(function() {nm_proc_grid_search($ind, 'proc_grid_search', 'grid_search')}, 200);", "closeAllTags();setTimeout(function() {nm_proc_grid_search($ind, 'proc_grid_search', 'grid_search')}, 200);", "grid_search_apply_" . $ind . "", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
-       $lin_obj .= "          </div>";
-       $lin_obj .= "      </div>";
-       return $lin_obj;
-   }
-   function grid_search_id($ind, $ajax, $opc="", $val=array(), $label='')
-   {
-       $lin_obj  = "";
-       $lin_obj .= "     <div class='scGridFilterTagListFilter' id='grid_search_id_" . $ind . "' style='display:none'>";
-       $lin_obj .= "         <div class='scGridFilterTagListFilterLabel'>". NM_encode_input($label) ." <span class='scGridFilterTagListFilterLabelClose' onclick='closeAllTags(this);'></span></div>";
-       $lin_obj .= "         <div class='scGridFilterTagListFilterInputs'>";
-       if (empty($opc))
-       {
-           $opc = "gt";
-       }
-       $lin_obj .= "       <select id='grid_search_id_cond_" . $ind . "' name='cond_grid_search_id_" . $ind . "' class='" . $this->css_scAppDivToolbarInput . "' style='vertical-align: middle;' onChange='grid_search_hide_input(\"id\", $ind)'>";
-       $selected = ($opc == "gt") ? " selected" : "";
-       $lin_obj .= "        <option value='gt'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_grtr'] . "</option>";
-       $selected = ($opc == "lt") ? " selected" : "";
-       $lin_obj .= "        <option value='lt'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_less'] . "</option>";
-       $selected = ($opc == "eq") ? " selected" : "";
-       $lin_obj .= "        <option value='eq'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_exac'] . "</option>";
-       $lin_obj .= "       </select>";
-       if ($opc == "nu" || $opc == "nn" || $opc == "ep" || $opc == "ne")
-       {
-           $display_in_1 = "none";
-       }
-       else
-       {
-           $display_in_1 = "''";
-       }
-       $lin_obj .= "       <span id=\"grid_id_" . $ind . "\" style=\"display:" . $display_in_1 . "\">";
-       $val_cmp = (isset($val[0][0])) ? $val[0][0] : "";
-       nmgp_Form_Num_Val($val_cmp, $_SESSION['scriptcase']['reg_conf']['grup_num'], $_SESSION['scriptcase']['reg_conf']['dec_num'], "0", "S", "1", "", "N:" . $_SESSION['scriptcase']['reg_conf']['neg_num'] , $_SESSION['scriptcase']['reg_conf']['simb_neg'], $_SESSION['scriptcase']['reg_conf']['num_group_digit']) ; 
-       $lin_obj .= "     <input  type=\"text\" class='sc-js-input " . $this->css_scAppDivToolbarInput . "' id='grid_search_id_val_" . $ind . "' name='val_grid_search_id_" . $ind . "' value=\"" . NM_encode_input($val_cmp) . "\" size=11 alt=\"{datatype: 'decimal', maxLength: 11, precision: 0, decimalSep: '" . $_SESSION['scriptcase']['reg_conf']['dec_num'] . "', thousandsSep: '" . $_SESSION['scriptcase']['reg_conf']['grup_num'] . "', allowNegative: false, onlyNegative: false, enterTab: false}\">";
-       $lin_obj .= "       </span>";
-       $lin_obj .= "          </div>";
-       $lin_obj .= "          <div class='scGridFilterTagListFilterBar'>";
-       $lin_obj .= nmButtonOutput($this->arr_buttons, "bapply_appdiv", "closeAllTags();setTimeout(function() {nm_proc_grid_search($ind, 'proc_grid_search', 'grid_search')}, 200);", "closeAllTags();setTimeout(function() {nm_proc_grid_search($ind, 'proc_grid_search', 'grid_search')}, 200);", "grid_search_apply_" . $ind . "", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
-       $lin_obj .= "          </div>";
-       $lin_obj .= "      </div>";
-       return $lin_obj;
-   }
    function grid_search_nome($ind, $ajax, $opc="", $val=array(), $label='')
    {
        $lin_obj  = "";
@@ -5458,15 +5379,9 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        {
            $opc = "qp";
        }
-       $lin_obj .= "       <select id='grid_search_nome_cond_" . $ind . "' name='cond_grid_search_nome_" . $ind . "' class='" . $this->css_scAppDivToolbarInput . "' style='vertical-align: middle;' onChange='grid_search_hide_input(\"nome\", $ind)'>";
+       $lin_obj .= "       <select id='grid_search_nome_cond_" . $ind . "' name='cond_grid_search_nome_" . $ind . "' class='" . $this->css_scAppDivToolbarInput . "' style='vertical-align: middle; display: none'>";
        $selected = ($opc == "qp") ? " selected" : "";
        $lin_obj .= "        <option value='qp'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_like'] . "</option>";
-       $selected = ($opc == "np") ? " selected" : "";
-       $lin_obj .= "        <option value='np'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_not_like'] . "</option>";
-       $selected = ($opc == "eq") ? " selected" : "";
-       $lin_obj .= "        <option value='eq'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_exac'] . "</option>";
-       $selected = ($opc == "ep") ? " selected" : "";
-       $lin_obj .= "        <option value='ep'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_empty'] . "</option>";
        $lin_obj .= "       </select>";
        if ($opc == "nu" || $opc == "nn" || $opc == "ep" || $opc == "ne")
        {
@@ -5544,15 +5459,9 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        {
            $opc = "qp";
        }
-       $lin_obj .= "       <select id='grid_search_cpf_cond_" . $ind . "' name='cond_grid_search_cpf_" . $ind . "' class='" . $this->css_scAppDivToolbarInput . "' style='vertical-align: middle;' onChange='grid_search_hide_input(\"cpf\", $ind)'>";
+       $lin_obj .= "       <select id='grid_search_cpf_cond_" . $ind . "' name='cond_grid_search_cpf_" . $ind . "' class='" . $this->css_scAppDivToolbarInput . "' style='vertical-align: middle; display: none'>";
        $selected = ($opc == "qp") ? " selected" : "";
        $lin_obj .= "        <option value='qp'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_like'] . "</option>";
-       $selected = ($opc == "np") ? " selected" : "";
-       $lin_obj .= "        <option value='np'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_not_like'] . "</option>";
-       $selected = ($opc == "eq") ? " selected" : "";
-       $lin_obj .= "        <option value='eq'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_exac'] . "</option>";
-       $selected = ($opc == "ep") ? " selected" : "";
-       $lin_obj .= "        <option value='ep'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_empty'] . "</option>";
        $lin_obj .= "       </select>";
        if ($opc == "nu" || $opc == "nn" || $opc == "ep" || $opc == "ne")
        {
@@ -5564,20 +5473,51 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        }
        $lin_obj .= "       <span id=\"grid_cpf_" . $ind . "\" style=\"display:" . $display_in_1 . "\">";
        $val_cmp = (isset($val[0][0])) ? $val[0][0] : "";
-       $cpf = $val_cmp;
-       if ($cpf != "")
+       $lin_obj .= "     <input  type=\"text\" class='sc-js-input " . $this->css_scAppDivToolbarInput . "' id='grid_search_cpf_val_" . $ind . "' name='val_grid_search_cpf_" . $ind . "' value=\"" . NM_encode_input($val_cmp) . "\" size=20 alt=\"{datatype: 'cpf', autoTab: false, enterTab: false}\">";
+       $lin_obj .= "       </span>";
+       $lin_obj .= "          </div>";
+       $lin_obj .= "          <div class='scGridFilterTagListFilterBar'>";
+       $lin_obj .= nmButtonOutput($this->arr_buttons, "bapply_appdiv", "closeAllTags();setTimeout(function() {nm_proc_grid_search($ind, 'proc_grid_search', 'grid_search')}, 200);", "closeAllTags();setTimeout(function() {nm_proc_grid_search($ind, 'proc_grid_search', 'grid_search')}, 200);", "grid_search_apply_" . $ind . "", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+       $lin_obj .= "          </div>";
+       $lin_obj .= "      </div>";
+       return $lin_obj;
+   }
+   function grid_search_funcao_id($ind, $ajax, $opc="", $val=array(), $label='')
+   {
+       $lin_obj  = "";
+       $lin_obj .= "     <div class='scGridFilterTagListFilter' id='grid_search_funcao_id_" . $ind . "' style='display:none'>";
+       $lin_obj .= "         <div class='scGridFilterTagListFilterLabel'>". NM_encode_input($label) ." <span class='scGridFilterTagListFilterLabelClose' onclick='closeAllTags(this);'></span></div>";
+       $lin_obj .= "         <div class='scGridFilterTagListFilterInputs'>";
+       if (empty($opc))
        {
-       $cpf_look = substr($this->Db->qstr($cpf), 1, -1); 
-       $nmgp_def_dados = array(); 
-       $nm_comando = "select distinct cpf from " . $this->Ini->nm_tabela . " where cpf = '$cpf_look' order by cpf"; 
+           $opc = "qp";
+       }
+       $lin_obj .= "       <select id='grid_search_funcao_id_cond_" . $ind . "' name='cond_grid_search_funcao_id_" . $ind . "' class='" . $this->css_scAppDivToolbarInput . "' style='vertical-align: middle; display: none'>";
+       $selected = ($opc == "qp") ? " selected" : "";
+       $lin_obj .= "        <option value='qp'" . $selected . ">" . $this->Ini->Nm_lang['lang_srch_like'] . "</option>";
+       $lin_obj .= "       </select>";
+       if ($opc == "nu" || $opc == "nn" || $opc == "ep" || $opc == "ne")
+       {
+           $display_in_1 = "none";
+       }
+       else
+       {
+           $display_in_1 = "''";
+       }
+       $lin_obj .= "       <span id=\"grid_funcao_id_" . $ind . "\" style=\"display:" . $display_in_1 . "\">";
+       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['psq_check_ret']['funcao_id'] = array();
+       $funcao_id_look = substr($this->Db->qstr($funcao_id), 1, -1); 
+       $nmgp_def_dados  = ""; 
+       $nm_comando = "SELECT id, descricao  FROM funcao  ORDER BY descricao"; 
        $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
        $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
-      if ($rs = $this->Db->SelectLimit($nm_comando, 10, 0)) 
+      if ($rs = $this->Db->Execute($nm_comando)) 
        { 
           while (!$rs->EOF) 
           { 
-            $cmp1 = trim($rs->fields[0]);
-            $nmgp_def_dados[] = array($cmp1 => $cmp1); 
+             $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['psq_check_ret']['funcao_id'][] = trim($rs->fields[0]);
+             $nmgp_def_dados .= trim($rs->fields[1]) . "?#?"; 
+             $nmgp_def_dados .= trim($rs->fields[0]) . "?#?N?@?"; 
              $rs->MoveNext(); 
           } 
           $rs->Close(); 
@@ -5594,24 +5534,43 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
               echo $this->Db->ErrorMsg(); 
            } 
        } 
-       }
-       if (isset($nmgp_def_dados[0][$cpf]))
+       $lin_obj .= "    <SELECT class='" . $this->css_scAppDivToolbarInput . "' id=\"grid_search_funcao_id_val_" . $ind . "\" name=\"val_grid_search_funcao_id_" . $ind . "\"  size=1>";
+       $delimitador = "##@@";
+       $nm_opcoesx = str_replace("?#?@?#?", "?#?@ ?#?", $nmgp_def_dados);
+       $nm_opcoes  = explode("?@?", $nm_opcoesx);
+       $val = isset($val[0]) ? $val[0] : array();
+       foreach ($nm_opcoes as $nm_opcao)
        {
-           $sAutocompValue = $nmgp_def_dados[0][$cpf];
+          if (!empty($nm_opcao))
+          {
+             $temp_bug_list = explode("?#?", $nm_opcao);
+             list($nm_opc_val, $nm_opc_cod, $nm_opc_sel) = $temp_bug_list;
+             if ($nm_opc_cod == "@ ") {$nm_opc_cod = trim($nm_opc_cod); }
+             if (is_array($val) && !empty($val))
+             {
+                $funcao_id_sel = "";
+                foreach ($val as $Dados)
+                {
+                    $tmp_pos = strpos($Dados, "##@@");
+                    if ($tmp_pos !== false)
+                    {
+                        $Dados = substr($Dados, 0, $tmp_pos);
+                    }
+                    if ($Dados === $nm_opc_cod)
+                    {
+                        $funcao_id_sel = " selected";
+                        break;
+                    }
+                }
+             }
+             else
+             {
+                $funcao_id_sel = ("S" == $nm_opc_sel) ? " selected" : "";
+             }
+             $lin_obj .= "       <OPTION value=\"" . NM_encode_input($nm_opc_cod . $delimitador . $nm_opc_val) . "\"" . $funcao_id_sel . ">" . $nm_opc_val . "</OPTION>";
+          }
        }
-       else
-       {
-           $sAutocompValue = $val_cmp;
-           $val[0][0]      = $val_cmp;
-       }
-       $val_cmp = (isset($val[0][0])) ? $val[0][0] : "";
-       $lin_obj .= "     <input  type=\"text\" class='sc-js-input " . $this->css_scAppDivToolbarInput . "' id='grid_search_cpf_val_" . $ind . "' name='val_grid_search_cpf_" . $ind . "' value=\"" . NM_encode_input($val_cmp) . "\" size=20 alt=\"{datatype: 'text', maxLength: 20, allowedChars: '', lettersCase: '', autoTab: false, enterTab: false}\" style='display: none'>";
-       $tmp_pos = strpos($val_cmp, "##@@");
-       if ($tmp_pos !== false) {
-           $val_cmp = substr($val_cmp, ($tmp_pos + 4));
-           $sAutocompValue = substr($sAutocompValue, ($tmp_pos + 4));
-       }
-       $lin_obj .= "     <input class='sc-js-input " . $this->css_scAppDivToolbarInput . "' type='text' id='id_ac_grid_cpf" . $ind . "' name='val_grid_search_cpf_autocomp" . $ind . "' size='20' value='" . NM_encode_input($sAutocompValue) . "' alt=\"{datatype: 'text', maxLength: 20, allowedChars: '', lettersCase: '', autoTab: false, enterTab: false}\">";
+       $lin_obj .= "    </SELECT>";
        $lin_obj .= "       </span>";
        $lin_obj .= "          </div>";
        $lin_obj .= "          <div class='scGridFilterTagListFilterBar'>";
@@ -5627,32 +5586,6 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        $nome_look = substr($this->Db->qstr($nome), 1, -1); 
        $nmgp_def_dados = array(); 
        $nm_comando = "select distinct nome from " . $this->Ini->nm_tabela . " where  nome like '%" . $nome . "%' order by nome"; 
-       $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
-       $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
-      if ($rs = $this->Db->SelectLimit($nm_comando, 10, 0)) 
-       { 
-          while (!$rs->EOF) 
-          { 
-            $cmp1 = NM_charset_to_utf8(trim($rs->fields[0]));
-            $cmp1 = grid_funcionario_pack_protect_string($cmp1);
-            $nmgp_def_dados[] = array($cmp1 => $cmp1); 
-             $rs->MoveNext(); 
-          } 
-          $rs->Close(); 
-          return $nmgp_def_dados; 
-       } 
-       else  
-       {  
-          echo $this->Db->ErrorMsg(); 
-       } 
-   }
-   function lookup_ajax_cpf($cpf)
-   {
-       $cpf = substr($this->Db->qstr($cpf), 1, -1);
-       $this->NM_case_insensitive = false;
-       $cpf_look = substr($this->Db->qstr($cpf), 1, -1); 
-       $nmgp_def_dados = array(); 
-       $nm_comando = "select distinct cpf from " . $this->Ini->nm_tabela . " where  cpf like '%" . $cpf . "%' order by cpf"; 
        $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando; 
        $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
       if ($rs = $this->Db->SelectLimit($nm_comando, 10, 0)) 
@@ -5722,6 +5655,77 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        {
            $nm_saida->saida("     Tab_obj_grid_search[" . $seq . "] = '" . $cmp . "';\r\n");
        }
+       $nm_saida->saida(" function sc_grid_funcionario_valida_cic(obj)\r\n");
+       $nm_saida->saida(" {\r\n");
+       $nm_saida->saida("     var x        = 0;\r\n");
+       $nm_saida->saida("     var y        = 0;\r\n");
+       $nm_saida->saida("     var soma     = 0;\r\n");
+       $nm_saida->saida("     var resto    = 0;\r\n");
+       $nm_saida->saida("     var CicIn    = obj.value;\r\n");
+       $nm_saida->saida("     var Cic_calc = 0;\r\n");
+       $nm_saida->saida("     CicIn = CicIn.replace(/[.]/g, '');\r\n");
+       $nm_saida->saida("     CicIn = CicIn.replace(/[-]/g, '');\r\n");
+       $nm_saida->saida("     if (CicIn.length == 0)\r\n");
+       $nm_saida->saida("     {\r\n");
+       $nm_saida->saida("         return true;\r\n");
+       $nm_saida->saida("     }\r\n");
+       $nm_saida->saida("     Cic_calc = CicIn.substring(0, 9);\r\n");
+       $nm_saida->saida("     x = CicIn.substring(0, 1);\r\n");
+       $nm_saida->saida("     for (y = 1; y < 11; y++)\r\n");
+       $nm_saida->saida("     {\r\n");
+       $nm_saida->saida("         if (CicIn.substr(y , 1) != x)\r\n");
+       $nm_saida->saida("         {\r\n");
+       $nm_saida->saida("             break;\r\n");
+       $nm_saida->saida("         }\r\n");
+       $nm_saida->saida("         else\r\n");
+       $nm_saida->saida("         {\r\n");
+       $nm_saida->saida("              soma++;\r\n");
+       $nm_saida->saida("         }\r\n");
+       $nm_saida->saida("     }\r\n");
+       $nm_saida->saida("     if (soma == 10) \r\n");
+       $nm_saida->saida("     {\r\n");
+       $nm_saida->saida("         Cic_calc = \"1\";\r\n");
+       $nm_saida->saida("     }\r\n");
+       $nm_saida->saida("     soma = 0;\r\n");
+       $nm_saida->saida("     y = 10;\r\n");
+       $nm_saida->saida("     for (x = 0 ; x < 9 ; x++)\r\n");
+       $nm_saida->saida("     {\r\n");
+       $nm_saida->saida("         soma = soma + (parseInt(Cic_calc.substr(x , 1)) * y );\r\n");
+       $nm_saida->saida("         y--;\r\n");
+       $nm_saida->saida("     }\r\n");
+       $nm_saida->saida("     soma = soma * 10;\r\n");
+       $nm_saida->saida("     resto = soma % 11;\r\n");
+       $nm_saida->saida("     if (resto == 10)\r\n");
+       $nm_saida->saida("     {\r\n");
+       $nm_saida->saida("         resto = 0;\r\n");
+       $nm_saida->saida("     }\r\n");
+       $nm_saida->saida("     Cic_calc = Cic_calc + resto.toString();\r\n");
+       $nm_saida->saida("     x = 0;\r\n");
+       $nm_saida->saida("     y = 11;\r\n");
+       $nm_saida->saida("     soma = 0;\r\n");
+       $nm_saida->saida("     for (x = 0 ; x < 10 ; x++)\r\n");
+       $nm_saida->saida("     {\r\n");
+       $nm_saida->saida("         soma = soma + (parseInt(Cic_calc.substr(x , 1)) * y );\r\n");
+       $nm_saida->saida("         y--;\r\n");
+       $nm_saida->saida("     }\r\n");
+       $nm_saida->saida("     soma = soma * 10;\r\n");
+       $nm_saida->saida("     resto = soma % 11;\r\n");
+       $nm_saida->saida("     if (resto == 10)\r\n");
+       $nm_saida->saida("     {\r\n");
+       $nm_saida->saida("          resto = 0;\r\n");
+       $nm_saida->saida("     }\r\n");
+       $nm_saida->saida("     Cic_calc = Cic_calc + resto.toString();\r\n");
+       $nm_saida->saida("     if (Cic_calc != CicIn)\r\n");
+       $nm_saida->saida("     {\r\n");
+       $nm_saida->saida("         if (confirm (\"CIC \" + SC_crit_inv + \" \" + Nm_erro['lang_jscr_wfix']))\r\n");
+       $nm_saida->saida("         {\r\n");
+       $nm_saida->saida("            Xfocus = setTimeout(function() { obj.focus(); }, 10);\r\n");
+       $nm_saida->saida("            return false;\r\n");
+       $nm_saida->saida("         }\r\n");
+       $nm_saida->saida("     }\r\n");
+       $nm_saida->saida("     return true;\r\n");
+       $nm_saida->saida(" }\r\n");
+       $nm_saida->saida("     Tab_evt_grid_search['cpf'] =  'sc_grid_funcionario_valida_cic(this)';\r\n");
        if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['ajax_nav'])
        { 
            $this->Ini->Arr_result['setArr'][] = array('var' => 'Tab_obj_grid_search', 'value' => '');
@@ -5731,6 +5735,7 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
            {
                $this->Ini->Arr_result['setVar'][] = array('var' => 'Tab_obj_grid_search[' . $seq . ']', 'value' => $cmp);
            }
+           $this->Ini->Arr_result['setVar'][] = array('var' => "Tab_evt_grid_search['cpf']", 'value' => 'sc_grid_funcionario_valida_cic(this)');
        } 
        $nm_saida->saida("     function SC_carga_evt_jquery_grid(tp_carga)\r\n");
        $nm_saida->saida("     {\r\n");
@@ -5796,49 +5801,6 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        $nm_saida->saida("                        change: function (event, ui) {\r\n");
        $nm_saida->saida("                          if (null == ui.item) {\r\n");
        $nm_saida->saida("                             $(\"#grid_search_nome_val_\" + x_nome).val( $(this).val() );\r\n");
-       $nm_saida->saida("                          }\r\n");
-       $nm_saida->saida("                        }\r\n");
-       $nm_saida->saida("                      });\r\n");
-       $nm_saida->saida("                 }\r\n");
-       $nm_saida->saida("                 if (tmp == 'cpf')\r\n");
-       $nm_saida->saida("                 {\r\n");
-       $nm_saida->saida("                      var x_cpf = i;\r\n");
-       $nm_saida->saida("                      $(\"#id_ac_grid_cpf\" + i).autocomplete({\r\n");
-       $nm_saida->saida("                        minLength: 1,\r\n");
-       $nm_saida->saida("                        source: function (request, response) {\r\n");
-       $nm_saida->saida("                        $.ajax({\r\n");
-       $nm_saida->saida("                          url: \"index.php\",\r\n");
-       $nm_saida->saida("                          dataType: \"json\",\r\n");
-       $nm_saida->saida("                          data: {\r\n");
-       $nm_saida->saida("                             q: request.term,\r\n");
-       $nm_saida->saida("                             nmgp_opcao: \"ajax_aut_comp_dyn_search\",\r\n");
-       $nm_saida->saida("                             origem: \"grid\",\r\n");
-       $nm_saida->saida("                             field: \"cpf\",\r\n");
-       $nm_saida->saida("                             max_itens: \"10\",\r\n");
-       $nm_saida->saida("                             cod_desc: \"N\",\r\n");
-       $nm_saida->saida("                             script_case_init: " . $this->Ini->sc_page . "\r\n");
-       $nm_saida->saida("                           },\r\n");
-       $nm_saida->saida("                          success: function (data) {\r\n");
-       $nm_saida->saida("                            if (data == \"ss_time_out\") {\r\n");
-       $nm_saida->saida("                                nm_move();\r\n");
-       $nm_saida->saida("                            }\r\n");
-       $nm_saida->saida("                            response(data);\r\n");
-       $nm_saida->saida("                          }\r\n");
-       $nm_saida->saida("                         });\r\n");
-       $nm_saida->saida("                        },\r\n");
-       $nm_saida->saida("                        select: function (event, ui) {\r\n");
-       $nm_saida->saida("                          $(\"#grid_search_cpf_val_\" + x_cpf).val(ui.item.value);\r\n");
-       $nm_saida->saida("                          $(this).val(ui.item.label);\r\n");
-       $nm_saida->saida("                          event.preventDefault();\r\n");
-       $nm_saida->saida("                        },\r\n");
-       $nm_saida->saida("                        focus: function (event, ui) {\r\n");
-       $nm_saida->saida("                          $(\"#grid_search_cpf_val_\" + x_cpf).val(ui.item.value);\r\n");
-       $nm_saida->saida("                          $(this).val(ui.item.label);\r\n");
-       $nm_saida->saida("                          event.preventDefault();\r\n");
-       $nm_saida->saida("                        },\r\n");
-       $nm_saida->saida("                        change: function (event, ui) {\r\n");
-       $nm_saida->saida("                          if (null == ui.item) {\r\n");
-       $nm_saida->saida("                             $(\"#grid_search_cpf_val_\" + x_cpf).val( $(this).val() );\r\n");
        $nm_saida->saida("                          }\r\n");
        $nm_saida->saida("                        }\r\n");
        $nm_saida->saida("                      });\r\n");
@@ -5945,14 +5907,6 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        $nm_saida->saida("                 out_cond = grid_search_get_sel_cond(obj_dyn);\r\n");
        $nm_saida->saida("                 out_dyn += \"_DYN_\" + out_cond;\r\n");
        $nm_saida->saida("                 obj_dyn  = 'grid_search_' + Tab_obj_grid_search[i] + '_val_';\r\n");
-       $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'matricula')\r\n");
-       $nm_saida->saida("                 {\r\n");
-       $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, '');\r\n");
-       $nm_saida->saida("                 }\r\n");
-       $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'id')\r\n");
-       $nm_saida->saida("                 {\r\n");
-       $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, '');\r\n");
-       $nm_saida->saida("                 }\r\n");
        $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'nome')\r\n");
        $nm_saida->saida("                 {\r\n");
        $nm_saida->saida("                     obj_ac  = 'id_ac_grid_' + Tab_obj_grid_search[i] + i;\r\n");
@@ -5960,8 +5914,11 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        $nm_saida->saida("                 }\r\n");
        $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'cpf')\r\n");
        $nm_saida->saida("                 {\r\n");
-       $nm_saida->saida("                     obj_ac  = 'id_ac_grid_' + Tab_obj_grid_search[i] + i;\r\n");
-       $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, obj_ac);\r\n");
+       $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, '');\r\n");
+       $nm_saida->saida("                 }\r\n");
+       $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'funcao_id')\r\n");
+       $nm_saida->saida("                 {\r\n");
+       $nm_saida->saida("                     result  = grid_search_get_select(obj_dyn + i, '');\r\n");
        $nm_saida->saida("                 }\r\n");
        $nm_saida->saida("                 if((result == '' || result == '_VLS2_' || result == 'Y:_VLS_M:_VLS_D:_VLS2_Y:_VLS_M:_VLS_D:' || result == 'Y:_VLS_M:_VLS_D:_VLS_H:_VLS_I:_VLS_S:_VLS2_Y:_VLS_M:_VLS_D:_VLS_H:_VLS_I:_VLS_S:') && nm_empty_data_cond.indexOf(out_cond) == -1 && out_cond.substring(0, 3) != 'bi_')\r\n");
        $nm_saida->saida("                 {\r\n");
@@ -5993,16 +5950,6 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        $nm_saida->saida("                 str_out += \"SC_\" + Tab_obj_grid_search[i] + \"_cond#NMF#\" + out_cond + \"@NMF@\";\r\n");
        $nm_saida->saida("                 obj_dyn  = 'grid_search_' + Tab_obj_grid_search[i] + '_val_';\r\n");
        $nm_saida->saida("                 obj_dyn2 = 'grid_search_' + Tab_obj_grid_search[i] + '_v2__val_';\r\n");
-       $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'matricula')\r\n");
-       $nm_saida->saida("                 {\r\n");
-       $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, '');\r\n");
-       $nm_saida->saida("                     str_out += \"SC_\" + Tab_obj_grid_search[i] + \"#NMF#\" + result + \"@NMF@\";\r\n");
-       $nm_saida->saida("                 }\r\n");
-       $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'id')\r\n");
-       $nm_saida->saida("                 {\r\n");
-       $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, '');\r\n");
-       $nm_saida->saida("                     str_out += \"SC_\" + Tab_obj_grid_search[i] + \"#NMF#\" + result + \"@NMF@\";\r\n");
-       $nm_saida->saida("                 }\r\n");
        $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'nome')\r\n");
        $nm_saida->saida("                 {\r\n");
        $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, '');\r\n");
@@ -6015,9 +5962,24 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
        $nm_saida->saida("                 {\r\n");
        $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, '');\r\n");
        $nm_saida->saida("                     str_out += \"SC_\" + Tab_obj_grid_search[i] + \"#NMF#\" + result + \"@NMF@\";\r\n");
-       $nm_saida->saida("                     obj_ac  = 'id_ac_grid_' + Tab_obj_grid_search[i] + i;\r\n");
-       $nm_saida->saida("                     result  = grid_search_get_text(obj_dyn + i, obj_ac);\r\n");
-       $nm_saida->saida("                     str_out += \"id_ac_\" + Tab_obj_grid_search[i] + \"#NMF#\" + result + \"@NMF@\";\r\n");
+       $nm_saida->saida("                 }\r\n");
+       $nm_saida->saida("                 if (Tab_obj_grid_search[i] == 'funcao_id')\r\n");
+       $nm_saida->saida("                 {\r\n");
+       $nm_saida->saida("                     result  = grid_search_get_select(obj_dyn + i, '');\r\n");
+       $nm_saida->saida("                     tvals  = result.split(\"_VLS_\");\r\n");
+       $nm_saida->saida("                     if (tvals[1])\r\n");
+       $nm_saida->saida("                     {\r\n");
+       $nm_saida->saida("                         str_out += \"SC_\" + Tab_obj_grid_search[i] + \"#NMF#_NM_array_\";\r\n");
+       $nm_saida->saida("                         for (x = 0; x < tvals.length; x++)\r\n");
+       $nm_saida->saida("                         {\r\n");
+       $nm_saida->saida("                             str_out += \"#NMARR#\" + tvals[x];\r\n");
+       $nm_saida->saida("                         }\r\n");
+       $nm_saida->saida("                         str_out += \"@NMF@\";\r\n");
+       $nm_saida->saida("                     }\r\n");
+       $nm_saida->saida("                     else\r\n");
+       $nm_saida->saida("                     {\r\n");
+       $nm_saida->saida("                         str_out += \"SC_\" + Tab_obj_grid_search[i] + \"#NMF#\" + result + \"@NMF@\";\r\n");
+       $nm_saida->saida("                     }\r\n");
        $nm_saida->saida("                 }\r\n");
        $nm_saida->saida("             }\r\n");
        $nm_saida->saida("         }\r\n");
@@ -8249,6 +8211,10 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
    }
    $nm_saida->saida("   function process_hotkeys(hotkey)\r\n");
    $nm_saida->saida("   {\r\n");
+   $nm_saida->saida("      if (hotkey == 'sys_format_fil') { \r\n");
+   $nm_saida->saida("         var output =  $('#pesq_top').click();\r\n");
+   $nm_saida->saida("         return (0 < output.length);\r\n");
+   $nm_saida->saida("      }\r\n");
    $nm_saida->saida("      if (hotkey == 'sys_format_webh') { \r\n");
    $nm_saida->saida("         var output =  $('#help_bot').click();\r\n");
    $nm_saida->saida("         return (0 < output.length);\r\n");

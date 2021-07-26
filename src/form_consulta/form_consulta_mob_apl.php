@@ -2018,21 +2018,36 @@ $_SESSION['scriptcase']['form_consulta_mob']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
-               if (!empty($this->detento_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['Lookup_detento_id']) && !in_array($this->detento_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['Lookup_detento_id']))
-               {
-                   $hasError = true;
-                   $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($Campos_Erros['detento_id']))
-                   {
-                       $Campos_Erros['detento_id'] = array();
-                   }
-                   $Campos_Erros['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($this->NM_ajax_info['errList']['detento_id']) || !is_array($this->NM_ajax_info['errList']['detento_id']))
-                   {
-                       $this->NM_ajax_info['errList']['detento_id'] = array();
-                   }
-                   $this->NM_ajax_info['errList']['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-               }
+      if ($this->detento_id == "" && $this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['detento_id']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['detento_id'] == "on"))
+      {
+          $hasError = true;
+          $Campos_Falta[] = "Detento" ; 
+          if (!isset($Campos_Erros['detento_id']))
+          {
+              $Campos_Erros['detento_id'] = array();
+          }
+          $Campos_Erros['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          if (!isset($this->NM_ajax_info['errList']['detento_id']) || !is_array($this->NM_ajax_info['errList']['detento_id']))
+          {
+              $this->NM_ajax_info['errList']['detento_id'] = array();
+          }
+          $this->NM_ajax_info['errList']['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+      }
+          if (!empty($this->detento_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['Lookup_detento_id']) && !in_array($this->detento_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['Lookup_detento_id']))
+          {
+              $hasError = true;
+              $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($Campos_Erros['detento_id']))
+              {
+                  $Campos_Erros['detento_id'] = array();
+              }
+              $Campos_Erros['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($this->NM_ajax_info['errList']['detento_id']) || !is_array($this->NM_ajax_info['errList']['detento_id']))
+              {
+                  $this->NM_ajax_info['errList']['detento_id'] = array();
+              }
+              $this->NM_ajax_info['errList']['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+          }
         if ($hasError) {
             global $sc_seq_vert;
             $fieldName = 'detento_id';
@@ -2047,21 +2062,36 @@ $_SESSION['scriptcase']['form_consulta_mob']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
-               if (!empty($this->medico_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['Lookup_medico_id']) && !in_array($this->medico_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['Lookup_medico_id']))
-               {
-                   $hasError = true;
-                   $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($Campos_Erros['medico_id']))
-                   {
-                       $Campos_Erros['medico_id'] = array();
-                   }
-                   $Campos_Erros['medico_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($this->NM_ajax_info['errList']['medico_id']) || !is_array($this->NM_ajax_info['errList']['medico_id']))
-                   {
-                       $this->NM_ajax_info['errList']['medico_id'] = array();
-                   }
-                   $this->NM_ajax_info['errList']['medico_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-               }
+      if ($this->medico_id == "" && $this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['medico_id']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['medico_id'] == "on"))
+      {
+          $hasError = true;
+          $Campos_Falta[] = "Médico" ; 
+          if (!isset($Campos_Erros['medico_id']))
+          {
+              $Campos_Erros['medico_id'] = array();
+          }
+          $Campos_Erros['medico_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          if (!isset($this->NM_ajax_info['errList']['medico_id']) || !is_array($this->NM_ajax_info['errList']['medico_id']))
+          {
+              $this->NM_ajax_info['errList']['medico_id'] = array();
+          }
+          $this->NM_ajax_info['errList']['medico_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+      }
+          if (!empty($this->medico_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['Lookup_medico_id']) && !in_array($this->medico_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['Lookup_medico_id']))
+          {
+              $hasError = true;
+              $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($Campos_Erros['medico_id']))
+              {
+                  $Campos_Erros['medico_id'] = array();
+              }
+              $Campos_Erros['medico_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($this->NM_ajax_info['errList']['medico_id']) || !is_array($this->NM_ajax_info['errList']['medico_id']))
+              {
+                  $this->NM_ajax_info['errList']['medico_id'] = array();
+              }
+              $this->NM_ajax_info['errList']['medico_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+          }
         if ($hasError) {
             global $sc_seq_vert;
             $fieldName = 'medico_id';
@@ -2103,6 +2133,21 @@ $_SESSION['scriptcase']['form_consulta_mob']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['data_consulta'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['data_consulta']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['data_consulta'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "Data da Consulta" ; 
+              if (!isset($Campos_Erros['data_consulta']))
+              {
+                  $Campos_Erros['data_consulta'] = array();
+              }
+              $Campos_Erros['data_consulta'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['data_consulta']) || !is_array($this->NM_ajax_info['errList']['data_consulta']))
+                  {
+                      $this->NM_ajax_info['errList']['data_consulta'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['data_consulta'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
           $this->field_config['data_consulta']['date_format'] = $guarda_datahora; 
        } 
         if ($hasError) {
@@ -2136,6 +2181,21 @@ $_SESSION['scriptcase']['form_consulta_mob']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['data_consulta'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['data_consulta_hora']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['data_consulta_hora'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "Data da Consulta" ; 
+              if (!isset($Campos_Erros['data_consulta_hora']))
+              {
+                  $Campos_Erros['data_consulta_hora'] = array();
+              }
+              $Campos_Erros['data_consulta_hora'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['data_consulta']) || !is_array($this->NM_ajax_info['errList']['data_consulta']))
+                  {
+                      $this->NM_ajax_info['errList']['data_consulta'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['data_consulta'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
       } 
       if (isset($Campos_Erros['data_consulta']) && isset($Campos_Erros['data_consulta_hora']))
       {
@@ -2163,6 +2223,24 @@ $_SESSION['scriptcase']['form_consulta_mob']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
+      if ($this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['motivo']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_consulta_mob']['php_cmp_required']['motivo'] == "on")) 
+      { 
+          if ($this->motivo == "")  
+          { 
+              $hasError = true;
+              $Campos_Falta[] =  "Motivo" ; 
+              if (!isset($Campos_Erros['motivo']))
+              {
+                  $Campos_Erros['motivo'] = array();
+              }
+              $Campos_Erros['motivo'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['motivo']) || !is_array($this->NM_ajax_info['errList']['motivo']))
+                  {
+                      $this->NM_ajax_info['errList']['motivo'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['motivo'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          } 
+      } 
       if ($this->nmgp_opcao != "excluir") 
       { 
           if (NM_utf8_strlen($this->motivo) > 255) 

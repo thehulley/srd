@@ -229,7 +229,7 @@ class grid_consulta_ini
       $this->nm_hr_criacao   = "075744"; 
       $this->nm_autor_alt    = "admin"; 
       $this->nm_dt_ult_alt   = "20210726"; 
-      $this->nm_hr_ult_alt   = "082344"; 
+      $this->nm_hr_ult_alt   = "125133"; 
       $this->Apl_paginacao   = "PARCIAL"; 
       $temp_bug_list         = explode(" ", microtime()); 
       list($NM_usec, $NM_sec) = $temp_bug_list; 
@@ -951,7 +951,7 @@ class grid_consulta_ini
       $this->nm_ttf_chi  = array("zh_cn", "zh_hk", "ko");
       $_SESSION['sc_session'][$this->sc_page]['grid_consulta']['seq_dir'] = 0; 
       $_SESSION['sc_session'][$this->sc_page]['grid_consulta']['sub_dir'] = array(); 
-      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1DcXGZSX7HANOV5XGHgvOV9FeHEFYHMJwHQNwVINUHAN7HQFaDMNKDkB/DWFqHIBiHQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoF7HQBiZkBiDSNOHQF7HgrKVkJqDWX7HIJeDcBiDuBOZ1BYHuX7DMBYZSNiDWJeHMJsDcFYZkFUZ1rYHuBOHgvsHErsHEFqHIBiHQJeDuBOZ1zGV5BODMBODkB/DWF/HMF7HQXGZ1FUD1rwV5FGDEBeHEXeH5X/DoF7HQNwDuBqDSN7HQFaDMBYVcBUH5XCHMraHQXGZkFUZ1rYHQX7HgrKVkJqHEFqHIXGHQNmDuBOZ1BYV5FaDMrYDkBsH5XKVoX7DcNmVIraZ1vOZMJeDMveHENiH5FYHINUHQJeDQBOD1BeD5rqHuvmVcBOH5B7VoBqHQBiZ1BiDSvmD5XGHgNKZSJqDWFGZuB/DcBiDQBOZ1BYHQFaDMNODkBsDurGVoFGHQXGVIJwZ1rYHQBiDMvCVkJ3DuJeHIJwDcBiDQBOZ1BYHQF7DMNOVIB/DWXCHIF7DcNmZkFUD1rwV5FGDEBeHEXeH5X/DoF7D9NwZSX7D1BeV5raHuzGVcFKDWFaVENUD9JmZ1X7Z1BOD5FaDEvsVkXeDWX7DoJeHQXGZSFGHIrwVWXGHuBYZSJ3V5X7DoX7D9BiZ1F7Z1rYV5FGHgvCZSJGDWF/DoraD9JKDQX7Z1N7D5JwHuNOVcFiV5FGVoBqD9BsZ1F7DSrYD5rqDMrYZSJGH5FYDoF7DcXOZSX7HIrKV5JwHuzGDkFCH5XCVoJwD9BsZ1F7HABYV5X7DErKHEFKV5FqZuBqD9JKDQFGD1veD5BODMrwVcFCDWFYVoBOD9BiZ1B/Z1NOZMB/DEvsHAFKV5FqDoXGDcBwDQFGHANOVWJeHgrKVcFCDWrmDoXGHQNmVINUHAvsV5X7HgveHErsH5BmVoFGD9XsDQJwD1veV5BqDMrwV9BUDWrmDoXGD9BiZSB/Z1rYHQJwDEBODkFeH5FYVoFGHQJKDQJsDSN7V5XGHgrwDkBsDWFYHMFUD9JmH9B/Z1NOHuFaHgBOHEXeV5XCHINUHQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoraDcJUH9FaHAN7V5JeDMzGHENiV5FaDoF7D9XsZSX7Z1N7V5BqHuBYVcBODuFqVENUDcBqZkFUZ1NOD5BqDEBeHEBUDWF/HIJsD9XsZ9JeD1BeD5F7DMvmVcFeDWXCDoJsDcBwH9B/Z1rYHQJwDMveVkJGH5X/VoFGDcBwZSFUHIrwD5XGDMvOVcBOV5X7VoF7DcNmVINUHArKD5BqHgveZSJqDWXCHIJwHQJKDQJsZ1vCV5FGHuNOV9FeDWXCDoNUDcJUZ1B/Z1rYD5FaHgBeHEFiV5B3DoF7D9XsDuFaHANKV5BODMvOVcBUDWrmVoF7HQNmZ1BiHIBOD5XGHgNKVkJ3DWF/VoBiDcJUZSX7Z1BYHuFaDMvOVIFCDur/HINUDcJUH9BOHAN7ZMBODEBOHENiHEFqZuFaHQNmH9FUHArYD5BqHuNOVIBsHEF/VoFGDcJUZ1FGHArKV5FUDMrYZSXeV5FqHIJsDcBwDQJsHABYD5F7HuNODkBsDWXCDoJsDcBwH9B/Z1rYHQJwHgBYHAFKV5B3DoBOHQJKDQJsZ1vCV5FGHuNOV9FeDWXCVorqD9BiZ1B/HAN7D5BiDEvsVkXeDWX7VoX7D9JKDQX7D1veHuFaDMvmVcBUDWrmVorqHQNmVINUHAzGD5BqHgNKDkB/DWrGZuBO";
+      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1HQJKH9X7D1veHuraHuvmVIBODuB7DoXGD9XOH9BOHANOV5FUDMzGHEBUDWX7HIJsD9XsZ9JeD1BeD5F7DMvmVcBUDWJeHMBiD9BsVIraD1rwV5X7HgBeHErsDWXCVoJwHQNwZSX7DSN7D5BODMvsVcBUH5FqHMJsD9BiZ1rqHIveHQJwDEBODkFeH5FYVoFGHQJKDQJsD1veD5JwHuNOVcBOV5X7HMBiD9BsVIraD1rwV5X7HgBeHEFKV5FaVoBqD9NwH9X7DSBYD5JsHgrYDkBOH5FqVoraD9BsZSFaD1rwZMFaDEBOHEBUH5F/DoraHQXGH9FGHAveD5BOHuzGVcFeDWXCDoJsDcBwH9B/Z1rYHQJwDMBYHAFKV5FqVoX7HQNmDQFGHANOV5BOHuBOVcBUDur/DoFGHQBqZ1F7DSNOHQJwDEBODkFeH5FYVoFGHQJKDQFaZ1zGVWFaDMzGVcFeHEF/HIFUDcNmZ1X7DSvOV5X7HgrKHErCV5B3DoJeHQXsDQB/D1vOD5F7DMBYV9FeDuB7VEFGHQBsZ1BiDSvOV5X7HgveVkJqH5FYHIBODcXGZSFUHANKV5FGHuNOVcFKHEFYVoBqDcBwH9BqDSvOZMJwHgNOHErCDuX/ZuFaDcXGDQFUHAvOD5F7DMvmDkBsHEF/HMFGDcNmZkFGZ1vOV5X7DMveDkXKDuFaHIFUHQBiH9FUDSvCD5F7DMvsVcB/Dur/HIXGHQBsVINUHINKD5rqDEBOHEFiHEFqDoF7DcJUZSBiHIBOVWFaDMvOZSNiDuX7HIFUHQNwZ1BOHINKV5X7HgNOHErCDuFaHIrqHQBiZSFUD1BOD5F7DMNOVcB/DWF/HMBOHQJmZ1BOHINKV5X7HgNOZSJ3DWXCHMJsHQNmDQFUDSzGV5FGHuNOVcFKHEFYVoBqDcBwH9FaD1rwD5rqDMNKZSJGDWF/DoraD9NmDQJsHIrKV5raDMrwDkFCDWF/VoB/D9XOVIraZ1BeZMBODEvsZSJGDuXKDoB/D9JKDQJwD1veD5F7HuNOVcFiV5X7VorqDcBqZ1B/DSrYV5FUDMzGHEXeDuX/DoB/DcJUZSX7HIBeD5BqHgvsZSJ3H5FqVoFGDcBqH9BOZ1BeV5XGDEBOZSJGH5FYZuFaDcXOZSX7HIBeV5FUHuNOVcFCDWB3DoXGD9BiH9B/DSrYZMB/DEBeHEFKV5FqZuB/DcJeH9FGHABYD5NUHuBYVcrsH5XKDoXGD9XOH9B/HArYD5XGDEvsVkXeDWFqDoJeHQXGDuBqHAvmV5JeDMrwV9BUDWB3VENUHQFYZ1B/HIrwZMB/DErKDkBsV5B7DoJeHQXGDQFGHAN7D5F7DMvmVcFKV5BmVoBqD9BsZkFGHAvsD5XGHgveHErsDWrGDoBqHQBiDQBqHINaV5BODMrYVIBsDWXCDoJsDcBwH9B/Z1rYHQJwDENOHErCHEXCHIJwHQJKDuBqHIrwV5raDMrYVcBUHEFYHMraHQNmZSBOHANOV5JsDErKZSJ3DWX7HIJsD9XsZ9JeD1BeD5F7DMvmVcFKH5XCDoraD9BsZ1B/Z1BeHQJwDEBODkFeH5FYVoFGHQJKDQBqDSzGD5NUDMvOVcFeDWXCDoJsDcBwH9B/Z1rYHQJwDErKHEBUDWFqDorqDcXOZSFGHAN7V5FUHuNOVcFKHEFYDoNUHQJmZ1FGHAvsD5XGHgveHErsDWrGDoBqHQBiDQBqHINaV5BODMrYZSFKV5r/VEB/";
 $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 108, 101, 61, 34, 102, 111, 110, 116, 45, 102, 97, 109, 105, 108, 121, 58, 32, 84, 97, 104, 111, 109, 97, 44, 32, 65, 114, 105, 97, 108, 44, 32, 115, 97, 110, 115, 45, 115, 101, 114, 105, 102, 59, 32, 102, 111, 110, 116, 45, 115, 105, 122, 101, 58, 32, 49, 51, 112, 120, 59, 32, 102, 111, 110, 116, 45, 119, 101, 105, 103, 104, 116, 58, 32, 98, 111, 108, 100, 59, 32, 116, 101, 120, 116, 45, 97, 108, 105, 103, 110, 58, 32, 99, 101, 110, 116, 101, 114, 34, 62, 84, 104, 105, 115, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 119, 97, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 97, 110, 100, 32, 112, 117, 98, 108, 105, 115, 104, 101, 100, 32, 117, 115, 105, 110, 103, 32, 97, 32, 116, 114, 105, 97, 108, 32, 118, 101, 114, 115, 105, 111, 110, 32, 111, 102, 32, 83, 99, 114, 105, 112, 116, 67, 97, 115, 101, 32, 97, 110, 100, 32, 105, 116, 115, 32, 116, 114, 105, 97, 108, 32, 112, 101, 114, 105, 111, 100, 32, 104, 97, 115, 32, 101, 120, 112, 105, 114, 101, 100, 46, 60, 47, 100, 105, 118, 62);
       $this->prep_conect();
       $this->conectDB();
@@ -979,7 +979,7 @@ $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 1
       } 
       if (empty($this->nm_tabela))
       {
-          $this->nm_tabela = "consulta"; 
+          $this->nm_tabela = "consulta c INNER JOIN detento d ON c.detento_id = d.id"; 
       }
    }
 
@@ -1920,7 +1920,7 @@ class grid_consulta_apl
    function controle($linhas = 0)
    {
       global $nm_saida, $nm_url_saida, $script_case_init, $nmgp_parms_pdf, $nmgp_graf_pdf, $nm_apl_dependente, $nmgp_navegator_print, $nmgp_tipo_print, $nmgp_cor_print, $nmgp_cor_word, $Det_use_pass_pdf, $Det_pdf_zip, $NMSC_conf_apl, $NM_contr_var_session, $NM_run_iframe, $SC_module_export, $nmgp_password,
-             $glo_senha_protect, $nmgp_opcao, $nm_call_php, $rec, $nmgp_quant_linhas, $nmgp_fast_search, $nmgp_cond_fast_search, $nmgp_arg_fast_search, $nmgp_ordem;
+             $glo_senha_protect, $nmgp_opcao, $nm_call_php, $rec, $nmgp_quant_linhas, $nmgp_fast_search, $nmgp_cond_fast_search, $nmgp_arg_fast_search;
 
       $Parms_form_pdf = false;
       if (isset($_SESSION['sc_session']['scriptcase']['embutida_form_pdf']['grid_consulta']))
@@ -2148,10 +2148,6 @@ class grid_consulta_apl
                   $nmgp_fast_search      = (isset($temp[0])) ? $temp[0] : "";
                   $nmgp_cond_fast_search = (isset($temp[1])) ? $temp[1] : "";
                   $nmgp_arg_fast_search  = (isset($temp[2])) ? $temp[2] : "";
-              }
-              if ($nmgp_opcao == "ordem")
-              {
-                  $nmgp_ordem = $_POST['parm'];
               }
           }
       }
@@ -2473,19 +2469,17 @@ class grid_consulta_apl
       } 
       if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order']))
       { 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "detento_id";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "medico_id";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "motivo";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "outras_infomacoes";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "data_consulta";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "status_id";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "id";
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "c_detento_id";
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "c_medico_id";
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "c_data_consulta";
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "c_motivo";
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "c_outras_infomacoes";
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'][] = "c_status_id";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order_orig'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['field_order'];
           if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['usr_cmp_sel']))
           { 
               $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['usr_cmp_sel'] = array();
           } 
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['usr_cmp_sel']['id'] = "off";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['usr_cmp_sel_orig'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['usr_cmp_sel'];
       } 
       if (isset($_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['exit']) && $_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['exit'] != '')
@@ -3604,45 +3598,45 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
       }
       $sv_data = $data_search;
       foreach ($fields as $field) {
-          if ($field == "SC_all_Cmp" || $field == "detento_id") 
+          if ($field == "SC_all_Cmp" || $field == "c_detento_id") 
           {
-              $data_lookup = $this->SC_lookup_detento_id($arg_search, $data_search);
+              $data_lookup = $this->SC_lookup_c_detento_id($arg_search, $data_search);
               if (is_array($data_lookup) && !empty($data_lookup)) 
               {
-                  $this->SC_monta_condicao($comando, "detento_id", $arg_search, $data_lookup);
+                  $this->SC_monta_condicao($comando, "c.detento_id", $arg_search, $data_lookup);
               }
           }
-          if ($field == "SC_all_Cmp" || $field == "medico_id") 
+          if ($field == "SC_all_Cmp" || $field == "c_medico_id") 
           {
-              $data_lookup = $this->SC_lookup_medico_id($arg_search, $data_search);
+              $data_lookup = $this->SC_lookup_c_medico_id($arg_search, $data_search);
               if (is_array($data_lookup) && !empty($data_lookup)) 
               {
-                  $this->SC_monta_condicao($comando, "medico_id", $arg_search, $data_lookup);
+                  $this->SC_monta_condicao($comando, "c.medico_id", $arg_search, $data_lookup);
               }
           }
-          if ($field == "SC_all_Cmp" || $field == "motivo") 
+          if ($field == "SC_all_Cmp" || $field == "c_data_consulta") 
           {
-              $this->SC_monta_condicao($comando, "motivo", $arg_search, $data_search);
+              $this->SC_monta_condicao($comando, "c.data_consulta", $arg_search, $data_search);
           }
-          if ($field == "SC_all_Cmp" || $field == "outras_infomacoes") 
+          if ($field == "SC_all_Cmp" || $field == "c_motivo") 
           {
-              $this->SC_monta_condicao($comando, "outras_infomacoes", $arg_search, $data_search);
+              $this->SC_monta_condicao($comando, "c.motivo", $arg_search, $data_search);
           }
-          if ($field == "SC_all_Cmp" || $field == "data_consulta") 
+          if ($field == "SC_all_Cmp" || $field == "c_outras_infomacoes") 
           {
-              $this->SC_monta_condicao($comando, "data_consulta", $arg_search, $data_search);
+              $this->SC_monta_condicao($comando, "c.outras_infomacoes", $arg_search, $data_search);
           }
-          if ($field == "SC_all_Cmp" || $field == "status_id") 
+          if ($field == "SC_all_Cmp" || $field == "c_status_id") 
           {
-              $data_lookup = $this->SC_lookup_status_id($arg_search, $data_search);
+              $data_lookup = $this->SC_lookup_c_status_id($arg_search, $data_search);
               if (is_array($data_lookup) && !empty($data_lookup)) 
               {
-                  $this->SC_monta_condicao($comando, "status_id", $arg_search, $data_lookup);
+                  $this->SC_monta_condicao($comando, "c.status_id", $arg_search, $data_lookup);
               }
           }
-          if ($field == "SC_all_Cmp" || $field == "id") 
+          if ($field == "SC_all_Cmp" || $field == "d_nome") 
           {
-              $this->SC_monta_condicao($comando, "id", $arg_search, str_replace(",", ".", $data_search));
+              $this->SC_monta_condicao($comando, "d.nome", $arg_search, $data_search);
           }
       }
       if (empty($comando)) 
@@ -3693,7 +3687,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
       $campo_join = strtolower(str_replace(".", "_", $nome));
       $nm_ini_lower = "";
       $nm_fim_lower = "";
-      $nm_numeric[] = "id";$nm_numeric[] = "detento_id";$nm_numeric[] = "medico_id";$nm_numeric[] = "status_id";
+      $nm_numeric[] = "c_id";$nm_numeric[] = "c_detento_id";$nm_numeric[] = "c_medico_id";$nm_numeric[] = "c_status_id";
       if (in_array($campo_join, $nm_numeric))
       {
          if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['decimal_db'] == ".")
@@ -3751,7 +3745,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
           $nm_aspas  = "'";
           $nm_aspas1 = "'";
       }
-      $Nm_datas['data_consulta'] = "datetime";
+      $Nm_datas['c.data_consulta'] = "datetime";
       if (isset($Nm_datas[$nome]))
       {
           for ($x = 0; $x < strlen($campo); $x++)
@@ -3880,7 +3874,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
             break;
          }
    }
-   function SC_lookup_detento_id($condicao, $campo)
+   function SC_lookup_c_detento_id($condicao, $campo)
    {
        $result     = array();
        $campo_orig = $campo;
@@ -3965,7 +3959,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
            exit; 
        } 
    }
-   function SC_lookup_medico_id($condicao, $campo)
+   function SC_lookup_c_medico_id($condicao, $campo)
    {
        $result     = array();
        $campo_orig = $campo;
@@ -4050,7 +4044,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
            exit; 
        } 
    }
-   function SC_lookup_status_id($condicao, $campo)
+   function SC_lookup_c_status_id($condicao, $campo)
    {
        $result     = array();
        $campo_orig = $campo;
@@ -4141,6 +4135,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
        $fields = array();
        $busca  = array();
        $this->Ini->sc_Include($this->Ini->path_lib_php . "/nm_gp_limpa.php", "F", "nm_limpa_valor") ; 
+       $Cmps_check_return = array('c_detento_id','c_medico_id','c_status_id');
        if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($Parms))
        {
            $Parms = NM_conv_charset($Parms, $_SESSION['scriptcase']['charset'], "UTF-8");
@@ -4176,6 +4171,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
            $fields[$ix]['vls'][0] = explode("_VLS_",  $sep_bw[0]);
            $fields[$ix]['vls'][1] = isset($sep_bw[1]) ? explode("_VLS_",  $sep_bw[1]) : "";
            $val_sv = array();
+           $Val_ck = array();
            foreach ($fields[$ix]['vls'] as $i => $dados)
            {
                if (is_array($dados))
@@ -4187,10 +4183,12 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
                        if ($tmp_pos === false)
                        {
                           $val_sv[$i][] = $str;
+                          $Val_ck[] = $str;
                        }
                        else
                        {
                          $val_sv[$i][] = substr($str, 0, $tmp_pos);
+                         $Val_ck[] = substr($str, 0, $tmp_pos);
                        }
                    }
                }
@@ -4201,17 +4199,34 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
                    if ($tmp_pos === false)
                    {
                       $val_sv[$i] = $dados;
+                      $Val_ck[] = $dados;
                    }
                    else
                    {
                       $val_sv[$i] = substr($dados, 0, $tmp_pos);
+                      $Val_ck[] = substr($dados, 0, $tmp_pos);
+                   }
+               }
+           }
+           if (in_array($fields[$ix]['field'], $Cmps_check_return))
+           {
+               foreach ($Val_ck as $Cada_val)
+               {
+                   if (trim($Cada_val) != '' && !in_array($Cada_val, $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['psq_check_ret'][$fields[$ix]['field']]))
+                   {
+                       $Temp = ob_get_clean();
+                       $this->Ini->Arr_result['htmOutput'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['labels'][$fields[$ix]['field']] . " : " . NM_charset_to_utf8($this->Ini->Nm_lang['lang_errm_ajax_data']);
+                       $oJson = new Services_JSON();
+                       echo $oJson->encode($this->Ini->Arr_result);
+                       $this->close_emb();
+                       exit;
                    }
                }
            }
            if (!isset($busca[$dats[0]]))
            {
                $busca[$dats[0]] = $dats[1];
-               if ($dats[0] == "data_consulta")
+               if ($dats[0] == "c_data_consulta")
                {
                    $cond = $dats[1];
                    if (substr($cond, 0, 3) == "bi_")
@@ -4293,7 +4308,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
    }
    function proc_del_grid_search($cmp_del, $del_all)
    {
-      if (in_array($cmp_del, array('data_consulta')))
+      if (in_array($cmp_del, array('c_data_consulta')))
       {
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca'][$cmp_del . "_dia"] = "";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca'][$cmp_del . "_mes"] = "";
@@ -4302,7 +4317,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca'][$cmp_del . "_input_2_mes"] = "";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca'][$cmp_del . "_input_2_ano"] = "";
       }
-      elseif (in_array($cmp_del, array('data_consulta')))
+      elseif (in_array($cmp_del, array('c_data_consulta')))
       {
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca'][$cmp_del . "_hor"] = "";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta']['campos_busca'][$cmp_del . "_min"] = "";
@@ -4330,9 +4345,9 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
        $Parms = str_replace("__NM_AMP__", "&", $Parms);
        $Parms = str_replace("__NM_PRC__", "%", $Parms);
        $cmps_numeric = array();
-       $cmps_numeric[] = "status_id";
-       $cmps_numeric[] = "medico_id";
-       $cmps_numeric[] = "detento_id";
+       $cmps_numeric[] = "c_status_id";
+       $cmps_numeric[] = "c_medico_id";
+       $cmps_numeric[] = "c_detento_id";
        $range_bw = array();
        if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($Parms))
        {
@@ -5533,10 +5548,10 @@ $_SESSION['sc_session'][$this->Ini->sc_page]['grid_consulta'][$path_doc_md5][1] 
           return;
        }
        $Nm_numeric = array();
-       $Nm_numeric[] = "id";
-       $Nm_numeric[] = "detento_id";
-       $Nm_numeric[] = "medico_id";
-       $Nm_numeric[] = "status_id";
+       $Nm_numeric[] = "c_id";
+       $Nm_numeric[] = "c_detento_id";
+       $Nm_numeric[] = "c_medico_id";
+       $Nm_numeric[] = "c_status_id";
        if (in_array($name, $Nm_numeric))
        {
            if (is_array($val))

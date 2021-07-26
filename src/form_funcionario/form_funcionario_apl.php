@@ -1228,6 +1228,21 @@ class form_funcionario_apl
           form_funcionario_pack_ajax_response();
           exit;
       }
+      if ($this->NM_ajax_flag && 'event_' == substr($this->NM_ajax_opcao, 0, 6))
+      {
+          $this->nm_tira_formatacao();
+          $this->nm_converte_datas();
+          if ('event_cpf_onchange' == $this->NM_ajax_opcao)
+          {
+              $this->cpf_onChange();
+          }
+          if ('event_matricula_onchange' == $this->NM_ajax_opcao)
+          {
+              $this->matricula_onChange();
+          }
+          form_funcionario_pack_ajax_response();
+          exit;
+      }
       if (isset($this->sc_inline_call) && 'Y' == $this->sc_inline_call)
       {
           $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['inline_form_seq'] = $this->sc_seq_row;
@@ -1642,7 +1657,7 @@ include_once("form_funcionario_sajax_js.php");
           $this->$cmp = $val_cmp;
       }
       $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'on';
- $update_table  = 'funcionario';      
+  $update_table  = 'funcionario';      
 $update_where  = "id = " . $this->id ; 
 $update_fields = array(   
      "Ativo = 'N'",
@@ -2006,6 +2021,24 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
+      if ($this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['nome']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['nome'] == "on")) 
+      { 
+          if ($this->nome == "")  
+          { 
+              $hasError = true;
+              $Campos_Falta[] =  "Nome" ; 
+              if (!isset($Campos_Erros['nome']))
+              {
+                  $Campos_Erros['nome'] = array();
+              }
+              $Campos_Erros['nome'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['nome']) || !is_array($this->NM_ajax_info['errList']['nome']))
+                  {
+                      $this->NM_ajax_info['errList']['nome'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['nome'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          } 
+      } 
       if ($this->nmgp_opcao != "excluir") 
       { 
           if (NM_utf8_strlen($this->nome) > 255) 
@@ -2059,6 +2092,21 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['cpf'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['cpf']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['cpf'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "CPF" ;
+              if (!isset($Campos_Erros['cpf']))
+              {
+                  $Campos_Erros['cpf'] = array();
+              }
+              $Campos_Erros['cpf'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['cpf']) || !is_array($this->NM_ajax_info['errList']['cpf']))
+                  {
+                      $this->NM_ajax_info['errList']['cpf'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['cpf'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
       } 
         if ($hasError) {
             global $sc_seq_vert;
@@ -2074,11 +2122,6 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
-      if ($this->matricula === "" || is_null($this->matricula))  
-      { 
-          $this->matricula = 0;
-          $this->sc_force_zero[] = 'matricula';
-      } 
       nm_limpa_numero($this->matricula, $this->field_config['matricula']['symbol_grp']) ; 
       if ($this->nmgp_opcao != "excluir") 
       { 
@@ -2116,6 +2159,21 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['matricula'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['matricula']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['matricula'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "Matrícula" ; 
+              if (!isset($Campos_Erros['matricula']))
+              {
+                  $Campos_Erros['matricula'] = array();
+              }
+              $Campos_Erros['matricula'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['matricula']) || !is_array($this->NM_ajax_info['errList']['matricula']))
+                  {
+                      $this->NM_ajax_info['errList']['matricula'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['matricula'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
       } 
         if ($hasError) {
             global $sc_seq_vert;
@@ -2132,6 +2190,24 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
         global $teste_validade;
         $hasError = false;
       $this->nm_tira_mask($this->telefone, "(99) 9 9999-9999", "(){}[].,;:-+/ "); 
+      if ($this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['telefone']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['telefone'] == "on")) 
+      { 
+          if ($this->telefone == "")  
+          { 
+              $hasError = true;
+              $Campos_Falta[] =  "Telefone" ; 
+              if (!isset($Campos_Erros['telefone']))
+              {
+                  $Campos_Erros['telefone'] = array();
+              }
+              $Campos_Erros['telefone'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['telefone']) || !is_array($this->NM_ajax_info['errList']['telefone']))
+                  {
+                      $this->NM_ajax_info['errList']['telefone'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['telefone'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          } 
+      } 
       if ($this->nmgp_opcao != "excluir") 
       { 
           if (NM_utf8_strlen($this->telefone) > 50) 
@@ -2184,6 +2260,21 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
                       $this->NM_ajax_info['errList']['email'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['email']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['email'] == "on") 
+          { 
+              $hasError = true;
+              $Campos_Falta[] = "E-mail" ; 
+              if (!isset($Campos_Erros['email']))
+              {
+                  $Campos_Erros['email'] = array();
+              }
+              $Campos_Erros['email'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['email']) || !is_array($this->NM_ajax_info['errList']['email']))
+                  {
+                      $this->NM_ajax_info['errList']['email'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['email'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          } 
       } 
         if ($hasError) {
             global $sc_seq_vert;
@@ -2226,6 +2317,21 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['data_nascimento'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['data_nascimento']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['data_nascimento'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "Data de Nascimento" ; 
+              if (!isset($Campos_Erros['data_nascimento']))
+              {
+                  $Campos_Erros['data_nascimento'] = array();
+              }
+              $Campos_Erros['data_nascimento'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['data_nascimento']) || !is_array($this->NM_ajax_info['errList']['data_nascimento']))
+                  {
+                      $this->NM_ajax_info['errList']['data_nascimento'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['data_nascimento'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
           $this->field_config['data_nascimento']['date_format'] = $guarda_datahora; 
        } 
         if ($hasError) {
@@ -2242,21 +2348,36 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
-               if (!empty($this->funcao_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['Lookup_funcao_id']) && !in_array($this->funcao_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['Lookup_funcao_id']))
-               {
-                   $hasError = true;
-                   $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($Campos_Erros['funcao_id']))
-                   {
-                       $Campos_Erros['funcao_id'] = array();
-                   }
-                   $Campos_Erros['funcao_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($this->NM_ajax_info['errList']['funcao_id']) || !is_array($this->NM_ajax_info['errList']['funcao_id']))
-                   {
-                       $this->NM_ajax_info['errList']['funcao_id'] = array();
-                   }
-                   $this->NM_ajax_info['errList']['funcao_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-               }
+      if ($this->funcao_id == "" && $this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['funcao_id']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['funcao_id'] == "on"))
+      {
+          $hasError = true;
+          $Campos_Falta[] = "Função" ; 
+          if (!isset($Campos_Erros['funcao_id']))
+          {
+              $Campos_Erros['funcao_id'] = array();
+          }
+          $Campos_Erros['funcao_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          if (!isset($this->NM_ajax_info['errList']['funcao_id']) || !is_array($this->NM_ajax_info['errList']['funcao_id']))
+          {
+              $this->NM_ajax_info['errList']['funcao_id'] = array();
+          }
+          $this->NM_ajax_info['errList']['funcao_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+      }
+          if (!empty($this->funcao_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['Lookup_funcao_id']) && !in_array($this->funcao_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['Lookup_funcao_id']))
+          {
+              $hasError = true;
+              $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($Campos_Erros['funcao_id']))
+              {
+                  $Campos_Erros['funcao_id'] = array();
+              }
+              $Campos_Erros['funcao_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($this->NM_ajax_info['errList']['funcao_id']) || !is_array($this->NM_ajax_info['errList']['funcao_id']))
+              {
+                  $this->NM_ajax_info['errList']['funcao_id'] = array();
+              }
+              $this->NM_ajax_info['errList']['funcao_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+          }
         if ($hasError) {
             global $sc_seq_vert;
             $fieldName = 'funcao_id';
@@ -2271,6 +2392,24 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
+      if ($this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['senha']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['senha'] == "on")) 
+      { 
+          if ($this->senha == "")  
+          { 
+              $hasError = true;
+              $Campos_Falta[] =  "Senha" ; 
+              if (!isset($Campos_Erros['senha']))
+              {
+                  $Campos_Erros['senha'] = array();
+              }
+              $Campos_Erros['senha'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['senha']) || !is_array($this->NM_ajax_info['errList']['senha']))
+                  {
+                      $this->NM_ajax_info['errList']['senha'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['senha'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          } 
+      } 
       if ($this->nmgp_opcao != "excluir") 
       { 
           if (NM_utf8_strlen($this->senha) > 255) 
@@ -2305,6 +2444,21 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
         $hasError = false;
       if ($this->ativo == "" && $this->nmgp_opcao != "excluir")
       { 
+        if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['ativo']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['php_cmp_required']['ativo'] == "on")
+        { 
+          $hasError = true;
+          $Campos_Falta[] = "Ativo" ; 
+          if (!isset($Campos_Erros['ativo']))
+          {
+              $Campos_Erros['ativo'] = array();
+          }
+          $Campos_Erros['ativo'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['ativo']) || !is_array($this->NM_ajax_info['errList']['ativo']))
+                  {
+                      $this->NM_ajax_info['errList']['ativo'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['ativo'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+        } 
       } 
       if ($this->ativo != "")
       { 
@@ -3372,7 +3526,7 @@ if (isset($this->NM_ajax_flag) && $this->NM_ajax_flag)
 {
     $original_senha = $this->senha;
 }
- $this->senha  = md5($this->senha );
+  $this->senha  = md5($this->senha );
 if (isset($this->NM_ajax_flag) && $this->NM_ajax_flag)
 {
     if (($original_senha != $this->senha || (isset($bFlagRead_senha) && $bFlagRead_senha)))
@@ -4135,7 +4289,7 @@ if (isset($this->NM_ajax_flag) && $this->NM_ajax_flag)
     $original_funcao_id = $this->funcao_id;
     $original_matricula = $this->matricula;
 }
- $insert_table  = 'grupo_usuario';      
+  $insert_table  = 'grupo_usuario';      
 $insert_fields = array(   
      'funcionario' => "'" . $this->matricula  . "'",
      'grupo_id' => "'" . $this->funcao_id  . "'",
@@ -4182,7 +4336,7 @@ if (isset($this->NM_ajax_flag) && $this->NM_ajax_flag)
     $original_funcao_id = $this->funcao_id;
     $original_matricula = $this->matricula;
 }
- $update_table  = 'grupo_usuario';      
+  $update_table  = 'grupo_usuario';      
 $update_where  = "funcionario = " . $this->matricula ; 
 $update_fields = array(   
      "grupo_id = " . $this->funcao_id ,
@@ -5008,6 +5162,211 @@ $_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
                 }
         }
 
+//
+function cpf_onChange()
+{
+$_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'on';
+  
+$original_cpf = $this->cpf;
+
+if (isset($this->id ) and $this->id  != ''){	
+	$this->NM_ajax_info['buttonDisplay']['update'] = $this->nmgp_botoes["update"] = "on";;
+	
+	if ($this->cpf  != '' and $this->cpf  != ' '){
+		$check_sql = "SELECT id FROM funcionario WHERE cpf = '" . $this->cpf  . "'";
+		
+		 
+      $nm_select = $check_sql; 
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_select; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      $this->rs = array();
+      if ($SCrx = $this->Db->Execute($nm_select)) 
+      { 
+          $SCy = 0; 
+          $nm_count = $SCrx->FieldCount();
+          while (!$SCrx->EOF)
+          { 
+                 for ($SCx = 0; $SCx < $nm_count; $SCx++)
+                 { 
+                      $this->rs[$SCy] [$SCx] = $SCrx->fields[$SCx];
+                 }
+                 $SCy++; 
+                 $SCrx->MoveNext();
+          } 
+          $SCrx->Close();
+      } 
+      elseif (isset($GLOBALS["NM_ERRO_IBASE"]) && $GLOBALS["NM_ERRO_IBASE"] != 1)  
+      { 
+          $this->rs = false;
+          $this->rs_erro = $this->Db->ErrorMsg();
+      } 
+;
+
+		if (isset($this->rs[0][0]) && $this->rs[0][0] != $this->id ){
+			$this->NM_ajax_info['buttonDisplay']['update'] = $this->nmgp_botoes["update"] = "off";;
+
+			$this->nm_mens_alert[] = "CPF já cadastrado!"; $this->nm_params_alert[] = array(); if ($this->NM_ajax_flag) { $this->sc_ajax_alert("CPF já cadastrado!"); }}
+	}
+}else {		
+	$this->NM_ajax_info['buttonDisplay']['insert'] = $this->nmgp_botoes["insert"] = "on";;
+	$this->NM_ajax_info['buttonDisplay']['new'] = $this->nmgp_botoes["new"] = "on";;
+	
+	if ($this->cpf  != '' and $this->cpf  != ' '){
+		$check_sql = "SELECT id FROM funcionario WHERE cpf = '" . $this->cpf  . "'";
+		
+		 
+      $nm_select = $check_sql; 
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_select; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      $this->rs = array();
+      if ($SCrx = $this->Db->Execute($nm_select)) 
+      { 
+          $SCy = 0; 
+          $nm_count = $SCrx->FieldCount();
+          while (!$SCrx->EOF)
+          { 
+                 for ($SCx = 0; $SCx < $nm_count; $SCx++)
+                 { 
+                      $this->rs[$SCy] [$SCx] = $SCrx->fields[$SCx];
+                 }
+                 $SCy++; 
+                 $SCrx->MoveNext();
+          } 
+          $SCrx->Close();
+      } 
+      elseif (isset($GLOBALS["NM_ERRO_IBASE"]) && $GLOBALS["NM_ERRO_IBASE"] != 1)  
+      { 
+          $this->rs = false;
+          $this->rs_erro = $this->Db->ErrorMsg();
+      } 
+;
+
+		if (isset($this->rs[0][0])){
+			$this->NM_ajax_info['buttonDisplay']['insert'] = $this->nmgp_botoes["insert"] = "off";;
+			$this->NM_ajax_info['buttonDisplay']['new'] = $this->nmgp_botoes["new"] = "off";;
+
+			$this->nm_mens_alert[] = "CPF já cadastrado!"; $this->nm_params_alert[] = array(); if ($this->NM_ajax_flag) { $this->sc_ajax_alert("CPF já cadastrado!"); }}
+	}
+}
+
+
+$modificado_cpf = $this->cpf;
+$this->nm_formatar_campos('cpf');
+if ($original_cpf !== $modificado_cpf || isset($this->nmgp_cmp_readonly['cpf']) || (isset($bFlagRead_cpf) && $bFlagRead_cpf))
+{
+    $this->ajax_return_values_cpf(true);
+}
+$this->NM_ajax_info['event_field'] = 'cpf';
+form_funcionario_pack_ajax_response();
+exit;
+$_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
+}
+function matricula_onChange()
+{
+$_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'on';
+  
+$original_matricula = $this->matricula;
+
+if (isset($this->id ) and $this->id  != ''){	
+	$this->NM_ajax_info['buttonDisplay']['update'] = $this->nmgp_botoes["update"] = "on";;
+	
+	if ($this->matricula  != '' and $this->matricula  != ' '){
+		$check_sql = "SELECT id FROM funcionario WHERE matricula = " . $this->matricula ;
+		
+		 
+      $nm_select = $check_sql; 
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_select; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      $this->rs = array();
+      if ($SCrx = $this->Db->Execute($nm_select)) 
+      { 
+          $SCy = 0; 
+          $nm_count = $SCrx->FieldCount();
+          while (!$SCrx->EOF)
+          { 
+                 for ($SCx = 0; $SCx < $nm_count; $SCx++)
+                 { 
+                      $this->rs[$SCy] [$SCx] = $SCrx->fields[$SCx];
+                 }
+                 $SCy++; 
+                 $SCrx->MoveNext();
+          } 
+          $SCrx->Close();
+      } 
+      elseif (isset($GLOBALS["NM_ERRO_IBASE"]) && $GLOBALS["NM_ERRO_IBASE"] != 1)  
+      { 
+          $this->rs = false;
+          $this->rs_erro = $this->Db->ErrorMsg();
+      } 
+;
+
+		if (isset($this->rs[0][0]) && $this->rs[0][0] != $this->id ){
+			$this->NM_ajax_info['buttonDisplay']['update'] = $this->nmgp_botoes["update"] = "off";;
+
+			$this->nm_mens_alert[] = "Matrícula já utilizada!"; $this->nm_params_alert[] = array(); if ($this->NM_ajax_flag) { $this->sc_ajax_alert("Matrícula já utilizada!"); }}
+	}
+}else {		
+	$this->NM_ajax_info['buttonDisplay']['insert'] = $this->nmgp_botoes["insert"] = "on";;
+	$this->NM_ajax_info['buttonDisplay']['new'] = $this->nmgp_botoes["new"] = "on";;
+	
+	if ($this->matricula  != '' and $this->matricula  != ' '){
+		$check_sql = "SELECT id FROM funcionario WHERE matricula = " . $this->matricula ;
+		
+		 
+      $nm_select = $check_sql; 
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_select; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      $this->rs = array();
+      if ($SCrx = $this->Db->Execute($nm_select)) 
+      { 
+          $SCy = 0; 
+          $nm_count = $SCrx->FieldCount();
+          while (!$SCrx->EOF)
+          { 
+                 for ($SCx = 0; $SCx < $nm_count; $SCx++)
+                 { 
+                      $this->rs[$SCy] [$SCx] = $SCrx->fields[$SCx];
+                 }
+                 $SCy++; 
+                 $SCrx->MoveNext();
+          } 
+          $SCrx->Close();
+      } 
+      elseif (isset($GLOBALS["NM_ERRO_IBASE"]) && $GLOBALS["NM_ERRO_IBASE"] != 1)  
+      { 
+          $this->rs = false;
+          $this->rs_erro = $this->Db->ErrorMsg();
+      } 
+;
+
+		if (isset($this->rs[0][0])){
+			$this->NM_ajax_info['buttonDisplay']['insert'] = $this->nmgp_botoes["insert"] = "off";;
+			$this->NM_ajax_info['buttonDisplay']['new'] = $this->nmgp_botoes["new"] = "off";;
+
+			$this->nm_mens_alert[] = "Matrícula já utilizada!"; $this->nm_params_alert[] = array(); if ($this->NM_ajax_flag) { $this->sc_ajax_alert("Matrícula já utilizada!"); }}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+$modificado_matricula = $this->matricula;
+$this->nm_formatar_campos('matricula');
+if ($original_matricula !== $modificado_matricula || isset($this->nmgp_cmp_readonly['matricula']) || (isset($bFlagRead_matricula) && $bFlagRead_matricula))
+{
+    $this->ajax_return_values_matricula(true);
+}
+$this->NM_ajax_info['event_field'] = 'matricula';
+form_funcionario_pack_ajax_response();
+exit;
+$_SESSION['scriptcase']['form_funcionario']['contr_erro'] = 'off';
+}
 //
  function nm_gera_html()
  {
@@ -6284,5 +6643,56 @@ if (parent && parent.scAjaxDetailValue)
 <?php
   exit;
 }
+    function sc_ajax_alert($sMessage, $params = array())
+    {
+        if ($this->NM_ajax_flag)
+        {
+            $this->NM_ajax_info['ajaxAlert']['message'] = NM_charset_to_utf8($sMessage);
+            $this->NM_ajax_info['ajaxAlert']['params']  = $this->sc_ajax_alert_params($params);
+        }
+    } // sc_ajax_alert
+
+    function sc_ajax_alert_params($params)
+    {
+        $paramList = array();
+        foreach ($params as $paramName => $paramValue)
+        {
+            if (in_array($paramName, array('title', 'timer', 'confirmButtonText', 'confirmButtonFA', 'confirmButtonFAPos', 'cancelButtonText', 'cancelButtonFA', 'cancelButtonFAPos', 'footer', 'width', 'padding', 'position')))
+            {
+                $paramList[$paramName] = NM_charset_to_utf8($paramValue);
+            }
+            elseif (in_array($paramName, array('showConfirmButton', 'showCancelButton', 'toast')) && in_array($paramValue, array(true, false)))
+            {
+                $paramList[$paramName] = NM_charset_to_utf8($paramValue);
+            }
+            elseif ('position' == $paramName && in_array($paramValue, array('top', 'top-start', 'top-end', 'center', 'center-start', 'center-end', 'bottom', 'bottom-start', 'bottom-end')))
+            {
+                $paramList[$paramName] = NM_charset_to_utf8($paramValue);
+            }
+            elseif ('type' == $paramName && in_array($paramValue, array('warning', 'error', 'success', 'info', 'question')))
+            {
+                $paramList[$paramName] = NM_charset_to_utf8($paramValue);
+            }
+            elseif ('background' == $paramName)
+            {
+                $paramList[$paramName] = $this->sc_ajax_alert_image(NM_charset_to_utf8($paramValue));
+            }
+        }
+        return $paramList;
+    } // sc_ajax_alert_params
+
+    function sc_ajax_alert_image($background)
+    {
+        $image_param = $background;
+        preg_match_all('/url\(([\s])?(["|\'])?(.*?)(["|\'])?([\s])?\)/i', $background, $matches, PREG_PATTERN_ORDER);
+        if (isset($matches[3])) {
+            foreach ($matches[3] as $match) {
+                if ('http:' != substr($match, 0, 5) && 'https:' != substr($match, 0, 6) && '/' != substr($match, 0, 1)) {
+                    $image_param = str_replace($match, "{$this->Ini->path_img_global}/{$match}", $image_param);
+                }
+            }
+        }
+        return $image_param;
+    } // sc_ajax_alert_image
 }
 ?>

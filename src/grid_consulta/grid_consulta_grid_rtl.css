@@ -1,14 +1,12 @@
-.css_detento_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
-.css_detento_id_grid_line {vertical-align: top;text-align: right;}
-.css_medico_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
-.css_medico_id_grid_line {vertical-align: top;text-align: right;}
-.css_motivo_label {text-align:left;vertical-align:middle;justify-content:left;font-weight:bold;}
-.css_motivo_grid_line {vertical-align: top;text-align: right;}
-.css_outras_infomacoes_label {text-align:left;vertical-align:middle;justify-content:left;font-weight:bold;}
-.css_outras_infomacoes_grid_line {vertical-align: top;text-align: right;}
-.css_data_consulta_label {text-align:center;vertical-align:middle;justify-content:center;font-weight:bold;}
-.css_data_consulta_grid_line {vertical-align: top;text-align: center;}
-.css_status_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
-.css_status_id_grid_line {vertical-align: top;text-align: right;}
-.css_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
-.css_id_grid_line {vertical-align: top;text-align: right;}
+.css_c_detento_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
+.css_c_detento_id_grid_line {vertical-align: top;text-align: right;}
+.css_c_medico_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
+.css_c_medico_id_grid_line {vertical-align: top;text-align: right;}
+.css_c_data_consulta_label {text-align:center;vertical-align:middle;justify-content:center;font-weight:bold;}
+.css_c_data_consulta_grid_line {vertical-align: top;text-align: center;}
+.css_c_motivo_label {text-align:left;vertical-align:middle;justify-content:left;font-weight:bold;}
+.css_c_motivo_grid_line {vertical-align: top;text-align: right;}
+.css_c_outras_infomacoes_label {text-align:left;vertical-align:middle;justify-content:left;font-weight:bold;}
+.css_c_outras_infomacoes_grid_line {vertical-align: top;text-align: right;}
+.css_c_status_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
+.css_c_status_id_grid_line {vertical-align: top;text-align: right;}

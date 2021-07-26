@@ -1248,7 +1248,7 @@ unset($NM_ult_sep);
 <input type="hidden" name="nome" value="<?php echo $this->form_encode_input($nome) . "\">"; ?>
 <?php } else { $sc_hidden_no++; ?>
 
-    <TD class="scFormDataOdd css_nome_line" id="hidden_field_data_nome" style="<?php echo $sStyleHidden_nome; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_nome_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_nome_label" style=""><span id="id_label_nome"><?php echo $this->nm_new_label['nome']; ?></span></span><br>
+    <TD class="scFormDataOdd css_nome_line" id="hidden_field_data_nome" style="<?php echo $sStyleHidden_nome; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_nome_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_nome_label" style=""><span id="id_label_nome"><?php echo $this->nm_new_label['nome']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['nome']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['nome'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></span><br>
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["nome"]) &&  $this->nmgp_cmp_readonly["nome"] == "on") { 
 
  ?>
@@ -1309,7 +1309,7 @@ unset($NM_ult_sep);
 <input type="hidden" name="cpf" value="<?php echo $this->form_encode_input($cpf) . "\">"; ?>
 <?php } else { $sc_hidden_no++; ?>
 
-    <TD class="scFormDataOdd css_cpf_line" id="hidden_field_data_cpf" style="<?php echo $sStyleHidden_cpf; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_cpf_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_cpf_label" style=""><span id="id_label_cpf"><?php echo $this->nm_new_label['cpf']; ?></span></span><br>
+    <TD class="scFormDataOdd css_cpf_line" id="hidden_field_data_cpf" style="<?php echo $sStyleHidden_cpf; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_cpf_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_cpf_label" style=""><span id="id_label_cpf"><?php echo $this->nm_new_label['cpf']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['cpf']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['cpf'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></span><br>
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["cpf"]) &&  $this->nmgp_cmp_readonly["cpf"] == "on") { 
 
  ?>
@@ -1370,7 +1370,7 @@ unset($NM_ult_sep);
 <input type="hidden" name="data_nascimento" value="<?php echo $this->form_encode_input($data_nascimento) . "\">"; ?>
 <?php } else { $sc_hidden_no++; ?>
 
-    <TD class="scFormDataOdd css_data_nascimento_line" id="hidden_field_data_data_nascimento" style="<?php echo $sStyleHidden_data_nascimento; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_nascimento_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_data_nascimento_label" style=""><span id="id_label_data_nascimento"><?php echo $this->nm_new_label['data_nascimento']; ?></span></span><br>
+    <TD class="scFormDataOdd css_data_nascimento_line" id="hidden_field_data_data_nascimento" style="<?php echo $sStyleHidden_data_nascimento; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_nascimento_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_data_nascimento_label" style=""><span id="id_label_data_nascimento"><?php echo $this->nm_new_label['data_nascimento']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_nascimento']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_nascimento'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></span><br>
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["data_nascimento"]) &&  $this->nmgp_cmp_readonly["data_nascimento"] == "on") { 
 
  ?>
@@ -1448,7 +1448,7 @@ if ('scButton_' == substr($miniCalendarButton[1], 0, 9)) {
 <input type=hidden name="tipo_id" value="<?php echo $this->form_encode_input($this->tipo_id) . "\">"; ?>
 <?php } else { $sc_hidden_no++; ?>
 
-    <TD class="scFormDataOdd css_tipo_id_line" id="hidden_field_data_tipo_id" style="<?php echo $sStyleHidden_tipo_id; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_tipo_id_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_tipo_id_label" style=""><span id="id_label_tipo_id"><?php echo $this->nm_new_label['tipo_id']; ?></span></span><br>
+    <TD class="scFormDataOdd css_tipo_id_line" id="hidden_field_data_tipo_id" style="<?php echo $sStyleHidden_tipo_id; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_tipo_id_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_tipo_id_label" style=""><span id="id_label_tipo_id"><?php echo $this->nm_new_label['tipo_id']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['tipo_id']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['tipo_id'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></span><br>
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["tipo_id"]) &&  $this->nmgp_cmp_readonly["tipo_id"] == "on") { 
  
 $nmgp_def_dados = "" ; 
@@ -1645,7 +1645,7 @@ else
 <input type="hidden" name="objetos" value="<?php echo $this->form_encode_input($objetos) . "\">"; ?>
 <?php } else { $sc_hidden_no++; ?>
 
-    <TD class="scFormDataOdd css_objetos_line" id="hidden_field_data_objetos" style="<?php echo $sStyleHidden_objetos; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_objetos_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_objetos_label" style=""><span id="id_label_objetos"><?php echo $this->nm_new_label['objetos']; ?></span></span><br>
+    <TD class="scFormDataOdd css_objetos_line" id="hidden_field_data_objetos" style="<?php echo $sStyleHidden_objetos; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_objetos_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_objetos_label" style=""><span id="id_label_objetos"><?php echo $this->nm_new_label['objetos']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['objetos']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['objetos'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></span><br>
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["objetos"]) &&  $this->nmgp_cmp_readonly["objetos"] == "on") { 
 
  ?>
@@ -1710,7 +1710,7 @@ else
 <input type="hidden" name="data_visita" value="<?php echo $this->form_encode_input($data_visita) . "\">"; ?>
 <?php } else { $sc_hidden_no++; ?>
 
-    <TD class="scFormDataOdd css_data_visita_line" id="hidden_field_data_data_visita" style="<?php echo $sStyleHidden_data_visita; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_visita_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_data_visita_label" style=""><span id="id_label_data_visita"><?php echo $this->nm_new_label['data_visita']; ?></span></span><br>
+    <TD class="scFormDataOdd css_data_visita_line" id="hidden_field_data_data_visita" style="<?php echo $sStyleHidden_data_visita; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_visita_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_data_visita_label" style=""><span id="id_label_data_visita"><?php echo $this->nm_new_label['data_visita']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_visita']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_visita'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></span><br>
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["data_visita"]) &&  $this->nmgp_cmp_readonly["data_visita"] == "on") { 
 
  ?>
@@ -1791,7 +1791,7 @@ if ('scButton_' == substr($miniCalendarButton[1], 0, 9)) {
 <input type=hidden name="detento_id" value="<?php echo $this->form_encode_input($this->detento_id) . "\">"; ?>
 <?php } else { $sc_hidden_no++; ?>
 
-    <TD class="scFormDataOdd css_detento_id_line" id="hidden_field_data_detento_id" style="<?php echo $sStyleHidden_detento_id; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_detento_id_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_detento_id_label" style=""><span id="id_label_detento_id"><?php echo $this->nm_new_label['detento_id']; ?></span></span><br>
+    <TD class="scFormDataOdd css_detento_id_line" id="hidden_field_data_detento_id" style="<?php echo $sStyleHidden_detento_id; ?>"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_detento_id_line" style="vertical-align: top;padding: 0px"><span class="scFormLabelOddFormat css_detento_id_label" style=""><span id="id_label_detento_id"><?php echo $this->nm_new_label['detento_id']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['detento_id']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['detento_id'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></span><br>
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["detento_id"]) &&  $this->nmgp_cmp_readonly["detento_id"] == "on") { 
  
 $nmgp_def_dados = "" ; 
@@ -2150,6 +2150,9 @@ else
    </td></tr></table>
    </tr>
 </TABLE></div><!-- bloco_f -->
+</td></tr>
+<tr id="sc-id-required-row"><td class="scFormPageText">
+<span class="scFormRequiredOddColor">* <?php echo $this->Ini->Nm_lang['lang_othr_reqr']; ?></span>
 </td></tr> 
 <tr><td>
 <?php

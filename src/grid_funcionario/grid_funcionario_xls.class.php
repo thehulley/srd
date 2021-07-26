@@ -263,18 +263,6 @@ class grid_funcionario_xls
           {
               $Busca_temp = NM_conv_charset($Busca_temp, $_SESSION['scriptcase']['charset'], "UTF-8");
           }
-          $this->matricula = $Busca_temp['matricula']; 
-          $tmp_pos = strpos($this->matricula, "##@@");
-          if ($tmp_pos !== false && !is_array($this->matricula))
-          {
-              $this->matricula = substr($this->matricula, 0, $tmp_pos);
-          }
-          $this->id = $Busca_temp['id']; 
-          $tmp_pos = strpos($this->id, "##@@");
-          if ($tmp_pos !== false && !is_array($this->id))
-          {
-              $this->id = substr($this->id, 0, $tmp_pos);
-          }
           $this->nome = $Busca_temp['nome']; 
           $tmp_pos = strpos($this->nome, "##@@");
           if ($tmp_pos !== false && !is_array($this->nome))
@@ -286,6 +274,12 @@ class grid_funcionario_xls
           if ($tmp_pos !== false && !is_array($this->cpf))
           {
               $this->cpf = substr($this->cpf, 0, $tmp_pos);
+          }
+          $this->funcao_id = $Busca_temp['funcao_id']; 
+          $tmp_pos = strpos($this->funcao_id, "##@@");
+          if ($tmp_pos !== false && !is_array($this->funcao_id))
+          {
+              $this->funcao_id = substr($this->funcao_id, 0, $tmp_pos);
           }
       } 
       if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['xls_name']))

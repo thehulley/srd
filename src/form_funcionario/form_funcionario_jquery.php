@@ -128,6 +128,18 @@ function scEventControl_onFocus(oField, iSeq) {
   if ("funcao_id" + iSeq == fieldName) {
     scEventControl_data[fieldName]["blur"] = false;
   }
+  if ("cpf" + iSeq == fieldName) {
+    scEventControl_data[fieldName]["change"]   = true;
+    scEventControl_data[fieldName]["original"] = $(oField).val();
+    scEventControl_data[fieldName]["calculated"] = $(oField).val();
+    return;
+  }
+  if ("matricula" + iSeq == fieldName) {
+    scEventControl_data[fieldName]["change"]   = true;
+    scEventControl_data[fieldName]["original"] = $(oField).val();
+    scEventControl_data[fieldName]["calculated"] = $(oField).val();
+    return;
+  }
   scEventControl_data[fieldName]["change"] = false;
 } // scEventControl_onFocus
 
@@ -209,6 +221,7 @@ function sc_form_funcionario_cpf_onblur(oThis, iSeqRow) {
 
 function sc_form_funcionario_cpf_onchange(oThis, iSeqRow) {
   scMarkFormAsChanged();
+  do_ajax_form_funcionario_event_cpf_onchange();
 }
 
 function sc_form_funcionario_cpf_onfocus(oThis, iSeqRow) {
@@ -223,6 +236,7 @@ function sc_form_funcionario_matricula_onblur(oThis, iSeqRow) {
 
 function sc_form_funcionario_matricula_onchange(oThis, iSeqRow) {
   scMarkFormAsChanged();
+  do_ajax_form_funcionario_event_matricula_onchange();
 }
 
 function sc_form_funcionario_matricula_onfocus(oThis, iSeqRow) {
@@ -438,7 +452,7 @@ function scJQCalendarAdd(iSeqRow) {
       sc_jq_calendar_value["#id_sc_field_data_nascimento" + iSeqRow] = $oField.val();
     },
     onClose: function(dateText, inst) {
-      do_ajax_form_funcionario_validate_data_nascimento(iSeqRow);
+      setTimeout(function() { do_ajax_form_funcionario_validate_data_nascimento(iSeqRow); }, 200);
     },
     showWeek: true,
     numberOfMonths: 1,

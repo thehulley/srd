@@ -229,7 +229,7 @@ class grid_visita_ini
       $this->nm_hr_criacao   = "075745"; 
       $this->nm_autor_alt    = "admin"; 
       $this->nm_dt_ult_alt   = "20210726"; 
-      $this->nm_hr_ult_alt   = "081318"; 
+      $this->nm_hr_ult_alt   = "124849"; 
       $this->Apl_paginacao   = "PARCIAL"; 
       $temp_bug_list         = explode(" ", microtime()); 
       list($NM_usec, $NM_sec) = $temp_bug_list; 
@@ -957,7 +957,7 @@ class grid_visita_ini
       $this->nm_ttf_chi  = array("zh_cn", "zh_hk", "ko");
       $_SESSION['sc_session'][$this->sc_page]['grid_visita']['seq_dir'] = 0; 
       $_SESSION['sc_session'][$this->sc_page]['grid_visita']['sub_dir'] = array(); 
-      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1D9NmDuBqHAvmV5XGHuNODkB/H5XCHIX7D9BsZ1X7Z1BeD5F7DEvsHErCH5F/VoFaHQXsDuFaHAveD5NUHgNKDkBOV5FYHMBiHQNmZkFGZ1vOZMJwHgrKHErCHEXCHMJwDcBiDQB/DSzGD5F7DMzGVcFeV5BmVoX7HQBsZ1X7D1zGV5X7HgvsHArCDuX/ZuXGHQXsDQBqDSzGD5F7DMvOVIB/H5FqHMrqDcFYH9BOHAvsD5rqDEBOHEFiHEFqDoF7DcJUZSBiDSzGVWFaDMBOVcFeDuB7VENUDcFYZ1BOHAzGV5X7HgBeZSJ3HEXCHIXGDcBiDuFaZ1zGD5F7HgvOZSNiDuX7HMJwHQNmZSBODSvmV5X7HgBYHEJqDuJeHMFGHQXsZ9XGHIvsV5FGHuNOVcFKHEFYVoBqDcBwH9BqHINaZMJwHgveDkXKDuFaHMJwHQXODQFUHIvsD5F7DMBOVcFeDuX7HMBOHQNmH9BOD1NaV5X7HgBOHEJqDWXCHIrqHQJKDQFUHIvsD5F7DMBODkBsDWF/HIBiHQBiZ1BODSvOD5rqDEBOHEFiHEFqDoF7DcJUZSFGD1BeV5FGHgrYDkFCDWXCVoB/D9BiZ1F7HIveD5BiHgvCZSJGDWXCDoraD9NwZ9JeZ1rwVWXGHuBYDkFCDuFGVoraD9JmZ1rqD1rKV5X7DEBOHEFKV5FaDoBODcJeDQX7DSBYD5NUHgrKVcBODuB7VoraDcBwH9B/HIrwV5JeDMBYDkBsH5FYDoXGDcJeZSFUZ1rwD5BOHuNODkFCH5FqVENUDcNwH9B/HIrwD5NUDEBOHEJGDWBmVoFGD9NmZSX7DSBYVWJsHuvmVcFiV5FYVEraDcBqZSFaHArYV5FUDEvsHEBUH5FGVoFGD9NwZSX7HABYV5BOHuBYVIBODWFYVoX7HQFYZkBiHAvCD5BqHgvCHArsDWBmZuFaHQXGDQX7HIBeVWJsHuzGZSJ3V5X/VoX7HQFYZ1FaHANOV5X7HgBeHEFiV5B3DoF7D9XsDuFaHANKVWBqHgvOVcBODWJeHMFUDcNmZ1B/HIrwV5X7HgBYHEJGDuJeVoFGHQXODQFaHAveD5NUHgNKDkBOV5FYHMBiHQFYH9B/HIBeD5XGDEBeHEXeH5F/DoFUD9NmH9X7DSBYV5BqHuvmVcFCH5XCVoB/HQFYZSFaHArKV5XGDErKHErCDWF/VoBiDcJUZSX7Z1BYHuFaDMvmVcFKV5BmVoBqD9BsZkFGHArKHuJsHgvsHENiHEFqHINUDcJeDuFaHABYD5FaHgvsVIBsHEFYVEF7HQBiZSFaHAvsZMXGHgBYHErCDWF/VoBiDcJUZSX7Z1BYHuFaHgrKVcFKDWFYDoXGD9BsH9BqHArKV5FUDMrYZSXeV5FqHIJsHQBiZ9XGHANKV5BODMvOV9BUDWB3VEF7HQNmVINUHANOHQJwDEBODkFeH5FYVoFGHQJKDQB/D1veD5NUDMzGV9FeHEX7HIFGHQJmZkFGZ1NOHuFaHgNOHENiDWr/HIJwHQBiZSFUHAveHuFaHuNOZSrCH5FqDoXGHQJmZ1F7D1rKV5FaDEBOHEXeV5FaHIJsD9XsZ9JeD1BeD5F7DMvmVcBUHEX/DoJsHQNmZ1FGHArKV5FUDMrYZSXeV5FqHIJsD9NwDQJwHABYV5X7HgrYDkFCDWF/VoB/D9BsZ1F7DSrYV5B/HgBeHErCDWBmDoJeHQBiDQBqHAvmV5XGDMvOVcBUDuFGVoX7HQNwVIF7Z1veZMNU";
+      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1HQJKDuBqHIrKVWJeHgrwDkBOHEFYDoFGD9XOZ1FGHAN7D5BqDEvsDkXKDWF/DoF7D9JKZSX7D1BeV5BODMvmVcFKV5BmVoBqD9BsZkFGHAvsD5XGHgBeHEFiV5B3DoF7D9XsDuFaHAveHQFaHgrKVIBOV5X7HMBODcNmZSB/HANOHuBODMBYVkXeV5XCDoFUDcBiDQJwHABYHQFaHgvOVcBOH5FqHMBiD9BsVIraD1rwV5X7HgBeHEFiH5F/VoB/D9XsDQX7Z1rwHuFaHuNOZSrCH5FqDoXGHQJmZ1FUZ1BeV5BODErKVkXeHEFqVoFaDcXOZSFGHAN7D5BqHuzGDkBOHEFYVENUDcBqZkFUZ1NOD5BqDEBeHEBUDWF/HIJsD9XsZ9JeD1BeD5F7DMvmVcFeDur/DoF7HQBiVIJsHAvCD5JeDMvCHEXeDWXCHMBqD9NmZSFUHAveHuFUDMBYDkB/DWJeHMBiD9BsVIraD1rwV5X7HgBeHErCV5B7ZuJsHQNwDQFaDSN7HQB/HgvOVcXKHEX/DoXGHQXOZ1FGZ1vmD5XGHgBOHENiH5FGVoFGHQNmDuFaHIBOVWBqDMNOVcBUHEX/DoXGHQNmZSBOD1rwHQBqDMvCZSJqDWBmDoF7D9XsDQJsDSBYV5FGHgNKDkBsHEX/VEBiHQXGZ1FGHINaZMB/DMvCHEJqDWFGVoFGHQJKZSBiDSN7HuBqHgvOV9FeV5X/DoXGDcNmVINUHIBeHQBiHgveVkJqHEB3VoFGHQJeDQFUHIrKHQF7DMNOZSNiDurGVoBqD9BsZ1F7DSrYD5rqDMrYZSJ3DuX/ZuJsHQBiZ9XGHIrwHQB/DMrYVcB/DurGDoXGHQXGZ1FGHIBeHQF7HgveZSJqH5X/VoFGHQXsDQFUHAN7HuX7DMvmVcB/DurGDoXGHQXGH9BqHANOHuJwHgvsHEJqHEB7DoF7D9XsDQJsDSBYV5FGHgNKDkFCH5FqVoBqDcNwH9FaHArKD5NUDEvsHEFiDuJeDoFUHQXGZSFGHAN7V5FUHuzGZSrCV5X7VEF7D9BiH9FaHIBOD5FaDEBeHEBUH5F/VoFGD9XsDQBOZ1rwV5JeHgvsVcBOHEFYDoJsDcJUZ1B/HINaD5FaDMrYZSXeDuFYVoXGDcJeZ9rqD1BeV5BqHgvsDkB/V5X7DoX7D9BsH9FaD1rwZMB/DMNKZSXeDuFYDoraD9XsDQFGHANKD5F7HuBYDkBOHEFYVENUD9JmZ1FUZ1rYZMFaDMBYVkJGDWFqVoBiD9NmDQJwD1vOD5F7HuzGDkBODWFYVoX7D9BiZSB/HArYD5XGHgvCHArsDWrGDoBOHQXGDuBqHANKVWJsDMrwVcBODuFqVENUD9XOVIJwZ1vOD5XGHgvCHEJGDWXCVoFGHQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoX7HQNmZ1BiHAvCD5BOHgveHErsDuXKDoJeHQXOH9BiHAveD5NUHgNKDkBOV5FYHMBiHQJmVINUHArYHQBqHgNKVkJ3DWX7HMFGDcBiH9FUZ1NaV5BqHuvmVcB/DWJeDoXGHQBsZSBqHArKV5FUDMrYZSXeV5FqHIJsDcBwDQJsHABYD5F7HuNODkBsDWXCDoJsDcBwH9B/Z1rYHQJwHgBYHAFKV5B3DoBOHQJKDQJsZ1vCV5FGHuNOV9FeDWXCVorqD9BiZ1B/HAN7D5BiDEvsVkXeDWX7VoX7D9JKDQX7D1veHuFaDMvmVcBUDWrmVorqHQNmVINUHAzGD5BqHgNKDkB/DWrGZuBO";
 $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 108, 101, 61, 34, 102, 111, 110, 116, 45, 102, 97, 109, 105, 108, 121, 58, 32, 84, 97, 104, 111, 109, 97, 44, 32, 65, 114, 105, 97, 108, 44, 32, 115, 97, 110, 115, 45, 115, 101, 114, 105, 102, 59, 32, 102, 111, 110, 116, 45, 115, 105, 122, 101, 58, 32, 49, 51, 112, 120, 59, 32, 102, 111, 110, 116, 45, 119, 101, 105, 103, 104, 116, 58, 32, 98, 111, 108, 100, 59, 32, 116, 101, 120, 116, 45, 97, 108, 105, 103, 110, 58, 32, 99, 101, 110, 116, 101, 114, 34, 62, 84, 104, 105, 115, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 119, 97, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 97, 110, 100, 32, 112, 117, 98, 108, 105, 115, 104, 101, 100, 32, 117, 115, 105, 110, 103, 32, 97, 32, 116, 114, 105, 97, 108, 32, 118, 101, 114, 115, 105, 111, 110, 32, 111, 102, 32, 83, 99, 114, 105, 112, 116, 67, 97, 115, 101, 32, 97, 110, 100, 32, 105, 116, 115, 32, 116, 114, 105, 97, 108, 32, 112, 101, 114, 105, 111, 100, 32, 104, 97, 115, 32, 101, 120, 112, 105, 114, 101, 100, 46, 60, 47, 100, 105, 118, 62);
       $this->prep_conect();
       $this->conectDB();
@@ -4157,6 +4157,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
        $fields = array();
        $busca  = array();
        $this->Ini->sc_Include($this->Ini->path_lib_php . "/nm_gp_limpa.php", "F", "nm_limpa_valor") ; 
+       $Cmps_check_return = array('tipo_id','detento_id','status_id');
        if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($Parms))
        {
            $Parms = NM_conv_charset($Parms, $_SESSION['scriptcase']['charset'], "UTF-8");
@@ -4192,6 +4193,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
            $fields[$ix]['vls'][0] = explode("_VLS_",  $sep_bw[0]);
            $fields[$ix]['vls'][1] = isset($sep_bw[1]) ? explode("_VLS_",  $sep_bw[1]) : "";
            $val_sv = array();
+           $Val_ck = array();
            foreach ($fields[$ix]['vls'] as $i => $dados)
            {
                if (is_array($dados))
@@ -4203,10 +4205,12 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
                        if ($tmp_pos === false)
                        {
                           $val_sv[$i][] = $str;
+                          $Val_ck[] = $str;
                        }
                        else
                        {
                          $val_sv[$i][] = substr($str, 0, $tmp_pos);
+                         $Val_ck[] = substr($str, 0, $tmp_pos);
                        }
                    }
                }
@@ -4217,69 +4221,37 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
                    if ($tmp_pos === false)
                    {
                       $val_sv[$i] = $dados;
+                      $Val_ck[] = $dados;
                    }
                    else
                    {
                       $val_sv[$i] = substr($dados, 0, $tmp_pos);
+                      $Val_ck[] = substr($dados, 0, $tmp_pos);
+                   }
+               }
+           }
+           if (in_array($fields[$ix]['field'], $Cmps_check_return))
+           {
+               foreach ($Val_ck as $Cada_val)
+               {
+                   if (trim($Cada_val) != '' && !in_array($Cada_val, $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['psq_check_ret'][$fields[$ix]['field']]))
+                   {
+                       $Temp = ob_get_clean();
+                       $this->Ini->Arr_result['htmOutput'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['labels'][$fields[$ix]['field']] . " : " . NM_charset_to_utf8($this->Ini->Nm_lang['lang_errm_ajax_data']);
+                       $oJson = new Services_JSON();
+                       echo $oJson->encode($this->Ini->Arr_result);
+                       $this->close_emb();
+                       exit;
                    }
                }
            }
            if (!isset($busca[$dats[0]]))
            {
                $busca[$dats[0]] = $dats[1];
-               if ($dats[0] == "data_nascimento")
+               $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['tmp_busca'][$dats[0]] = (isset($fields[$ix]['vls'][0])) ? $fields[$ix]['vls'][0][0] : "";
+               if (isset($fields[$ix]['vls'][1]))
                {
-                   $cond = $dats[1];
-                   if (substr($cond, 0, 3) == "bi_")
-                   {
-                       $this->Ini->process_cond_bi($cond, $BI_data1, $BI_data2);
-                       $val['ano'] = substr($BI_data1, 4, 4);
-                       $val['mes'] = substr($BI_data1, 2, 2);
-                       $val['dia'] = substr($BI_data1, 0, 2);
-                       if (strlen($BI_data1) > 8)
-                       {
-                           $val['hor'] = substr($BI_data1, 8, 2);
-                           $val['min'] = substr($BI_data1, 10, 2);
-                           $val['seg'] = substr($BI_data1, 12, 2);
-                       }
-                       $val1 = array();
-                       if ($cond == "bw")
-                       {
-                           $val1['ano'] = substr($BI_data2, 4, 4);
-                           $val1['mes'] = substr($BI_data2, 2, 2);
-                           $val1['dia'] = substr($BI_data2, 0, 2);
-                           if (strlen($BI_data2) > 8)
-                           {
-                               $val1['hor'] = substr($BI_data2, 8, 2);
-                               $val1['min'] = substr($BI_data2, 10, 2);
-                               $val1['seg'] = substr($BI_data2, 12, 2);
-                           }
-                       }
-                   }
-                   else
-                   {
-                       $val = $this->Ini->dyn_convert_date($fields[$ix]['vls'][0]);
-                       $val1 = $this->Ini->dyn_convert_date($fields[$ix]['vls'][1]);
-                   }
-                   foreach ($val as $tp => $vl)
-                   {
-                       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['tmp_busca'][$dats[0] . '_' . $tp] = $vl;
-                   }
-                   if (!empty($val1))
-                   {
-                       foreach ($val1 as $tp => $vl)
-                       {
-                          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['tmp_busca'][$dats[0] . '_input_2_' . $tp] = $vl;
-                       }
-                   }
-               }
-               else
-               {
-                   $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['tmp_busca'][$dats[0]] = (isset($fields[$ix]['vls'][0])) ? $fields[$ix]['vls'][0][0] : "";
-                   if (isset($fields[$ix]['vls'][1]))
-                   {
-                       $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['tmp_busca'][$dats[0] . '_input_2'] = $fields[$ix]['vls'][1][0];
-                   }
+                   $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['tmp_busca'][$dats[0] . '_input_2'] = $fields[$ix]['vls'][1][0];
                }
                $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['tmp_busca'][$dats[0] . '_cond'] = $dats[1];
            }
@@ -4309,16 +4281,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
    }
    function proc_del_grid_search($cmp_del, $del_all)
    {
-      if (in_array($cmp_del, array('data_nascimento')))
-      {
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del . "_dia"] = "";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del . "_mes"] = "";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del . "_ano"] = "";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del . "_input_2_dia"] = "";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del . "_input_2_mes"] = "";
-          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del . "_input_2_ano"] = "";
-      }
-      elseif (is_array($_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del]))
+      if (is_array($_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del]))
       {
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del] = array();
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_visita']['campos_busca'][$cmp_del . "_input_2"] = array();

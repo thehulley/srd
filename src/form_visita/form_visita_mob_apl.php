@@ -2056,6 +2056,24 @@ $_SESSION['scriptcase']['form_visita_mob']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
+      if ($this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['nome']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['nome'] == "on")) 
+      { 
+          if ($this->nome == "")  
+          { 
+              $hasError = true;
+              $Campos_Falta[] =  "Nome" ; 
+              if (!isset($Campos_Erros['nome']))
+              {
+                  $Campos_Erros['nome'] = array();
+              }
+              $Campos_Erros['nome'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['nome']) || !is_array($this->NM_ajax_info['errList']['nome']))
+                  {
+                      $this->NM_ajax_info['errList']['nome'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['nome'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          } 
+      } 
       if ($this->nmgp_opcao != "excluir") 
       { 
           if (NM_utf8_strlen($this->nome) > 255) 
@@ -2109,6 +2127,21 @@ $_SESSION['scriptcase']['form_visita_mob']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['cpf'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['cpf']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['cpf'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "CPF" ;
+              if (!isset($Campos_Erros['cpf']))
+              {
+                  $Campos_Erros['cpf'] = array();
+              }
+              $Campos_Erros['cpf'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['cpf']) || !is_array($this->NM_ajax_info['errList']['cpf']))
+                  {
+                      $this->NM_ajax_info['errList']['cpf'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['cpf'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
       } 
         if ($hasError) {
             global $sc_seq_vert;
@@ -2151,6 +2184,21 @@ $_SESSION['scriptcase']['form_visita_mob']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['data_nascimento'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_nascimento']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_nascimento'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "Data de Nascimento" ; 
+              if (!isset($Campos_Erros['data_nascimento']))
+              {
+                  $Campos_Erros['data_nascimento'] = array();
+              }
+              $Campos_Erros['data_nascimento'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['data_nascimento']) || !is_array($this->NM_ajax_info['errList']['data_nascimento']))
+                  {
+                      $this->NM_ajax_info['errList']['data_nascimento'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['data_nascimento'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
           $this->field_config['data_nascimento']['date_format'] = $guarda_datahora; 
        } 
         if ($hasError) {
@@ -2167,21 +2215,36 @@ $_SESSION['scriptcase']['form_visita_mob']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
-               if (!empty($this->tipo_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['Lookup_tipo_id']) && !in_array($this->tipo_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['Lookup_tipo_id']))
-               {
-                   $hasError = true;
-                   $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($Campos_Erros['tipo_id']))
-                   {
-                       $Campos_Erros['tipo_id'] = array();
-                   }
-                   $Campos_Erros['tipo_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($this->NM_ajax_info['errList']['tipo_id']) || !is_array($this->NM_ajax_info['errList']['tipo_id']))
-                   {
-                       $this->NM_ajax_info['errList']['tipo_id'] = array();
-                   }
-                   $this->NM_ajax_info['errList']['tipo_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-               }
+      if ($this->tipo_id == "" && $this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['tipo_id']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['tipo_id'] == "on"))
+      {
+          $hasError = true;
+          $Campos_Falta[] = "Tipo" ; 
+          if (!isset($Campos_Erros['tipo_id']))
+          {
+              $Campos_Erros['tipo_id'] = array();
+          }
+          $Campos_Erros['tipo_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          if (!isset($this->NM_ajax_info['errList']['tipo_id']) || !is_array($this->NM_ajax_info['errList']['tipo_id']))
+          {
+              $this->NM_ajax_info['errList']['tipo_id'] = array();
+          }
+          $this->NM_ajax_info['errList']['tipo_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+      }
+          if (!empty($this->tipo_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['Lookup_tipo_id']) && !in_array($this->tipo_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['Lookup_tipo_id']))
+          {
+              $hasError = true;
+              $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($Campos_Erros['tipo_id']))
+              {
+                  $Campos_Erros['tipo_id'] = array();
+              }
+              $Campos_Erros['tipo_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($this->NM_ajax_info['errList']['tipo_id']) || !is_array($this->NM_ajax_info['errList']['tipo_id']))
+              {
+                  $this->NM_ajax_info['errList']['tipo_id'] = array();
+              }
+              $this->NM_ajax_info['errList']['tipo_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+          }
         if ($hasError) {
             global $sc_seq_vert;
             $fieldName = 'tipo_id';
@@ -2196,6 +2259,24 @@ $_SESSION['scriptcase']['form_visita_mob']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
+      if ($this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['objetos']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['objetos'] == "on")) 
+      { 
+          if ($this->objetos == "")  
+          { 
+              $hasError = true;
+              $Campos_Falta[] =  "Objetos" ; 
+              if (!isset($Campos_Erros['objetos']))
+              {
+                  $Campos_Erros['objetos'] = array();
+              }
+              $Campos_Erros['objetos'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['objetos']) || !is_array($this->NM_ajax_info['errList']['objetos']))
+                  {
+                      $this->NM_ajax_info['errList']['objetos'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['objetos'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          } 
+      } 
       if ($this->nmgp_opcao != "excluir") 
       { 
           if (NM_utf8_strlen($this->objetos) > 255) 
@@ -2255,6 +2336,21 @@ $_SESSION['scriptcase']['form_visita_mob']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['data_visita'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_visita']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_visita'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "Data da Visita" ; 
+              if (!isset($Campos_Erros['data_visita']))
+              {
+                  $Campos_Erros['data_visita'] = array();
+              }
+              $Campos_Erros['data_visita'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['data_visita']) || !is_array($this->NM_ajax_info['errList']['data_visita']))
+                  {
+                      $this->NM_ajax_info['errList']['data_visita'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['data_visita'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
           $this->field_config['data_visita']['date_format'] = $guarda_datahora; 
        } 
         if ($hasError) {
@@ -2288,6 +2384,21 @@ $_SESSION['scriptcase']['form_visita_mob']['contr_erro'] = 'off';
                   $this->NM_ajax_info['errList']['data_visita'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
               } 
           } 
+           elseif (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_visita_hora']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['data_visita_hora'] == "on") 
+           { 
+              $hasError = true;
+              $Campos_Falta[] = "Data da Visita" ; 
+              if (!isset($Campos_Erros['data_visita_hora']))
+              {
+                  $Campos_Erros['data_visita_hora'] = array();
+              }
+              $Campos_Erros['data_visita_hora'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+                  if (!isset($this->NM_ajax_info['errList']['data_visita']) || !is_array($this->NM_ajax_info['errList']['data_visita']))
+                  {
+                      $this->NM_ajax_info['errList']['data_visita'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['data_visita'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+           } 
       } 
       if (isset($Campos_Erros['data_visita']) && isset($Campos_Erros['data_visita_hora']))
       {
@@ -2315,21 +2426,36 @@ $_SESSION['scriptcase']['form_visita_mob']['contr_erro'] = 'off';
     {
         global $teste_validade;
         $hasError = false;
-               if (!empty($this->detento_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['Lookup_detento_id']) && !in_array($this->detento_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['Lookup_detento_id']))
-               {
-                   $hasError = true;
-                   $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($Campos_Erros['detento_id']))
-                   {
-                       $Campos_Erros['detento_id'] = array();
-                   }
-                   $Campos_Erros['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-                   if (!isset($this->NM_ajax_info['errList']['detento_id']) || !is_array($this->NM_ajax_info['errList']['detento_id']))
-                   {
-                       $this->NM_ajax_info['errList']['detento_id'] = array();
-                   }
-                   $this->NM_ajax_info['errList']['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
-               }
+      if ($this->detento_id == "" && $this->nmgp_opcao != "excluir" && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['detento_id']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['php_cmp_required']['detento_id'] == "on"))
+      {
+          $hasError = true;
+          $Campos_Falta[] = "Detento" ; 
+          if (!isset($Campos_Erros['detento_id']))
+          {
+              $Campos_Erros['detento_id'] = array();
+          }
+          $Campos_Erros['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+          if (!isset($this->NM_ajax_info['errList']['detento_id']) || !is_array($this->NM_ajax_info['errList']['detento_id']))
+          {
+              $this->NM_ajax_info['errList']['detento_id'] = array();
+          }
+          $this->NM_ajax_info['errList']['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_rqrd'];
+      }
+          if (!empty($this->detento_id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['Lookup_detento_id']) && !in_array($this->detento_id, $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita_mob']['Lookup_detento_id']))
+          {
+              $hasError = true;
+              $Campos_Crit .= $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($Campos_Erros['detento_id']))
+              {
+                  $Campos_Erros['detento_id'] = array();
+              }
+              $Campos_Erros['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+              if (!isset($this->NM_ajax_info['errList']['detento_id']) || !is_array($this->NM_ajax_info['errList']['detento_id']))
+              {
+                  $this->NM_ajax_info['errList']['detento_id'] = array();
+              }
+              $this->NM_ajax_info['errList']['detento_id'][] = $this->Ini->Nm_lang['lang_errm_ajax_data'];
+          }
         if ($hasError) {
             global $sc_seq_vert;
             $fieldName = 'detento_id';

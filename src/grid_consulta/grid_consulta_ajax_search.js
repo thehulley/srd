@@ -76,10 +76,10 @@ function ajax_save_filter(save_name, save_opt, parm, pos)
 
 // ---------- select_filter
 var Table_sv_fil = new Array();
-Table_sv_fil[0] = "data_consulta";
-Table_sv_fil[1] = "id";
-Table_sv_fil[2] = "detento_id";
-Table_sv_fil[3] = "medico_id";
+Table_sv_fil[0] = "c_detento_id";
+Table_sv_fil[1] = "c_medico_id";
+Table_sv_fil[2] = "c_data_consulta";
+Table_sv_fil[3] = "c_status_id";
 function ajax_select_filter(parm)
 {
     nmAjaxProcOn();
@@ -248,6 +248,7 @@ function ajax_select_filter(parm)
               }
            }
         }
+        Sc_carga_select2('all');
         nmAjaxProcOff();
     });
 }

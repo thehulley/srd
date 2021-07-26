@@ -229,7 +229,7 @@ class grid_funcionario_ini
       $this->nm_hr_criacao   = "075744"; 
       $this->nm_autor_alt    = "admin"; 
       $this->nm_dt_ult_alt   = "20210726"; 
-      $this->nm_hr_ult_alt   = "083037"; 
+      $this->nm_hr_ult_alt   = "121111"; 
       $this->Apl_paginacao   = "PARCIAL"; 
       $temp_bug_list         = explode(" ", microtime()); 
       list($NM_usec, $NM_sec) = $temp_bug_list; 
@@ -957,7 +957,7 @@ class grid_funcionario_ini
       $this->nm_ttf_chi  = array("zh_cn", "zh_hk", "ko");
       $_SESSION['sc_session'][$this->sc_page]['grid_funcionario']['seq_dir'] = 0; 
       $_SESSION['sc_session'][$this->sc_page]['grid_funcionario']['sub_dir'] = array(); 
-      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1HQBiZ9XGDSBYHuB/DMzGVcXKDWFaDoJsDcBqH9BqZ1BeV5BOHgNKZSJ3DuFYHIX7D9JKH9BiDSBYHQBODMvmVcFKV5BmVoBqD9BsZkFGHAvsD5BOHgvsHArsHEXCHIrqHQNwH9FUHArYHuBOHgvOV9FiV5FYHMBOHQBiVINUHAN7HQFUDMvCHAFKV5FqHMBqHQNmDQBqDSBYHuNUDMvsV9FiV5X/VoX7HQXGH9BOHANOHQBOHgNOHEFKH5FYVoX7D9JKDQX7D1BOV5FGDMzGV9BUHEF/HIBiHQBiZ1BiD1rKHQFaHgNOHAFKV5FqHIFGHQNwH9FUDSBYHuBqDMBYV9FiV5FYVoBiHQNwH9BqD1zGD5XGDMveDkFeV5B7ZuXGDcBiDQB/D1BeHuBiDMvsVcFiH5FqDoJeD9JmZ1B/D1NaD5rqHgvsHErsHEB3DoJeHQXOZSFUHAvOVWJwHgvOVcFiV5FYHIBiHQBsH9BqHINKD5JeHgNODkBsV5FqHIFUDcXGH9BiHIrKHuB/HgvOVcFiV5FYHIXGHQBsZSBOHArKHuBODMveHAFKH5FYVoX7D9JKDQX7D1BOV5FGHuzGDkBOH5FqVoJwD9XOZ1F7HABYZMB/DEBeHENiV5XKDoB/D9NmH9X7HArYV5BODMrwDkFCDuX7VEF7D9BiVIJwZ1BeV5XGDEvsHEFiV5FqVoX7HQXGZSFGHAveV5FUHuvmVcBOV5F/DoraD9BsZ1FUZ1BOD5rqDEBOHEFiHEFqDoF7DcJUZSFGD1BeV5FGHgrYDkBODur/VoraD9XOH9FaD1rKD5BiDEBOHEFiDWX7VoFGD9NwDQBOZ1BYVWXGHuvmVcFCH5XCDoX7HQFYZ1FaHArYD5F7DEvsHEXeV5XCZuFaD9NmDuBOZ1BYV5BqHgrKVcFCDWJeVErqDcJUZ1FaHAvCV5X7HgveDkXKDWBmVoFGHQBiDQBqD1NKD5F7HuNOVcrsH5XCVoFGHQFYZkBiHAvCV5X7DEvsVkXeV5FqHIJsD9XsZ9JeD1BeD5F7DMvmVcFKH5XCHMBqHQNwZ1X7HABYHQF7HgvCHEXeHEFaZuBqD9JKDQBOZ1BYHuB/DMzGV9BUDWJeHMF7D9BiZkFGHArKV5FUDMrYZSXeV5FqHIJsHQXGZSX7HIrwV5BOHuvmVcBOH5XCVoJwDcJUZSFaHArYV5FUDMBYZSXeHEFqDoB/D9XsH9X7HArYV5BOHuvmVcBOV5FGDoJsD9XOZ1F7HIveD5BqHgBeHEFiV5B3DoF7D9XsDuFaHAveHuFaHuNOZSrCH5FqDoXGHQJmZ1FUZ1rYHQBODEBeHArCH5FYDoXGHQJKZ9XGHIvsV5BODMBODkBsDuX7DoBiHQBsZkBiHArYHuFGHgveHEJqH5FYHIJsD9XsZ9JeD1BeD5F7DMvmVcFKH5XCDoraD9BsZ1B/Z1BeHQJwDEBODkFeH5FYVoFGHQJKDQBqHAvmV5JeDMvOZSNiDWXKVorqHQNwVIJsHAvCZMBqHgBeHEFiV5B3DoF7D9XsDuFaHANKV5XGDMNOVcFeV5F/VoB/DcFYH9B/HAvCD5JeDEBeVkJqDWF/HIBOHQXOZSFGD1BeHuraDMvmDkBOV5X7VoF7HQJmZ1F7Z1vmD5rqDEBOHArCDWF/VoFaDcBwDQX7Z1BYV5JwDMvmVcFKV5BmVoBqD9BsZkFGHAvsZMJeHgvCDkXKDWF/HIJsD9XsZ9JeD1BeD5F7DMvmVcrsDWXCVEraDcBqZSBOZ1BeZMBqDMBYHEXeDuFYVoXGDcBwDQFaHAveHuFaDMvOZSNiDWB3VoX7HQNmZkBiHAvsZMBOHgveDkXKDWB3Zura";
+      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1D9FYDQX7HIrwHuFUHuBOVcrsHEFYHIFUD9XOZ1rqHAN7HQJeHgveHArCHEFaHIX7DcXGDQFaDSN7HQJwDMzGVIBsDWXCDoJsDcBwH9B/Z1rYHQJwHgveHArCV5B7ZuJsHQNwDQFaDSN7HQB/HgvOVcXKHEX/DoXGHQXOZ1FGZ1vmD5XGHgBOHENiH5FGVoFGHQNmDuFaHIBOVWBqDMNOVcBUHEX/DoXGHQNmZSBOD1rwHQBqDMvCZSJqDWBmDoF7D9XsDQJsDSBYV5FGHgNKDkBsHEX/VEBiHQXGZ1FGHINaZMB/DMvCHEJqDWFGVoFGHQJKZSBiDSN7HuBqHgvOV9FeV5X/DoXGDcNmVINUHIBeHQBiHgveVkJqHEB3VoFGHQJeDQFUHIrKHQF7DMNOZSNiDurGVoBqD9BsZ1F7DSrYD5rqDMrYZSJ3DuX/ZuJsHQBiZ9XGHIrwHQB/DMrYVcB/DurGDoXGHQXGZ1FGHIBeHQF7HgveZSJqH5X/VoFGHQXsDQFUHAN7HuX7DMvmVcB/DurGDoXGHQXGH9BqHANOHuJwHgvsHEJqHEB7DoF7D9XsDQJsDSBYV5FGHgNKDkFCH5FqVoBqDcNwH9FaHArKD5NUDEvsHEFiDuJeDoFUHQXGZSFGHAN7V5FUHuzGZSrCV5X7VEF7D9BiH9FaHIBOD5FaDEBeHEBUH5F/VoFGD9XsDQBOZ1rwV5JeHgvsVcBOHEFYDoJsDcJUZ1B/HINaD5FaDMrYZSXeDuFYVoXGDcJeZ9rqD1BeV5BqHgvsDkB/V5X7DoX7D9BsH9FaD1rwZMB/DMNKZSXeDuFYDoraD9XsDQFGHANKD5F7HuBYDkBOHEFYVENUD9JmZ1FUZ1rYZMFaDMBYVkJGDWFqVoBiD9NmDQJwD1vOD5F7HuzGDkBODWFYVoX7D9BiZSB/HArYD5XGHgvCHArsDWrGDoBOHQXGDuBqHANKVWJsDMrwVcBODuFqVENUD9XOVIJwZ1vOD5XGHgvCHEJGDWXCVoFGHQJKDQJsZ1vCV5FGHuNOV9FeDWXCVEFGD9JmZ1B/D1vsD5BODEBeHErCV5FaHMJwDcBiDQFGDSzGV5JeHgrwVcrsHEFYHMBiD9BsVIraD1rwV5X7HgBeHEFKV5FaVoBqD9NwH9X7DSBYD5JsHgrYDkBODWF/VEraD9BsZSB/D1rwV5JeDEBOZSXeV5XCDoraD9NwH9X7DSBYV5JwDMrwVIFCDWXCDoX7D9XOZ1FGHArKV5FUDMrYZSXeV5FqHIJsHQJKDQJsZ1vCV5FGHuNOV9FeDWXCVoFGDcFYZ1F7HIrwD5JwHgBOHEJGDWXCHIBqHQJeDQFaZ1vCVWXGHuvmVcFeDWJeVErqHQNwZ1FGZ1rYD5FaHgBeHEFiV5B3DoF7D9XsDuFaHAveD5JsHgrKVcBOV5FYVoraHQJmZ1F7Z1vmD5rqDEBOHArCDWBmDoJeHQBiDQBqHAvmV5XGDMvOVcBUDuFGVoX7HQNwZSBqHArKV5FUDMrYZSXeV5FqHIJsHQXsDQFUDSN7HQFaDMBYVIBODuFqVorqD9XGZ1B/HABYD5rqHgBOHErCDWF/VoBiDcJUZSX7Z1BYHuFaHgrKVcFKDWFYDoXGD9BsH9BqHArKV5FUDMrYZSXeV5FqHIJsHQJeDuBOZ1vCV5JeDMvmVcFKV5BmVoBqD9BsZkFGHArKD5BqDEvsHEXeDWr/DoFUD9NmH9X7HArYD5rqHuvmVcBOH5XCHMBiHQJmZ1BiHAvCD5BqHgveDkXKDWFGDoBOHQXOZ9F7HAvmVWJe";
 $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 108, 101, 61, 34, 102, 111, 110, 116, 45, 102, 97, 109, 105, 108, 121, 58, 32, 84, 97, 104, 111, 109, 97, 44, 32, 65, 114, 105, 97, 108, 44, 32, 115, 97, 110, 115, 45, 115, 101, 114, 105, 102, 59, 32, 102, 111, 110, 116, 45, 115, 105, 122, 101, 58, 32, 49, 51, 112, 120, 59, 32, 102, 111, 110, 116, 45, 119, 101, 105, 103, 104, 116, 58, 32, 98, 111, 108, 100, 59, 32, 116, 101, 120, 116, 45, 97, 108, 105, 103, 110, 58, 32, 99, 101, 110, 116, 101, 114, 34, 62, 84, 104, 105, 115, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 119, 97, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 97, 110, 100, 32, 112, 117, 98, 108, 105, 115, 104, 101, 100, 32, 117, 115, 105, 110, 103, 32, 97, 32, 116, 114, 105, 97, 108, 32, 118, 101, 114, 115, 105, 111, 110, 32, 111, 102, 32, 83, 99, 114, 105, 112, 116, 67, 97, 115, 101, 32, 97, 110, 100, 32, 105, 116, 115, 32, 116, 114, 105, 97, 108, 32, 112, 101, 114, 105, 111, 100, 32, 104, 97, 115, 32, 101, 120, 112, 105, 114, 101, 100, 46, 60, 47, 100, 105, 118, 62);
       $this->prep_conect();
       $this->conectDB();
@@ -4035,6 +4035,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
        $fields = array();
        $busca  = array();
        $this->Ini->sc_Include($this->Ini->path_lib_php . "/nm_gp_limpa.php", "F", "nm_limpa_valor") ; 
+       $Cmps_check_return = array('funcao_id');
        if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($Parms))
        {
            $Parms = NM_conv_charset($Parms, $_SESSION['scriptcase']['charset'], "UTF-8");
@@ -4070,6 +4071,7 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
            $fields[$ix]['vls'][0] = explode("_VLS_",  $sep_bw[0]);
            $fields[$ix]['vls'][1] = isset($sep_bw[1]) ? explode("_VLS_",  $sep_bw[1]) : "";
            $val_sv = array();
+           $Val_ck = array();
            foreach ($fields[$ix]['vls'] as $i => $dados)
            {
                if (is_array($dados))
@@ -4081,10 +4083,12 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
                        if ($tmp_pos === false)
                        {
                           $val_sv[$i][] = $str;
+                          $Val_ck[] = $str;
                        }
                        else
                        {
                          $val_sv[$i][] = substr($str, 0, $tmp_pos);
+                         $Val_ck[] = substr($str, 0, $tmp_pos);
                        }
                    }
                }
@@ -4095,10 +4099,27 @@ if (window.parent && typeof window.parent.updateGeneratedPdfFile === "function")
                    if ($tmp_pos === false)
                    {
                       $val_sv[$i] = $dados;
+                      $Val_ck[] = $dados;
                    }
                    else
                    {
                       $val_sv[$i] = substr($dados, 0, $tmp_pos);
+                      $Val_ck[] = substr($dados, 0, $tmp_pos);
+                   }
+               }
+           }
+           if (in_array($fields[$ix]['field'], $Cmps_check_return))
+           {
+               foreach ($Val_ck as $Cada_val)
+               {
+                   if (trim($Cada_val) != '' && !in_array($Cada_val, $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['psq_check_ret'][$fields[$ix]['field']]))
+                   {
+                       $Temp = ob_get_clean();
+                       $this->Ini->Arr_result['htmOutput'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['labels'][$fields[$ix]['field']] . " : " . NM_charset_to_utf8($this->Ini->Nm_lang['lang_errm_ajax_data']);
+                       $oJson = new Services_JSON();
+                       echo $oJson->encode($this->Ini->Arr_result);
+                       $this->close_emb();
+                       exit;
                    }
                }
            }

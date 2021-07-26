@@ -160,14 +160,18 @@ function Sel_cmp_process()
       $tab_ger_campos = array();
       $tab_blk_campos = array();
 
-            $tab_ger_campos['detento_id'] = "on";
-      $tab_ger_campos['medico_id'] = "on";
-      $tab_ger_campos['motivo'] = "on";
-      $tab_ger_campos['outras_infomacoes'] = "on";
-      $tab_ger_campos['data_consulta'] = "on";
-      $tab_ger_campos['status_id'] = "on";
-      $tab_blk_campos[] = "status_id";
-      $tab_ger_campos['id'] = "on";
+            $tab_ger_campos['c_detento_id'] = "on";
+      $tab_blk_campos[] = "c_detento_id";
+      $tab_ger_campos['c_medico_id'] = "on";
+      $tab_blk_campos[] = "c_medico_id";
+      $tab_ger_campos['c_data_consulta'] = "on";
+      $tab_blk_campos[] = "c_data_consulta";
+      $tab_ger_campos['c_motivo'] = "on";
+      $tab_blk_campos[] = "c_motivo";
+      $tab_ger_campos['c_outras_infomacoes'] = "on";
+      $tab_blk_campos[] = "c_outras_infomacoes";
+      $tab_ger_campos['c_status_id'] = "on";
+      $tab_blk_campos[] = "c_status_id";
 
 
       if (isset($_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['field_display']) && !empty($_SESSION['scriptcase']['sc_apl_conf']['grid_consulta']['field_display']))
