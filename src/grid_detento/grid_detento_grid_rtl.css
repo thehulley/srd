@@ -1,0 +1,16 @@
+.css_nome_label {text-align:left;vertical-align:middle;justify-content:left;font-weight:bold;}
+.css_nome_grid_line {vertical-align: top;text-align: right;}
+.css_cpf_label {text-align:left;vertical-align:middle;justify-content:left;font-weight:bold;}
+.css_cpf_grid_line {vertical-align: top;text-align: right;}
+.css_matricula_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
+.css_matricula_grid_line {vertical-align: top;text-align: right;}
+.css_data_nascimento_label {text-align:center;vertical-align:middle;justify-content:center;font-weight:bold;}
+.css_data_nascimento_grid_line {vertical-align: top;text-align: center;}
+.css_data_inicio_pena_label {text-align:center;vertical-align:middle;justify-content:center;font-weight:bold;}
+.css_data_inicio_pena_grid_line {vertical-align: top;text-align: center;}
+.css_status_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
+.css_status_id_grid_line {vertical-align: top;text-align: right;}
+.css_data_label {text-align:center;vertical-align:middle;justify-content:center;font-weight:bold;}
+.css_data_grid_line {vertical-align: top;text-align: center;}
+.css_id_label {text-align:right;vertical-align:middle;justify-content:right;font-weight:bold;}
+.css_id_grid_line {vertical-align: top;text-align: right;}
