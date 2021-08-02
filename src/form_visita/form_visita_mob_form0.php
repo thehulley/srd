@@ -2462,6 +2462,12 @@ scAjax_displayEmptyForm();
 			 return;
 		}
 	}
+	function scBtnFn_finalizar_visita() {
+		if ($("#sc_finalizar_visita_top").length && $("#sc_finalizar_visita_top").is(":visible")) {
+			sc_btn_finalizar_visita()
+			 return;
+		}
+	}
 	function scBtnFn_sys_format_reload() {
 		if ($("#sc_b_reload_t.sc-unique-btn-5").length && $("#sc_b_reload_t.sc-unique-btn-5").is(":visible")) {
 			scAjax_formReload();

@@ -167,6 +167,8 @@ function Sel_cmp_process()
       $tab_ger_campos['data_inicio_pena'] = "on";
       $tab_ger_campos['status_id'] = "on";
       $tab_blk_campos[] = "status_id";
+      $tab_ger_campos['tempo'] = "on";
+      $tab_blk_campos[] = "tempo";
       $tab_ger_campos['data'] = "on";
       $tab_blk_campos[] = "data";
       $tab_ger_campos['id'] = "on";

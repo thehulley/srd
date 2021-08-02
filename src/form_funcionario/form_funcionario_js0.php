@@ -57,7 +57,7 @@ function sc_btn_excluir_funcionario()
       return;
     }
     if (Crtl_btn_excluir_funcionario) {return;}
-    sc_btn_excluir_funcionario_ok();
+    scJs_confirm("<?php echo html_entity_decode("Deseja realmente excluir o funcionário?", ENT_COMPAT, $_SESSION['scriptcase']['charset']); ?>", sc_btn_excluir_funcionario_ok, sc_btn_excluir_funcionario_cancel)
 }
 function sc_btn_excluir_funcionario_cancel()
 {

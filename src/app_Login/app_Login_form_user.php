@@ -69,7 +69,7 @@
                 <div class="submit">
                     <input class="button button-block" style="background: #727cf5; border-color: #727cf5; box-shadow: 0 3px 0px #434FE1;" type="button" value="Entrar"  onclick="nm_atualiza('alterar');"  />
                 </div>
-                <input type="hidden" name="links" value = "">
+				<input type="hidden" name="links" value = "">
 <input type="hidden" name="links_sc_target_name" value = "">
 <div id="id-links-1" class="class-links ">
  <a href="javascript:nm_menu_link_links('app_retrieve_pswd', '_self')"><?php echo $this->Ini->Nm_lang['lang_subject_mail'] ?></a>

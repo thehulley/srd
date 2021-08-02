@@ -3117,6 +3117,43 @@ sajax_show_javascript();
     scAjaxSetFocus();
   } // do_ajax_form_detento_validate_data_cb
 
+  // ---------- Validate crimes
+  function do_ajax_form_detento_validate_crimes()
+  {
+    var nomeCampo_crimes = "crimes";
+    var var_crimes = scAjaxGetFieldText(nomeCampo_crimes);
+    var var_script_case_init = document.F1.script_case_init.value;
+    x_ajax_form_detento_validate_crimes(var_crimes, var_script_case_init, do_ajax_form_detento_validate_crimes_cb);
+  } // do_ajax_form_detento_validate_crimes
+
+  function do_ajax_form_detento_validate_crimes_cb(sResp)
+  {
+    oResp = scAjaxResponse(sResp);
+    scAjaxRedir();
+    sFieldValid = "crimes";
+    scEventControl_onBlur(sFieldValid);
+    scAjaxUpdateFieldErrors(sFieldValid, "valid");
+    sFieldErrors = scAjaxListFieldErrors(sFieldValid, false);
+    if ("" == sFieldErrors)
+    {
+      var sImgStatus = sc_img_status_ok;
+      scAjaxHideErrorDisplay(sFieldValid);
+    }
+    else
+    {
+      var sImgStatus = sc_img_status_err;
+      scAjaxShowErrorDisplay(sFieldValid, sFieldErrors);
+    }
+    var $oImg = $('#id_sc_status_' + sFieldValid);
+    if (0 < $oImg.length)
+    {
+      $oImg.attr('src', sImgStatus).css('display', '');
+    }
+    scAjaxShowDebug();
+    scAjaxSetMaster();
+    scAjaxSetFocus();
+  } // do_ajax_form_detento_validate_crimes_cb
+
   // ---------- Event onchange cpf
   function do_ajax_form_detento_event_cpf_onchange()
   {
@@ -3547,6 +3584,7 @@ function scJs_sweetalert_params(params) {
       scAjaxHideErrorDisplay("data_inicio_pena");
       scAjaxHideErrorDisplay("status_id");
       scAjaxHideErrorDisplay("data");
+      scAjaxHideErrorDisplay("crimes");
       scLigEditLookupCall();
 <?php
 if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboard_info']['under_dashboard']) && $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboard_info']['under_dashboard']) {
@@ -3589,6 +3627,7 @@ if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboar
   } // do_ajax_form_detento_submit_form_cb_after_alert
 
   var scStatusDetail = {};
+  scStatusDetail["form_crimes_detento"] = "off";
 
   function do_ajax_form_detento_navigate_form()
   {
@@ -3614,6 +3653,7 @@ if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboar
     scAjaxHideErrorDisplay("data_inicio_pena");
     scAjaxHideErrorDisplay("status_id");
     scAjaxHideErrorDisplay("data");
+    scAjaxHideErrorDisplay("crimes");
     var var_id = document.F2.id.value;
     var var_nm_form_submit = document.F2.nm_form_submit.value;
     var var_nmgp_opcao = document.F2.nmgp_opcao.value;
@@ -3624,6 +3664,7 @@ if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboar
     var var_nmgp_arg_dyn_search = document.F2.nmgp_arg_dyn_search.value;
     var var_script_case_init = document.F2.script_case_init.value;
     scAjaxProcOn();
+    scStatusDetail["form_crimes_detento"] = "on";
     x_ajax_form_detento_navigate_form(var_id, var_nm_form_submit, var_nmgp_opcao, var_nmgp_ordem, var_nmgp_fast_search,  var_nmgp_cond_fast_search,  var_nmgp_arg_fast_search, var_nmgp_arg_dyn_search, var_script_case_init, do_ajax_form_detento_navigate_form_cb);
   } // do_ajax_form_detento_navigate_form
 
@@ -3639,7 +3680,6 @@ foreach ($this->Ini->sc_lig_iframe as $tmp_i => $tmp_v)
 ?>
   function do_ajax_form_detento_navigate_form_cb(sResp)
   {
-    scAjaxProcOff();
     oResp = scAjaxResponse(sResp);
     scAjaxRedir();
     if (oResp['empty_filter'] && oResp['empty_filter'] == "ok")
@@ -3673,6 +3713,14 @@ foreach ($this->Ini->sc_lig_iframe as $tmp_i => $tmp_v)
     scAjaxSetNavStatus("t");
     scAjaxSetNavStatus("b");
     scAjaxSetDisplay(true);
+    if (scMasterDetailIframe && scMasterDetailIframe["nmsc_iframe_liga_form_crimes_detento"] && "nmsc_iframe_liga_form_crimes_detento" != scMasterDetailIframe["nmsc_iframe_liga_form_crimes_detento"]) {
+        scMoveMasterDetail(scMasterDetailIframe["nmsc_iframe_liga_form_crimes_detento"]);
+    }
+    else {
+        document.getElementById('nmsc_iframe_liga_form_crimes_detento').contentWindow.nm_move('apl_detalhe', true);
+        document.getElementById('nmsc_iframe_liga_form_crimes_detento').style.height = "1";
+        document.getElementById('nmsc_iframe_liga_form_crimes_detento').style.display = "none";
+    }
     scAjaxSetBtnVars();
     $('.sc-js-ui-statusimg').css('display', 'none');
     scAjaxAlert(do_ajax_form_detento_navigate_form_cb_after_alert);
@@ -3704,9 +3752,33 @@ if ($this->Embutida_form)
   } // sc_hide_form_detento_form
 
 
+  function scAjaxDetailStatus(sDetailApp)
+  {
+    if (scStatusDetail[sDetailApp])
+    {
+      scStatusDetail[sDetailApp] = "off";
+      if (document.getElementById("nmsc_iframe_liga_" + sDetailApp)) {
+        document.getElementById("nmsc_iframe_liga_" + sDetailApp).style.display = "";
+      }
+    }
+    if (scAjaxDetailProc())
+    {
+      scAjaxProcOff();
+    }
+  } // scAjaxDetailStatus
+
+  function scAjaxDetailHeight(sDetailApp, iDetailHeight)
+  {
+    $("#nmsc_iframe_liga_" + sDetailApp).css("height", iDetailHeight + "px");
+  } // scAjaxDetailHeight
+
   function scAjaxDetailProc()
   {
-    return true;
+    if ("off" == scStatusDetail["form_crimes_detento"])
+    {
+      return true;
+    }
+    return false;
   } // scAjaxDetailProc
 
 
@@ -3723,9 +3795,11 @@ if ($this->Embutida_form)
   ajax_field_list[4] = "data_inicio_pena";
   ajax_field_list[5] = "status_id";
   ajax_field_list[6] = "data";
+  ajax_field_list[7] = "crimes";
 
   var ajax_block_list = new Array();
   ajax_block_list[0] = "0";
+  ajax_block_list[1] = "1";
 
   var ajax_error_list = {
     "nome": {"label": "Nome", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
@@ -3734,16 +3808,19 @@ if ($this->Embutida_form)
     "data_nascimento": {"label": "Data de Nascimento", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
     "data_inicio_pena": {"label": "Início da Pena", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
     "status_id": {"label": "Status", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
-    "data": {"label": "Data da Criação", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5}
+    "data": {"label": "Data da Criação", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
+    "crimes": {"label": "crimes", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5}
   };
   var ajax_error_timeout = 5;
 
   var ajax_block_id = {
-    "0": "hidden_bloco_0"
+    "0": "hidden_bloco_0",
+    "1": "hidden_bloco_1"
   };
 
   var ajax_block_tab = {
-    "hidden_bloco_0": ""
+    "hidden_bloco_0": "",
+    "hidden_bloco_1": ""
   };
 
   var ajax_field_mult = {
@@ -3753,7 +3830,8 @@ if ($this->Embutida_form)
     "data_nascimento": new Array(),
     "data_inicio_pena": new Array(),
     "status_id": new Array(),
-    "data": new Array()
+    "data": new Array(),
+    "crimes": new Array()
   };
   ajax_field_mult["nome"][1] = "nome";
   ajax_field_mult["matricula"][1] = "matricula";
@@ -3762,6 +3840,7 @@ if ($this->Embutida_form)
   ajax_field_mult["data_inicio_pena"][1] = "data_inicio_pena";
   ajax_field_mult["status_id"][1] = "status_id";
   ajax_field_mult["data"][1] = "data";
+  ajax_field_mult["crimes"][1] = "crimes";
 
   var ajax_field_id = {
     "nome": new Array("hidden_field_label_nome", "hidden_field_data_nome"),
@@ -3769,7 +3848,8 @@ if ($this->Embutida_form)
     "cpf": new Array("hidden_field_label_cpf", "hidden_field_data_cpf"),
     "data_nascimento": new Array("hidden_field_label_data_nascimento", "hidden_field_data_data_nascimento"),
     "data_inicio_pena": new Array("hidden_field_label_data_inicio_pena", "hidden_field_data_data_inicio_pena"),
-    "status_id": new Array("hidden_field_label_status_id", "hidden_field_data_status_id")
+    "status_id": new Array("hidden_field_label_status_id", "hidden_field_data_status_id"),
+    "crimes": new Array("hidden_field_label_crimes", "hidden_field_data_crimes")
   };
 
   var ajax_read_only = {
@@ -3779,7 +3859,8 @@ if ($this->Embutida_form)
     "data_nascimento": "off",
     "data_inicio_pena": "off",
     "status_id": "off",
-    "data": "off"
+    "data": "off",
+    "crimes": "off"
   };
   var bRefreshTable = false;
   function scRefreshTable()
@@ -3894,6 +3975,23 @@ if ($this->Embutida_form)
       return;
     }
     if ("data" == sIndex)
+    {
+      scAjaxSetFieldText(sIndex, aValue, "", "", true);
+      updateHeaderFooter(sIndex, aValue);
+
+      if ($("#id_sc_field_" + sIndex).length) {
+          $("#id_sc_field_" + sIndex).change();
+      }
+      else if (document.F1.elements[sIndex]) {
+          $(document.F1.elements[sIndex]).change();
+      }
+      else if (document.F1.elements[sFieldName + "[]"]) {
+          $(document.F1.elements[sFieldName + "[]"]).change();
+      }
+
+      return;
+    }
+    if ("crimes" == sIndex)
     {
       scAjaxSetFieldText(sIndex, aValue, "", "", true);
       updateHeaderFooter(sIndex, aValue);

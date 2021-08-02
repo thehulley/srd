@@ -112,9 +112,20 @@ function Ord_cmp_init()
    $tab_ger_campos['status_id'] = "on";
    $tab_def_campos['status_id'] = "status_id";
    $tab_labels["status_id"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_detento']['labels']["status_id"])) ? $_SESSION['sc_session'][$sc_init]['grid_detento']['labels']["status_id"] : "Status";
+   $tab_ger_campos['tempo'] = "on";
+   if ($use_alias == "S")
+   {
+       $tab_def_campos['tempo'] = "tempo";
+   }
+   else
+   {
+       $tab_def_campos['tempo'] = "";
+   }
+   $tab_labels["tempo"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_detento']['labels']["tempo"])) ? $_SESSION['sc_session'][$sc_init]['grid_detento']['labels']["tempo"] : "Tempo";
    $tab_ger_campos['data'] = "on";
    $tab_def_campos['data'] = "data";
    $tab_labels["data"]   = (isset($_SESSION['sc_session'][$sc_init]['grid_detento']['labels']["data"])) ? $_SESSION['sc_session'][$sc_init]['grid_detento']['labels']["data"] : "Data de Criação";
+   $tab_ger_campos['tempo'] = "none";
    if (isset($_SESSION['scriptcase']['sc_apl_conf']['grid_detento']['field_display']) && !empty($_SESSION['scriptcase']['sc_apl_conf']['grid_detento']['field_display']))
    {
        foreach ($_SESSION['scriptcase']['sc_apl_conf']['grid_detento']['field_display'] as $NM_cada_field => $NM_cada_opc)

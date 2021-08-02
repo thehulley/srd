@@ -531,7 +531,7 @@ sc_userSweetAlertDisplayed = false;
 <?php
 }
 ?>
-<table id="main_table_form"  align="center" cellpadding=0 cellspacing=0 >
+<table id="main_table_form"  align="center" cellpadding=0 cellspacing=0  width="50%">
  <tr>
   <td>
   <div class="scFormBorder" style="<?php echo (isset($remove_border) ? $remove_border : ''); ?>">
@@ -591,7 +591,7 @@ sc_userSweetAlertDisplayed = false;
    <?php
     if (!isset($this->nm_new_label['old_pswd']))
     {
-        $this->nm_new_label['old_pswd'] = "" . $this->Ini->Nm_lang['lang_old_pswd'] . "";
+        $this->nm_new_label['old_pswd'] = "Senha Antiga";
     }
 ?>
 <?php
@@ -624,7 +624,7 @@ sc_userSweetAlertDisplayed = false;
 <input type="hidden" name="old_pswd" value="">
 <?php } else { ?>
 <span id="id_read_on_old_pswd" class="sc-ui-readonly-old_pswd css_old_pswd_line" style="<?php echo $sStyleReadLab_old_pswd; ?>"><?php echo $this->form_format_readonly("old_pswd", $this->form_encode_input($this->old_pswd)); ?></span><span id="id_read_off_old_pswd" class="css_read_off_old_pswd<?php echo $this->classes_100perc_fields['span_input'] ?>" style="white-space: nowrap;<?php echo $sStyleReadInp_old_pswd; ?>"><input class="sc-js-input scFormObjectOdd css_old_pswd_obj<?php echo $this->classes_100perc_fields['input'] ?>" style="" id="id_sc_field_old_pswd" type="password" autocomplete="off" name="old_pswd" value="" 
- <?php if ($this->classes_100perc_fields['keep_field_size']) { echo "size=10"; } ?> maxlength=32 alt="{datatype: 'text', maxLength: 32, allowedChars: '<?php echo $this->allowedCharsCharset("") ?>', lettersCase: '', enterTab: false, enterSubmit: false, autoTab: false, selectOnFocus: false, watermark: '', watermarkClass: 'scFormObjectOddWm', maskChars: '(){}[].,;:-+/ '}" ></span><?php } ?>
+ <?php if ($this->classes_100perc_fields['keep_field_size']) { echo "size=30"; } ?> maxlength=32 alt="{datatype: 'text', maxLength: 32, allowedChars: '<?php echo $this->allowedCharsCharset("") ?>', lettersCase: '', enterTab: false, enterSubmit: false, autoTab: false, selectOnFocus: false, watermark: '', watermarkClass: 'scFormObjectOddWm', maskChars: '(){}[].,;:-+/ '}" ></span><?php } ?>
  </TD>
    <?php }?>
 
@@ -649,7 +649,7 @@ sc_userSweetAlertDisplayed = false;
    <?php
     if (!isset($this->nm_new_label['pswd']))
     {
-        $this->nm_new_label['pswd'] = "" . $this->Ini->Nm_lang['lang_sec_users_fild_pswd'] . "";
+        $this->nm_new_label['pswd'] = "Nova Senha";
     }
 ?>
 <?php
@@ -682,7 +682,7 @@ sc_userSweetAlertDisplayed = false;
 <input type="hidden" name="pswd" value="">
 <?php } else { ?>
 <span id="id_read_on_pswd" class="sc-ui-readonly-pswd css_pswd_line" style="<?php echo $sStyleReadLab_pswd; ?>"><?php echo $this->form_format_readonly("pswd", $this->form_encode_input($this->pswd)); ?></span><span id="id_read_off_pswd" class="css_read_off_pswd<?php echo $this->classes_100perc_fields['span_input'] ?>" style="white-space: nowrap;<?php echo $sStyleReadInp_pswd; ?>"><input class="sc-js-input scFormObjectOdd css_pswd_obj<?php echo $this->classes_100perc_fields['input'] ?>" style="" id="id_sc_field_pswd" type="password" autocomplete="off" name="pswd" value="" 
- <?php if ($this->classes_100perc_fields['keep_field_size']) { echo "size=10"; } ?> maxlength=32 alt="{datatype: 'text', maxLength: 32, allowedChars: '<?php echo $this->allowedCharsCharset("") ?>', lettersCase: '', enterTab: false, enterSubmit: false, autoTab: false, selectOnFocus: false, watermark: '', watermarkClass: 'scFormObjectOddWm', maskChars: '(){}[].,;:-+/ '}" ></span><?php } ?>
+ <?php if ($this->classes_100perc_fields['keep_field_size']) { echo "size=30"; } ?> maxlength=32 alt="{datatype: 'text', maxLength: 32, allowedChars: '<?php echo $this->allowedCharsCharset("") ?>', lettersCase: '', enterTab: false, enterSubmit: false, autoTab: false, selectOnFocus: false, watermark: '', watermarkClass: 'scFormObjectOddWm', maskChars: '(){}[].,;:-+/ '}" ></span><?php } ?>
  </TD>
    <?php }?>
 
@@ -707,7 +707,7 @@ sc_userSweetAlertDisplayed = false;
    <?php
     if (!isset($this->nm_new_label['confirm_pswd']))
     {
-        $this->nm_new_label['confirm_pswd'] = "" . $this->Ini->Nm_lang['lang_sec_users_fild_pswd_confirm'] . "";
+        $this->nm_new_label['confirm_pswd'] = "Confirme a Nova Senha";
     }
 ?>
 <?php
@@ -740,7 +740,7 @@ sc_userSweetAlertDisplayed = false;
 <input type="hidden" name="confirm_pswd" value="">
 <?php } else { ?>
 <span id="id_read_on_confirm_pswd" class="sc-ui-readonly-confirm_pswd css_confirm_pswd_line" style="<?php echo $sStyleReadLab_confirm_pswd; ?>"><?php echo $this->form_format_readonly("confirm_pswd", $this->form_encode_input($this->confirm_pswd)); ?></span><span id="id_read_off_confirm_pswd" class="css_read_off_confirm_pswd<?php echo $this->classes_100perc_fields['span_input'] ?>" style="white-space: nowrap;<?php echo $sStyleReadInp_confirm_pswd; ?>"><input class="sc-js-input scFormObjectOdd css_confirm_pswd_obj<?php echo $this->classes_100perc_fields['input'] ?>" style="" id="id_sc_field_confirm_pswd" type="password" autocomplete="off" name="confirm_pswd" value="" 
- <?php if ($this->classes_100perc_fields['keep_field_size']) { echo "size=10"; } ?> maxlength=32 alt="{datatype: 'text', maxLength: 32, allowedChars: '<?php echo $this->allowedCharsCharset("") ?>', lettersCase: '', enterTab: false, enterSubmit: false, autoTab: false, selectOnFocus: false, watermark: '', watermarkClass: 'scFormObjectOddWm', maskChars: '(){}[].,;:-+/ '}" ></span><?php } ?>
+ <?php if ($this->classes_100perc_fields['keep_field_size']) { echo "size=30"; } ?> maxlength=32 alt="{datatype: 'text', maxLength: 32, allowedChars: '<?php echo $this->allowedCharsCharset("") ?>', lettersCase: '', enterTab: false, enterSubmit: false, autoTab: false, selectOnFocus: false, watermark: '', watermarkClass: 'scFormObjectOddWm', maskChars: '(){}[].,;:-+/ '}" ></span><?php } ?>
  </TD>
    <?php }?>
 

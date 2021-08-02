@@ -292,8 +292,8 @@ class form_funcionario_mob_ini
       $this->nm_dt_criacao   = "20210726"; 
       $this->nm_hr_criacao   = "075744"; 
       $this->nm_autor_alt    = "admin"; 
-      $this->nm_dt_ult_alt   = "20210726"; 
-      $this->nm_hr_ult_alt   = "120219"; 
+      $this->nm_dt_ult_alt   = "20210801"; 
+      $this->nm_hr_ult_alt   = "165649"; 
       list($NM_usec, $NM_sec) = explode(" ", microtime()); 
       $this->nm_timestamp    = (float) $NM_sec; 
       $this->nm_app_version  = "1.0.0"; 
@@ -943,7 +943,7 @@ class form_funcionario_mob_ini
       $this->nm_bases_odbc       = array("odbc");
       $this->nm_bases_progress   = array("progress", "pdo_progress_odbc");
       $this->nm_bases_all        = array_merge($this->nm_bases_access, $this->nm_bases_db2, $this->nm_bases_ibase, $this->nm_bases_informix, $this->nm_bases_mssql, $this->nm_bases_mysql, $this->nm_bases_postgres, $this->nm_bases_oracle, $this->nm_bases_sqlite, $this->nm_bases_sybase, $this->nm_bases_vfp, $this->nm_bases_odbc, $this->nm_bases_progress);
-      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1HQJeDQJwHIrwHQF7DMvOVcBODur/HMJwHQNmZSB/DSrYHuX7DMvCHEJGHEB7ZuBqHQFYDuFaHAveD5NUHgNKDkBOV5FYHMBiHQNmZkFGZ1vOZMJwHgrKHErCHEXCHMJwDcBiDQB/DSzGD5F7DMzGVcFeV5BmVoX7HQBsZ1X7D1zGV5X7HgvsHArCDuX/ZuXGHQXsDQBqDSzGD5F7DMvOVIB/H5FqHMrqDcFYH9BOHAvsD5rqDEBOHEFiHEFqDoF7DcJUZSBiDSzGVWFaDMBOVcFeDuB7VENUDcFYZ1BOHAzGV5X7HgBeZSJ3HEXCHIXGDcBiDuFaZ1zGD5F7HgvOZSNiDuX7HMJwHQNmZSBODSvmV5X7HgBYHEJqDuJeHMFGHQXsZ9XGHIvsV5FGHuNOVcFKHEFYVoBqDcBwH9BqHINaZMJwHgveDkXKDuFaHMJwHQXODQFUHIvsD5F7DMBOVcFeDuX7HMBOHQNmH9BOD1NaV5X7HgBOHEJqDWXCHIrqHQJKDQFUHIvsD5F7DMBODkBsDWF/HIBiHQBiZ1BODSvOD5rqDEBOHEFiHEFqDoF7DcJUZSFGD1BeV5FGHgrYDkFCDWXCVoB/D9BiZ1F7HIveD5BiHgvCZSJGDWXCDoraD9NwZ9JeZ1rwVWXGHuBYDkFCDuFGVoraD9JmZ1rqD1rKV5X7DEBOHEFKV5FaDoBODcJeDQX7DSBYD5NUHgrKVcBODuB7VoraDcBwH9B/HIrwV5JeDMBYDkBsH5FYDoXGDcJeZSFUZ1rwD5BOHuNODkFCH5FqVENUDcNwH9B/HIrwD5NUDEBOHEJGDWBmVoFGD9NmZSX7DSBYVWJsHuvmVcFiV5FYVEraDcBqZSFaHArYV5FUDEvsHEBUH5FGVoFGD9NwZSX7HABYV5BOHuBYVIBODWFYVoX7HQFYZkBiHAvCD5BqHgvCHArsDWBmZuFaHQXGDQX7HIBeVWJsHuzGZSJ3V5X/VoX7HQFYZ1FaHANOV5X7HgBeHEFiV5B3DoF7D9XsDuFaHANKVWBODMNOVcB/DWXCVENUHQXGZ1FGZ1NOZMBqDErKVkXeV5FqZuJsHQXsZSBiHAveD5NUHgNKDkBOV5FYHMBiHQFYH9B/HANOD5FaDErKVkXeV5FqDoFUDcBwH9FGHABYD5NUHgvsDkBOHEFYVoraD9BsZSB/HABYD5XGDEBeHEXeV5FaDoFUD9XsDQX7Z1rwV5X7DMrwVIFCDWXCDoX7D9XOZ1FGHArKV5FUDMrYZSXeV5FqHIJsHQJKDQJsZ1vCV5FGHuNOV9FeDWXCHMFUHQNwH9BqHIBeHQJsDENOHErCDuFaVoJeD9JKDQX7Z1N7D5FaDMvmVcFKV5BmVoBqD9BsZkFGHArKV5B/DMzGHEXeV5FqDoB/HQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoX7HQNmZ1BiHAvCD5BOHgveHErsDuXKDoJeHQXOH9BiHAveD5NUHgNKDkBOV5FYHMBiDcNmZSBODSvOZMBODEBeHEFiDWr/HIF7HQFYDuFaDSrwV5FGHuNOVIBsDWXCDoJsDcBwH9B/Z1rYHQJwDMzGHEFiDWFqVoFGD9XsZSBiHAveD5NUHgNKDkBOV5FYHMBiHQBqZkFUZ1vmD5BqHgBeHEFiV5B3DoF7D9XsDuFaHAveV5JeHuBYVcBODWJeVoJwD9BiZSB/HABYV5FGDEBeHEXeH5F/HIJsHQJKDQBqHAvmV5JeDMvOZSNiDWXKVorqHQNwVIJsHAvCZMBq";
+      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1D9JKDQBqD1BeVWXGDMrYZSNiDWFYHIJsHQNmZSBOHANOHuX7HgBOZSJqH5FYHIB/D9JKDQFUDSN7HuB/DMvmVcFKV5BmVoBqD9BsZkFGHAvsD5XGHgBeHEFiV5B3DoF7D9XsDuFaHAveD5XGHuvmDkBOV5FYHIJeHQXGZ1F7DSrYD5FaDMzGZSJ3DWF/VoBiDcJUZSX7Z1BYHuFaHgrKVcFKDWFYDoXGD9BsH9BqHArKV5FUDMrYZSXeV5FqHIJsHQXGZSX7HAN7V5JwHuzGVIBOV5FYVoJwDcJUZSFaHArYV5FUDMBYZSXeHEFqDoB/D9XsH9X7HArYV5BOHuvmVcBOV5X7VoJwD9BsZ1B/Z1BeD5F7HgvCVkJGDWF/VoJeD9NwDQFaHAveD5NUHgNKDkBOV5FYHMBiD9JmZSBqZ1NOV5B/HgBOHArCHEFaZuJeDcXGZ9F7HIrKD5BqHuzGVIBOHEFYVoX7D9JmZSB/Z1rYHQJwDEBODkFeH5FYVoFGHQJKDQFaZ1zGVWFaDMzGVcFeHEF/HIFUDcNmZ1X7DSvOV5X7HgrKHErCV5B3DoJeHQXsDQB/D1vOD5F7DMBYV9FeDuB7VEFGHQBsZ1BiDSvOV5X7HgveVkJqH5FYHIBODcXGZSFUHANKV5FGHuNOVcFKHEFYVoBqDcBwH9BqDSvOZMJwHgNOHErCDuX/ZuFaDcXGDQFUHAvOD5F7DMvmDkBsHEF/HMFGDcNmZkFGZ1vOV5X7DMveDkXKDuFaHIFUHQBiH9FUDSvCD5F7DMvsVcB/Dur/HIXGHQBsVINUHINKD5rqDEBOHEFiHEFqDoF7DcJUZSBiHIBOVWFaDMvOZSNiDuX7HIFUHQNwZ1BOHINKV5X7HgNOHErCDuFaHIrqHQBiZSFUD1BOD5F7DMNOVcB/DWF/HMBOHQJmZ1BOHINKV5X7HgNOZSJ3DWXCHMJsHQNmDQFUDSzGV5FGHuNOVcFKHEFYVoBqDcBwH9FaD1rwD5rqDMNKZSJGDWF/DoraD9NmDQJsHIrKV5raDMrwDkFCDWF/VoB/D9XOVIraZ1BeZMBODEvsZSJGDuXKDoB/D9JKDQJwD1veD5F7HuNOVcFiV5X7VorqDcBqZ1B/DSrYV5FUDMzGHEXeDuX/DoB/DcJUZSX7HIBeD5BqHgvsZSJ3H5FqVoFGDcBqH9BOZ1BeV5XGDEBOZSJGH5FYZuFaDcXOZSX7HIBeV5FUHuNOVcFCDWB3DoXGD9BiH9B/DSrYZMB/DEBeHEFKV5FqZuB/DcJeH9FGHABYD5NUHuBYVcrsH5XKDoXGD9XOH9B/HArYD5XGDEvsVkXeDWFqDoJeHQXGDuBqHAvmV5JeDMrwV9BUDWB3VENUHQFYZ1B/HIrwZMB/DErKDkBsV5B7DoJeHQXGDQFGHAN7D5F7DMvmVcFKV5BmVoBqD9BsZkFGHAvsD5XGHgveHErsDWrGDoBqHQBiDQBqHIvsV5JeDMvOV9FeDWXCDoJsDcBwH9B/Z1rYHQJwHgNOZSXeV5XCVoBODcJeZ9XGHAveVWFaDMvOVIBsV5X/VEF7HQJmZ1F7Z1vmD5rqDEBOHArCDWF/VoFaDcBwDQX7Z1BYV5JwDMvmVcFKV5BmVoBqD9BsZkFGHAvsZMJeHgvCDkXKDWF/HIJsD9XsZ9JeD1BeD5F7DMvmVcrsDWXCVEraDcBqZSBOZ1BeZMBqDMBYHEXeDuFYVoXGDcBwDQFaHAveHuFaDMvOZSNiDWB3VoX7HQNmZkBiHAvsZMXGHgveHErsDWrGZura";
 $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 108, 101, 61, 34, 102, 111, 110, 116, 45, 102, 97, 109, 105, 108, 121, 58, 32, 84, 97, 104, 111, 109, 97, 44, 32, 65, 114, 105, 97, 108, 44, 32, 115, 97, 110, 115, 45, 115, 101, 114, 105, 102, 59, 32, 102, 111, 110, 116, 45, 115, 105, 122, 101, 58, 32, 49, 51, 112, 120, 59, 32, 102, 111, 110, 116, 45, 119, 101, 105, 103, 104, 116, 58, 32, 98, 111, 108, 100, 59, 32, 116, 101, 120, 116, 45, 97, 108, 105, 103, 110, 58, 32, 99, 101, 110, 116, 101, 114, 34, 62, 84, 104, 105, 115, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 119, 97, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 97, 110, 100, 32, 112, 117, 98, 108, 105, 115, 104, 101, 100, 32, 117, 115, 105, 110, 103, 32, 97, 32, 116, 114, 105, 97, 108, 32, 118, 101, 114, 115, 105, 111, 110, 32, 111, 102, 32, 83, 99, 114, 105, 112, 116, 67, 97, 115, 101, 32, 97, 110, 100, 32, 105, 116, 115, 32, 116, 114, 105, 97, 108, 32, 112, 101, 114, 105, 111, 100, 32, 104, 97, 115, 32, 101, 120, 112, 105, 114, 101, 100, 46, 60, 47, 100, 105, 118, 62);
       $this->prep_conect();
       $this->conectDB();
@@ -1023,6 +1023,13 @@ $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 1
       else
       {
           $perfil_trab = $con_devel;
+      }
+      if (!$_SESSION['sc_session'][$this->sc_page]['form_funcionario_mob']['embutida_form'] || !$_SESSION['sc_session'][$this->sc_page]['form_funcionario_mob']['embutida_proc']) 
+      {
+          if (!isset($_SESSION['i'])) 
+          {
+              $this->nm_falta_var .= "i; ";
+          }
       }
 // 
       if (!isset($_SESSION['scriptcase']['glo_tpbanco']))
@@ -1743,6 +1750,11 @@ ob_start();
             $ativo = NM_utf8_urldecode($_POST['rsargs'][0]);
             $script_case_init = NM_utf8_urldecode($_POST['rsargs'][1]);
         }
+        if ('ajax_form_funcionario_mob_validate_data' == $_POST['rs'])
+        {
+            $data = NM_utf8_urldecode($_POST['rsargs'][0]);
+            $script_case_init = NM_utf8_urldecode($_POST['rsargs'][1]);
+        }
         if ('ajax_form_funcionario_mob_event_cpf_onchange' == $_POST['rs'])
         {
             $cpf = NM_utf8_urldecode($_POST['rsargs'][0]);
@@ -1764,15 +1776,16 @@ ob_start();
             $funcao_id = NM_utf8_urldecode($_POST['rsargs'][6]);
             $senha = NM_utf8_urldecode($_POST['rsargs'][7]);
             $ativo = NM_utf8_urldecode($_POST['rsargs'][8]);
-            $id = NM_utf8_urldecode($_POST['rsargs'][9]);
-            $nm_form_submit = NM_utf8_urldecode($_POST['rsargs'][10]);
-            $nmgp_url_saida = NM_utf8_urldecode($_POST['rsargs'][11]);
-            $nmgp_opcao = NM_utf8_urldecode($_POST['rsargs'][12]);
-            $nmgp_ancora = NM_utf8_urldecode($_POST['rsargs'][13]);
-            $nmgp_num_form = NM_utf8_urldecode($_POST['rsargs'][14]);
-            $nmgp_parms = NM_utf8_urldecode($_POST['rsargs'][15]);
-            $script_case_init = NM_utf8_urldecode($_POST['rsargs'][16]);
-            $csrf_token = NM_utf8_urldecode($_POST['rsargs'][17]);
+            $data = NM_utf8_urldecode($_POST['rsargs'][9]);
+            $id = NM_utf8_urldecode($_POST['rsargs'][10]);
+            $nm_form_submit = NM_utf8_urldecode($_POST['rsargs'][11]);
+            $nmgp_url_saida = NM_utf8_urldecode($_POST['rsargs'][12]);
+            $nmgp_opcao = NM_utf8_urldecode($_POST['rsargs'][13]);
+            $nmgp_ancora = NM_utf8_urldecode($_POST['rsargs'][14]);
+            $nmgp_num_form = NM_utf8_urldecode($_POST['rsargs'][15]);
+            $nmgp_parms = NM_utf8_urldecode($_POST['rsargs'][16]);
+            $script_case_init = NM_utf8_urldecode($_POST['rsargs'][17]);
+            $csrf_token = NM_utf8_urldecode($_POST['rsargs'][18]);
         }
         if ('ajax_form_funcionario_mob_navigate_form' == $_POST['rs'])
         {
@@ -1917,6 +1930,10 @@ ob_start();
                $$Tmp_par = $cadapar[1];
            }
            $ix++;
+        }
+        if (isset($i)) 
+        {
+            $_SESSION['i'] = $i;
         }
     } 
     elseif (isset($script_case_init) && !empty($script_case_init) && !is_array($script_case_init) && isset($_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['parms']))
@@ -2136,6 +2153,16 @@ ob_start();
         {
             $_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['opcao'] = $nmgp_opcao ; 
         }
+        if (isset($_POST["i"])) 
+        {
+            $_SESSION['i'] = $_POST["i"];
+            nm_limpa_str_form_funcionario_mob($_SESSION['i']);
+        }
+        if (isset($_GET["i"])) 
+        {
+            $_SESSION['i'] = $_GET["i"];
+            nm_limpa_str_form_funcionario_mob($_SESSION['i']);
+        }
         if (!empty($_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['volta_redirect_apl']))
         {
             $_SESSION['scriptcase']['sc_url_saida'][$script_case_init] = $_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['volta_redirect_apl']; 
@@ -2256,6 +2283,7 @@ ob_start();
     sajax_export("ajax_form_funcionario_mob_validate_funcao_id");
     sajax_export("ajax_form_funcionario_mob_validate_senha");
     sajax_export("ajax_form_funcionario_mob_validate_ativo");
+    sajax_export("ajax_form_funcionario_mob_validate_data");
     sajax_export("ajax_form_funcionario_mob_event_cpf_onchange");
     sajax_export("ajax_form_funcionario_mob_event_matricula_onchange");
     sajax_export("ajax_form_funcionario_mob_submit_form");
@@ -2455,6 +2483,25 @@ ob_start();
         exit;
     } // ajax_validate_ativo
 
+    function ajax_form_funcionario_mob_validate_data($data, $script_case_init)
+    {
+        global $inicial_form_funcionario_mob;
+        //register_shutdown_function("form_funcionario_mob_pack_ajax_response");
+        $inicial_form_funcionario_mob->contr_form_funcionario_mob->NM_ajax_flag          = true;
+        $inicial_form_funcionario_mob->contr_form_funcionario_mob->NM_ajax_opcao         = 'validate_data';
+        $inicial_form_funcionario_mob->contr_form_funcionario_mob->NM_ajax_info['param'] = array(
+                  'data' => NM_utf8_urldecode($data),
+                  'script_case_init' => NM_utf8_urldecode($script_case_init),
+                  'buffer_output' => true,
+                 );
+        if ($inicial_form_funcionario_mob->contr_form_funcionario_mob->NM_ajax_info['param']['buffer_output'])
+        {
+            ob_start();
+        }
+        $inicial_form_funcionario_mob->contr_form_funcionario_mob->controle();
+        exit;
+    } // ajax_validate_data
+
     function ajax_form_funcionario_mob_event_cpf_onchange($cpf, $script_case_init)
     {
         global $inicial_form_funcionario_mob;
@@ -2493,7 +2540,7 @@ ob_start();
         exit;
     } // ajax_event_matricula_onchange
 
-    function ajax_form_funcionario_mob_submit_form($nome, $cpf, $matricula, $telefone, $email, $data_nascimento, $funcao_id, $senha, $ativo, $id, $nm_form_submit, $nmgp_url_saida, $nmgp_opcao, $nmgp_ancora, $nmgp_num_form, $nmgp_parms, $script_case_init, $csrf_token)
+    function ajax_form_funcionario_mob_submit_form($nome, $cpf, $matricula, $telefone, $email, $data_nascimento, $funcao_id, $senha, $ativo, $data, $id, $nm_form_submit, $nmgp_url_saida, $nmgp_opcao, $nmgp_ancora, $nmgp_num_form, $nmgp_parms, $script_case_init, $csrf_token)
     {
         global $inicial_form_funcionario_mob;
         //register_shutdown_function("form_funcionario_mob_pack_ajax_response");
@@ -2509,6 +2556,7 @@ ob_start();
                   'funcao_id' => NM_utf8_urldecode($funcao_id),
                   'senha' => NM_utf8_urldecode($senha),
                   'ativo' => NM_utf8_urldecode($ativo),
+                  'data' => NM_utf8_urldecode($data),
                   'id' => NM_utf8_urldecode($id),
                   'nm_form_submit' => NM_utf8_urldecode($nm_form_submit),
                   'nmgp_url_saida' => NM_utf8_urldecode($nmgp_url_saida),

@@ -526,6 +526,23 @@ class grid_funcionario_grid
        $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['opcao'] = "muda_qt_linhas";
    } 
    $this->sc_where_Max = "f" . "u" . "ll";
+       ob_start(); 
+   $_SESSION['scriptcase']['grid_funcionario']['contr_erro'] = 'on';
+ echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
+$_SESSION['scriptcase']['grid_funcionario']['contr_erro'] = 'off'; 
+       $this->SC_Buf_onInit = ob_get_clean();; 
 
    if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['dashboard_info']['under_dashboard']) && $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['dashboard_info']['under_dashboard'] && !$_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['dashboard_info']['maximized']) {
        $tmpDashboardApp = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['dashboard_info']['dashboard_app'];
@@ -2150,6 +2167,10 @@ $nm_saida->saida("}\r\n");
   }
            $nm_saida->saida("  </style>\r\n");
        }
+       if (!empty($this->SC_Buf_onInit))
+       { 
+       $nm_saida->saida("" . $this->SC_Buf_onInit . "\r\n");
+       } 
        $nm_saida->saida("  </HEAD>\r\n");
    } 
    if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['embutida'] && $this->Ini->nm_ger_css_emb)
@@ -4003,86 +4024,11 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
       $nm_saida->saida("          <td class=\"" . $this->css_scGridToolbarPadd . "\" nowrap valign=\"middle\" align=\"left\" width=\"33%\"> \r\n");
       if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['opcao_print'] != "print") 
       {
-      if (!$this->Ini->SC_Link_View && $this->nmgp_botoes['qsearch'] == "on")
+      if (!$this->Ini->SC_Link_View && $this->nmgp_botoes['filter'] == "on"  && !$this->grid_emb_form)
       {
-          $nm_saida->saida("           <script type=\"text/javascript\">var change_fast_top = \"\";</script>\r\n");
-          $OPC_cmp = (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['fast_search'])) ? $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['fast_search'][0] : "";
-          $OPC_arg = (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['fast_search'])) ? $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['fast_search'][1] : "";
-          $OPC_dat = (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['fast_search'])) ? $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['fast_search'][2] : "";
-          if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['ajax_nav'])
-          {
-              $this->Ini->Arr_result['setVar'][] = array('var' => 'change_fast_top', 'value' => "");
-          }
-          if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($OPC_cmp))
-          {
-              $OPC_cmp = NM_conv_charset($OPC_cmp, $_SESSION['scriptcase']['charset'], "UTF-8");
-          }
-          if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($OPC_arg))
-          {
-              $OPC_arg = NM_conv_charset($OPC_arg, $_SESSION['scriptcase']['charset'], "UTF-8");
-          }
-          if ($_SESSION['scriptcase']['charset'] != "UTF-8" && NM_is_utf8($OPC_dat))
-          {
-              $OPC_dat = NM_conv_charset($OPC_dat, $_SESSION['scriptcase']['charset'], "UTF-8");
-          }
-          $stateSearchIconClose  = 'none';
-          $stateSearchIconSearch = '';
-          if(!empty($OPC_dat))
-          {
-              $stateSearchIconClose  = '';
-              $stateSearchIconSearch = 'none';
-          }
-          $nm_saida->saida("          <span id=\"quicksearchph_top\" class=\"" . $this->css_css_toolbar_obj . "\" style='display: inline-block; vertical-align: inherit;'>\r\n");
-          $nm_saida->saida("           <span>\r\n");
-          $nm_saida->saida("             <input type=\"text\" id=\"SC_fast_search_top\" class=\"" . $this->css_css_toolbar_obj . "_text\" style=\"border-width: 0px;\" name=\"nmgp_arg_fast_search\" value=\"" . NM_encode_input($OPC_dat) . "\" size=\"20\" onChange=\"change_fast_top = 'CH';\" alt=\"{maxLength: 255}\" placeholder=\"" . $this->Ini->Nm_lang['lang_othr_qk_watermark'] . "\">&nbsp;\r\n");
-          $nm_saida->saida("             <i id='SC_fast_search_dropdown_top' style='cursor: pointer;' class='fas fa-caret-down' onclick=\"nm_gp_open_qsearch_div('top');\"></i>\r\n");
-          $nm_saida->saida("             <img style=\"display: " . $stateSearchIconSearch . "\" id=\"SC_fast_search_submit_top\" class='css_toolbar_obj_qs_search_img' src=\"" . $this->Ini->path_botoes . "/" . $this->Ini->Img_qs_search . "\" onclick=\"nm_gp_submit_qsearch('top');\">\r\n");
-          $nm_saida->saida("             <img style=\"display: " . $stateSearchIconClose . "\" class='css_toolbar_obj_qs_search_img' id=\"SC_fast_search_close_top\" src=\"" . $this->Ini->path_botoes . "/" . $this->Ini->Img_qs_clean . "\" onclick=\"document.getElementById('SC_fast_search_top').value = '__Clear_Fast__'; nm_gp_submit_qsearch('top');\">\r\n");
-          $nm_saida->saida("            </span>\r\n");
-          $nm_saida->saida("<div id='id_qs_div_top' class='scGridQuickSearchDivMoldura' style='display:none; position:absolute;'>\r\n");
-          $nm_saida->saida("                <div>\r\n");
-          $nm_saida->saida("                    <span>\r\n");
-          $nm_saida->saida("                      <p  class='scGridQuickSearchDivLabel'>" . $this->Ini->Nm_lang['lang_btns_clmn'] . "</span></p>\r\n");
-          $OPC_cmp_sel = explode("_VLS_", $OPC_cmp);
-          $nm_saida->saida("          <select multiple=multiple  id=\"fast_search_f0_top\" class=\"\" style=\"vertical-align: middle;\" name=\"nmgp_fast_search\" onChange=\"change_fast_top = 'CH';\">\r\n");
-          $SC_Label_atu['SC_all_Cmp'] = $this->Ini->Nm_lang['lang_srch_all_fields']; 
-          $SC_Label_atu['nome'] = (isset($this->New_label['nome'])) ? $this->New_label['nome'] : 'Nome'; 
-          $SC_Label_atu['cpf'] = (isset($this->New_label['cpf'])) ? $this->New_label['cpf'] : 'CPF'; 
-          $SC_Label_atu['matricula'] = (isset($this->New_label['matricula'])) ? $this->New_label['matricula'] : 'Matrícula'; 
-          $SC_Label_atu['telefone'] = (isset($this->New_label['telefone'])) ? $this->New_label['telefone'] : 'Telefone'; 
-          $SC_Label_atu['email'] = (isset($this->New_label['email'])) ? $this->New_label['email'] : 'E-mail'; 
-          $SC_Label_atu['data_nascimento'] = (isset($this->New_label['data_nascimento'])) ? $this->New_label['data_nascimento'] : 'Data de Nascimento'; 
-          $SC_Label_atu['funcao_id'] = (isset($this->New_label['funcao_id'])) ? $this->New_label['funcao_id'] : 'Função'; 
-          $SC_Label_atu['ativo'] = (isset($this->New_label['ativo'])) ? $this->New_label['ativo'] : 'Ativo'; 
-          $SC_Label_atu['id'] = (isset($this->New_label['id'])) ? $this->New_label['id'] : 'Id'; 
-          foreach ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['field_order'] as $cada_field)
-          { 
-                  if($cada_field == 'SC_all_Cmp')
-                     continue;
-              if ((!isset($this->NM_cmp_hidden[$cada_field]) || $this->NM_cmp_hidden[$cada_field] != "off") && isset($SC_Label_atu[$cada_field])) { 
-                  $OPC_sel = (in_array($cada_field, $OPC_cmp_sel) || ($cada_field == 'SC_all_Cmp' && empty($OPC_cmp))) ? " selected" : "";
-                  $nm_saida->saida("           <option value=\"" . $cada_field . "\"$OPC_sel>" . $SC_Label_atu[$cada_field] . "</option>\r\n");
-               }
-          } 
-          $nm_saida->saida("          </select>\r\n");
-          $nm_saida->saida("                    </span>\r\n");
-          $nm_saida->saida("                    <span  style='display:none;' >\r\n");
-          $nm_saida->saida("                      <p class='scGridQuickSearchDivLabel'>" . $this->Ini->Nm_lang['lang_quck_srchcond'] . "</span></p>\r\n");
-          $nm_saida->saida("          <select id=\"cond_fast_search_f0_top\" class=\"\" style=\"vertical-align: middle;display:none;\" name=\"nmgp_cond_fast_search\" onChange=\"change_fast_top = 'CH';\">\r\n");
-          $OPC_sel = " selected='selected'";
-          $nm_saida->saida("           <option value=\"qp\"$OPC_sel>" . $this->Ini->Nm_lang['lang_srch_like'] . "</option>\r\n");
-          $nm_saida->saida("          </select>\r\n");
-          $nm_saida->saida("                    </span>\r\n");
-          $nm_saida->saida("                </div>\r\n");
-          $nm_saida->saida("                <div class='scGridQuickSearchDivToolbar'>\r\n");
-       $Cod_Btn = nmButtonOutput($this->arr_buttons, "bcancelar_appdiv", "nm_gp_cancel_qsearch_div_store_temp('top');", "nm_gp_cancel_qsearch_div_store_temp('top');", "qs_cancel", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
-       $nm_saida->saida("      $Cod_Btn \r\n");
-       $Cod_Btn = nmButtonOutput($this->arr_buttons, "bapply_appdiv", "nm_gp_submit_qsearch('top');", "nm_gp_submit_qsearch('top');", "qs_search", "", "", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
-       $nm_saida->saida("      $Cod_Btn \r\n");
-          $nm_saida->saida("                </div>\r\n");
-          $nm_saida->saida("             </div>\r\n");
-          $nm_saida->saida("          </span>");
-          $NM_btn = true;
+           $Cod_Btn = nmButtonOutput($this->arr_buttons, "bpesquisa", "nm_gp_move('busca', '0', 'grid');", "nm_gp_move('busca', '0', 'grid');", "pesq_top", "", "Filtro", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + F)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
+           $nm_saida->saida("           $Cod_Btn \r\n");
+           $NM_btn = true;
       }
           $nm_saida->saida("         </td> \r\n");
           $nm_saida->saida("          <td class=\"" . $this->css_scGridToolbarPadd . "\" nowrap valign=\"middle\" align=\"center\" width=\"33%\"> \r\n");
@@ -4100,12 +4046,6 @@ if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['proc_pdf']
          $nm_saida->saida("           $Cod_Btn \r\n");
          $NM_btn = true;
         }
-      if (!$this->Ini->SC_Link_View && $this->nmgp_botoes['filter'] == "on"  && !$this->grid_emb_form)
-      {
-           $Cod_Btn = nmButtonOutput($this->arr_buttons, "bpesquisa", "nm_gp_move('busca', '0', 'grid');", "nm_gp_move('busca', '0', 'grid');", "pesq_top", "", "Filtro", "", "absmiddle", "", "0px", $this->Ini->path_botoes, "", "__NM_HINT__ (Ctrl + F)", "", "", "", "only_text", "text_right", "", "", "", "", "", "", "");
-           $nm_saida->saida("           $Cod_Btn \r\n");
-           $NM_btn = true;
-      }
           $nm_saida->saida("         </td> \r\n");
           $nm_saida->saida("          <td class=\"" . $this->css_scGridToolbarPadd . "\" nowrap valign=\"middle\" align=\"right\" width=\"33%\"> \r\n");
         if ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['SC_Ind_Groupby'] != "sc_free_total")

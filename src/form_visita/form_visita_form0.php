@@ -996,6 +996,22 @@ if (($this->Embutida_form || !$this->Embutida_call || $this->Grid_editavel || $t
 <?php
         $NM_btn = true;
     }
+    if (($opcao_botoes != "novo") && ($opcao_botoes != "novo")) {
+        $sCondStyle = ($this->nmgp_botoes['finalizar_visita'] == "on") ? '' : 'display: none;';
+?>
+       <?php echo nmButtonOutput($this->arr_buttons, "finalizar_visita", "scBtnFn_finalizar_visita()", "scBtnFn_finalizar_visita()", "sc_finalizar_visita_top", "", "", "" . $sCondStyle . "", "", "", "", $this->Ini->path_botoes, "", "", "", "", "");?>
+ 
+<?php
+        $NM_btn = true;
+    }
+    if (($opcao_botoes == "novo") && ($opcao_botoes != "novo")) {
+        $sCondStyle = ($this->nmgp_botoes['finalizar_visita'] == "on") ? '' : 'display: none;';
+?>
+       <?php echo nmButtonOutput($this->arr_buttons, "finalizar_visita", "scBtnFn_finalizar_visita()", "scBtnFn_finalizar_visita()", "sc_finalizar_visita_top", "", "", "" . $sCondStyle . "", "", "", "", $this->Ini->path_botoes, "", "", "", "", "");?>
+ 
+<?php
+        $NM_btn = true;
+    }
 ?> 
      </td> 
      <td nowrap align="right" valign="middle" width="33%" class="scFormToolbarPadding"> 
@@ -2353,6 +2369,12 @@ scAjax_displayEmptyForm();
 	function scBtnFn_excluir_visita() {
 		if ($("#sc_excluir_visita_top").length && $("#sc_excluir_visita_top").is(":visible")) {
 			sc_btn_excluir_visita()
+			 return;
+		}
+	}
+	function scBtnFn_finalizar_visita() {
+		if ($("#sc_finalizar_visita_top").length && $("#sc_finalizar_visita_top").is(":visible")) {
+			sc_btn_finalizar_visita()
 			 return;
 		}
 	}

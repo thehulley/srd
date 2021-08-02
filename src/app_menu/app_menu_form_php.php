@@ -432,6 +432,18 @@ $_SESSION['scriptcase']['app_menu']['contr_erro'] = 'off';
       {
           $apl_run = $_SESSION['scriptcase']['sc_apl_menu_link'] . $this->tab_grupo[0] . SC_dir_app_name("grid_funcionario") . "/?nm_run_menu=1&nm_apl_menu=app_menu&script_case_init=" . $this->Gera_sc_init($this->sc_menu_item) . "";
       }
+      if ($_SESSION['scriptcase']['sc_item_menu'] == "item_23")
+      {
+          $apl_run = $_SESSION['scriptcase']['sc_apl_menu_link'] . $this->tab_grupo[0] . SC_dir_app_name("grid_registros_soltura") . "/?nm_run_menu=1&nm_apl_menu=app_menu&script_case_init=" . $this->Gera_sc_init($this->sc_menu_item) . "";
+      }
+      if ($_SESSION['scriptcase']['sc_item_menu'] == "item_20")
+      {
+          $apl_run = $_SESSION['scriptcase']['sc_apl_menu_link'] . $this->tab_grupo[0] . SC_dir_app_name("relatorio_detentos") . "/?nm_run_menu=1&nm_apl_menu=app_menu&script_case_init=" . $this->Gera_sc_init($this->sc_menu_item) . "";
+      }
+      if ($_SESSION['scriptcase']['sc_item_menu'] == "item_19")
+      {
+          $apl_run = $_SESSION['scriptcase']['sc_apl_menu_link'] . $this->tab_grupo[0] . SC_dir_app_name("relatorio_funcionarios") . "/?nm_run_menu=1&nm_apl_menu=app_menu&script_case_init=" . $this->Gera_sc_init($this->sc_menu_item) . "";
+      }
       if ($_SESSION['scriptcase']['sc_item_menu'] == "item_21")
       {
           $apl_run = $_SESSION['scriptcase']['sc_apl_menu_link'] . $this->tab_grupo[0] . SC_dir_app_name("grid_visita") . "/?nm_run_menu=1&nm_apl_menu=app_menu&script_case_init=" . $this->Gera_sc_init($this->sc_menu_item) . "";

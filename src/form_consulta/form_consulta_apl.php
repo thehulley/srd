@@ -299,13 +299,25 @@ class form_consulta_apl
       {
           $_SESSION['usr_login'] = $this->usr_login;
       }
+      if (isset($this->i) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
+      {
+          $_SESSION['i'] = $this->i;
+      }
       if (isset($_POST["usr_login"]) && isset($this->usr_login)) 
       {
           $_SESSION['usr_login'] = $this->usr_login;
       }
+      if (isset($_POST["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
       if (isset($_GET["usr_login"]) && isset($this->usr_login)) 
       {
           $_SESSION['usr_login'] = $this->usr_login;
+      }
+      if (isset($_GET["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
       }
       if (isset($_SESSION['sc_session'][$script_case_init]['form_consulta']['embutida_parms']))
       { 
@@ -354,6 +366,10 @@ class form_consulta_apl
           {
               $_SESSION['usr_login'] = $this->usr_login;
           }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
+          }
           if (isset($this->NM_where_filter_form))
           {
               $_SESSION['sc_session'][$script_case_init]['form_consulta']['where_filter_form'] = $this->NM_where_filter_form;
@@ -370,6 +386,10 @@ class form_consulta_apl
           if (isset($this->usr_login)) 
           {
               $_SESSION['usr_login'] = $this->usr_login;
+          }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
           }
       } 
       elseif (isset($script_case_init) && !empty($script_case_init) && isset($_SESSION['sc_session'][$script_case_init]['form_consulta']['parms']))
@@ -3405,6 +3425,27 @@ else
    } // ajax_add_parameters
   function nm_proc_onload($bFormat = true)
   {
+      if (!$this->NM_ajax_flag || !isset($this->nmgp_refresh_fields)) {
+      $_SESSION['scriptcase']['form_consulta']['contr_erro'] = 'on';
+ echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
+$_SESSION['scriptcase']['form_consulta']['contr_erro'] = 'off'; 
+      }
+      if (empty($this->data_consulta))
+      {
+          $this->data_consulta_hora = $this->data_consulta;
+      }
       $this->nm_guardar_campos();
       if ($bFormat) $this->nm_formatar_campos();
   }

@@ -293,8 +293,8 @@ class form_consulta_ini
       $this->nm_dt_criacao   = "20210726"; 
       $this->nm_hr_criacao   = "075744"; 
       $this->nm_autor_alt    = "admin"; 
-      $this->nm_dt_ult_alt   = "20210726"; 
-      $this->nm_hr_ult_alt   = "091413"; 
+      $this->nm_dt_ult_alt   = "20210801"; 
+      $this->nm_hr_ult_alt   = "145215"; 
       list($NM_usec, $NM_sec) = explode(" ", microtime()); 
       $this->nm_timestamp    = (float) $NM_sec; 
       $this->nm_app_version  = "1.0.0"; 
@@ -945,7 +945,7 @@ class form_consulta_ini
       $this->nm_bases_odbc       = array("odbc");
       $this->nm_bases_progress   = array("progress", "pdo_progress_odbc");
       $this->nm_bases_all        = array_merge($this->nm_bases_access, $this->nm_bases_db2, $this->nm_bases_ibase, $this->nm_bases_informix, $this->nm_bases_mssql, $this->nm_bases_mysql, $this->nm_bases_postgres, $this->nm_bases_oracle, $this->nm_bases_sqlite, $this->nm_bases_sybase, $this->nm_bases_vfp, $this->nm_bases_odbc, $this->nm_bases_progress);
-      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1DcJeZSFUHIrKHQJeDMBYDkFCHEBmVorqDcNmZ1BiD1rKHuJwDMvCHEXeDWr/HIrqD9NmZSX7HABYHuFaHuNOZSrCH5FqDoXGHQJmZ1BiHAN7HQJwDEBODkFeH5FYVoFGHQJKDQFaDSNaVWJsDMvsVcBODur/HMrqDcJUZkFGDSBeD5FaHgBOHErsDuJeHIB/HQXODQFGHAvCVWBODMvmDkBsDuX7HMBiD9BsVIraD1rwV5X7HgBeHEFiH5F/VoB/D9XsDQX7Z1rwHuFaHuNOZSrCH5FqDoXGHQJmZ1FUZ1BeV5BqDEBOZSJGDWr/VoFGDcXOZSX7D1BeV5JwHuNOVIFCH5FqVEraD9BsZ1rqD1rKD5NUHgvCVkJGDWF/VoJeD9NwDQFaHAveD5NUHgNKDkBOV5FYHMBiDcJUZkBiHArYHQBqHgvsDkB/H5F/HIB/DcBiH9FUD1vOVWXGDMNODkBODWF/HMBiD9BsVIraD1rwV5X7HgBeHErCV5B7ZuJsHQNwDQFaDSN7HQB/HgvOVcXKHEX/DoXGHQXOZ1FGZ1vmD5XGHgBOHENiH5FGVoFGHQNmDuFaHIBOVWBqDMNOVcBUHEX/DoXGHQNmZSBOD1rwHQBqDMvCZSJqDWBmDoF7D9XsDQJsDSBYV5FGHgNKDkBsHEX/VEBiHQXGZ1FGHINaZMB/DMvCHEJqDWFGVoFGHQJKZSBiDSN7HuBqHgvOV9FeV5X/DoXGDcNmVINUHIBeHQBiHgveVkJqHEB3VoFGHQJeDQFUHIrKHQF7DMNOZSNiDurGVoBqD9BsZ1F7DSrYD5rqDMrYZSJ3DuX/ZuJsHQBiZ9XGHIrwHQB/DMrYVcB/DurGDoXGHQXGZ1FGHIBeHQF7HgveZSJqH5X/VoFGHQXsDQFUHAN7HuX7DMvmVcB/DurGDoXGHQXGH9BqHANOHuJwHgvsHEJqHEB7DoF7D9XsDQJsDSBYV5FGHgNKDkFCH5FqVoBqDcNwH9FaHArKD5NUDEvsHEFiDuJeDoFUHQXGZSFGHAN7V5FUHuzGZSrCV5X7VEF7D9BiH9FaHIBOD5FaDEBeHEBUH5F/VoFGD9XsDQBOZ1rwV5JeHgvsVcBOHEFYDoJsDcJUZ1B/HINaD5FaDMrYZSXeDuFYVoXGDcJeZ9rqD1BeV5BqHgvsDkB/V5X7DoX7D9BsH9FaD1rwZMB/DMNKZSXeDuFYDoraD9XsDQFGHANKD5F7HuBYDkBOHEFYVENUD9JmZ1FUZ1rYZMFaDMBYVkJGDWFqVoBiD9NmDQJwD1vOD5F7HuzGDkBODWFYVoX7D9BiZSB/HArYD5XGHgvCHArsDWrGDoBOHQXGDuBqHANKVWJsDMrwVcBODuFqVENUD9XOVIJwZ1vOD5XGHgvCHEJGDWXCVoFGHQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoX7HQNmZ1BiHAvCD5BOHgveHErsDuXKDoJeHQXOH9BiHAveD5NUHgNKDkBOV5FYHMBiDcBqZSB/DSrYD5FaDEvsHEFiDWr/HMFGD9FYDQJsHIrwHQJwHuNOVcBUDWFaHMBiD9BsVIraD1rwV5X7HgBeHEFiH5F/VoB/D9XsDQX7Z1rwHuFaHuNOZSrCH5FqDoXGHQJmZ1BiDSvOV5FUHgveHErCDWF/VoBiDcJUZSX7Z1BYHuFaHuzGVcrsDWFYVoBODcNwH9FaHANOD5NUDEBOHEFiHEFqVoFaHQJKDQFaHANKV5BODMvOVcBUDWrmVoF7HQNmZ1BiHIBOD5XGHgNKDkFiV5JeZura";
+      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1HQJeDQB/HABYD5rqDMvOV9BUDWXKVEFGHQXOH9BqDSvOZMBODMvCVkJqH5X/ZuJeHQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoF7HQBiZkBiDSNOHQF7HgrKVkJqDWX7HIJeDcBiDuBOZ1BYHuX7DMBYZSNiDWJeHMJsDcFYZkFUZ1rYHuBOHgvsHErsHEFqHIBiHQJeDuBOZ1zGV5BODMBODkB/DWF/HMF7HQXGZ1FUD1rwV5FGDEBeHEXeH5X/DoF7HQNwDuBqDSN7HQFaDMBYVcBUH5XCHMraHQXGZkFUZ1rYHQX7HgrKVkJqHEFqHIXGHQNmDuBOZ1BYV5FaDMrYDkBsH5XKVoX7DcNmVIraZ1vOZMJeDMveHENiH5FYHINUHQJeDQBOD1BeD5rqHuvmVcBOH5B7VoBqHQBiZ1BiDSvmD5XGHgNKZSJqDWFGZuB/DcBiDQBOZ1BYHQFaDMNODkBsDurGVoFGHQXGVIJwZ1rYHQBiDMvCVkJ3DuJeHIJwDcBiDQBOZ1BYHQF7DMNOVIB/DWXCHIF7DcNmZkFUD1rwV5FGDEBeHEXeH5X/DoF7D9NwZSX7D1BeV5raHuzGVcFKDWFaVENUD9JmZ1X7Z1BOD5FaDEvsVkXeDWX7DoJeHQXGZSFGHIrwVWXGHuBYZSJ3V5X7DoX7D9BiZ1F7Z1rYV5FGHgvCZSJGDWF/DoraD9JKDQX7Z1N7D5JwHuNOVcFiV5FGVoBqD9BsZ1F7DSrYD5rqDMrYZSJGH5FYDoF7DcXOZSX7HIrKV5JwHuzGDkFCH5XCVoJwD9BsZ1F7HABYV5X7DErKHEFKV5FqZuBqD9JKDQFGD1veD5BODMrwVcFCDWFYVoBOD9BiZ1B/Z1NOZMB/DEvsHAFKV5FqDoXGDcBwDQFGHANOVWJeHgrKVcFCDWrmDoXGHQNmVINUHAvsV5X7HgveHErsH5BmVoFGD9XsDQJwD1veV5BqDMrwV9BUDWrmDoXGD9BiZSB/Z1rYHQJwDEBODkFeH5FYVoFGHQJKDQBqD1BeHuNUDMNOVcXKDur/HMFaHQJmZ1FaHArYHuXGDEvsDkXKDWXCHMB/HQNmH9FGHABYHuFaHuNOZSrCH5FqDoXGHQJmZ1FUZ1BeV5BqDEBOZSJGDWr/VoFGDcXOZSX7D1BeV5JwHuNOVIFCH5FqVEraD9BsZ1rqD1rKD5NUHgvCVkJGDWF/VoJeD9NwDQFaHAveD5NUHgNKDkBOV5FYHMBiHQJmZ1F7Z1vmD5rqDEBOHArCDWF/HIFUHQNmZSBiZ1rwHQFaDMvODkFCDWF/HMF7D9BsZSBOHAN7HQJwDEBODkFeH5FYVoFGHQJKDQJsD1veD5JwHuNOVcBOV5X7HMBiD9BsVIraD1rwV5X7HgBeHErsDWrGDoBOHQBiZ9XGHAvOV5JeDMvsVcBUDWB3VoF7HQJmZ1F7Z1vmD5rqDEBOHArCDWF/VoFaD9XsH9X7DSrwHuB/DMNOZSJqDWJeVEFGHQXOZkFGHIveHuFaHgBeHEFiV5B3DoF7D9XsDuFaHAveD5JsHgrKVcBOV5FYVoraHQJmZ1F7Z1vmD5rqDEBOHArCDWBmZuXGHQXGZ9XGHAveHuFaHuNOZSrCH5FqDoXGHQJmZ1rqHArKZMFaDMBYVkJqV5FaZuBODcJeDQX7HIBeD5BqHgrKVcFeDWXCHMBiHQNmVINUHAvsD5XGHgveHArsDWBmZuJeHQBiDQBqHAvmVWFU";
 $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 108, 101, 61, 34, 102, 111, 110, 116, 45, 102, 97, 109, 105, 108, 121, 58, 32, 84, 97, 104, 111, 109, 97, 44, 32, 65, 114, 105, 97, 108, 44, 32, 115, 97, 110, 115, 45, 115, 101, 114, 105, 102, 59, 32, 102, 111, 110, 116, 45, 115, 105, 122, 101, 58, 32, 49, 51, 112, 120, 59, 32, 102, 111, 110, 116, 45, 119, 101, 105, 103, 104, 116, 58, 32, 98, 111, 108, 100, 59, 32, 116, 101, 120, 116, 45, 97, 108, 105, 103, 110, 58, 32, 99, 101, 110, 116, 101, 114, 34, 62, 84, 104, 105, 115, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 119, 97, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 97, 110, 100, 32, 112, 117, 98, 108, 105, 115, 104, 101, 100, 32, 117, 115, 105, 110, 103, 32, 97, 32, 116, 114, 105, 97, 108, 32, 118, 101, 114, 115, 105, 111, 110, 32, 111, 102, 32, 83, 99, 114, 105, 112, 116, 67, 97, 115, 101, 32, 97, 110, 100, 32, 105, 116, 115, 32, 116, 114, 105, 97, 108, 32, 112, 101, 114, 105, 111, 100, 32, 104, 97, 115, 32, 101, 120, 112, 105, 114, 101, 100, 46, 60, 47, 100, 105, 118, 62);
       $this->prep_conect();
       $this->conectDB();
@@ -1031,6 +1031,10 @@ $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 1
           if (!isset($_SESSION['usr_login'])) 
           {
               $this->nm_falta_var .= "usr_login; ";
+          }
+          if (!isset($_SESSION['i'])) 
+          {
+              $this->nm_falta_var .= "i; ";
           }
       }
 // 
@@ -1902,6 +1906,10 @@ ob_start();
         {
             $_SESSION['usr_login'] = $usr_login;
         }
+        if (isset($i)) 
+        {
+            $_SESSION['i'] = $i;
+        }
     } 
     elseif (isset($script_case_init) && !empty($script_case_init) && !is_array($script_case_init) && isset($_SESSION['sc_session'][$script_case_init]['form_consulta']['parms']))
     {
@@ -2129,6 +2137,16 @@ ob_start();
         {
             $_SESSION['usr_login'] = $_GET["usr_login"];
             nm_limpa_str_form_consulta($_SESSION['usr_login']);
+        }
+        if (isset($_POST["i"])) 
+        {
+            $_SESSION['i'] = $_POST["i"];
+            nm_limpa_str_form_consulta($_SESSION['i']);
+        }
+        if (isset($_GET["i"])) 
+        {
+            $_SESSION['i'] = $_GET["i"];
+            nm_limpa_str_form_consulta($_SESSION['i']);
         }
         if (!empty($_SESSION['sc_session'][$script_case_init]['form_consulta']['volta_redirect_apl']))
         {

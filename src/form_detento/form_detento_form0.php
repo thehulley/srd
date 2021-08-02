@@ -504,6 +504,12 @@ function process_hotkeys(hotkey)
    scQuickSearchKeyUp('t', e);
   });
 
+  $("#hidden_bloco_1").each(function() {
+   $(this.rows[0]).bind("click", {block: this}, toggleBlock)
+                  .mouseover(function() { $(this).css("cursor", "pointer"); })
+                  .mouseout(function() { $(this).css("cursor", ""); });
+  });
+
   sc_form_onload();
 
   $(document).bind('drop dragover', function (e) {
@@ -632,7 +638,7 @@ if (!$this->NM_ajax_flag && isset($this->NM_non_ajax_info['ajaxJavascript']) && 
  }
 
  var show_block = {
-  
+    "hidden_bloco_1": true
  };
 
  function toggleBlock(e) {
@@ -663,6 +669,9 @@ if (!$this->NM_ajax_flag && isset($this->NM_non_ajax_info['ajaxJavascript']) && 
   }
 
   if (show_block[block_id]) {
+    if ("hidden_bloco_1" == block_id) {
+      scAjaxDetailHeight("form_crimes_detento", $($("#nmsc_iframe_liga_form_crimes_detento")[0].contentWindow.document).innerHeight());
+    }
   }
  }
 
@@ -914,6 +923,7 @@ if (($this->Embutida_form || !$this->Embutida_call || $this->Grid_editavel || $t
           $SC_Label_atu['data_inicio_pena'] = (isset($this->nm_new_label['data_inicio_pena'])) ? $this->nm_new_label['data_inicio_pena'] : 'Início da Pena'; 
           $SC_Label_atu['status_id'] = (isset($this->nm_new_label['status_id'])) ? $this->nm_new_label['status_id'] : 'Status'; 
           $SC_Label_atu['data'] = (isset($this->nm_new_label['data'])) ? $this->nm_new_label['data'] : 'Data da Criação'; 
+          $SC_Label_atu['crimes'] = (isset($this->nm_new_label['crimes'])) ? $this->nm_new_label['crimes'] : 'crimes'; 
           foreach ($SC_Label_atu as $CMP => $LABEL)
           {
               if($CMP == 'SC_all_Cmp')
@@ -1137,7 +1147,7 @@ unset($NM_ult_sep);
 <?php } else { $sc_hidden_no++; ?>
 
     <TD class="scFormLabelOdd scUiLabelWidthFix css_nome_label" id="hidden_field_label_nome" style="<?php echo $sStyleHidden_nome; ?>"><span id="id_label_nome"><?php echo $this->nm_new_label['nome']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['nome']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['nome'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></TD>
-    <TD class="scFormDataOdd css_nome_line" id="hidden_field_data_nome" style="<?php echo $sStyleHidden_nome; ?>"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_nome_line" style="vertical-align: top;padding: 0px">
+    <TD class="scFormDataOdd css_nome_line" id="hidden_field_data_nome" style="<?php echo $sStyleHidden_nome; ?>vertical-align: top;"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_nome_line" style="vertical-align: top;padding: 0px">
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["nome"]) &&  $this->nmgp_cmp_readonly["nome"] == "on") { 
 
  ?>
@@ -1191,7 +1201,7 @@ unset($NM_ult_sep);
 <?php } else { $sc_hidden_no++; ?>
 
     <TD class="scFormLabelOdd scUiLabelWidthFix css_matricula_label" id="hidden_field_label_matricula" style="<?php echo $sStyleHidden_matricula; ?>"><span id="id_label_matricula"><?php echo $this->nm_new_label['matricula']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['matricula']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['matricula'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></TD>
-    <TD class="scFormDataOdd css_matricula_line" id="hidden_field_data_matricula" style="<?php echo $sStyleHidden_matricula; ?>"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_matricula_line" style="vertical-align: top;padding: 0px">
+    <TD class="scFormDataOdd css_matricula_line" id="hidden_field_data_matricula" style="<?php echo $sStyleHidden_matricula; ?>vertical-align: top;"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_matricula_line" style="vertical-align: top;padding: 0px">
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["matricula"]) &&  $this->nmgp_cmp_readonly["matricula"] == "on") { 
 
  ?>
@@ -1245,7 +1255,7 @@ unset($NM_ult_sep);
 <?php } else { $sc_hidden_no++; ?>
 
     <TD class="scFormLabelOdd scUiLabelWidthFix css_cpf_label" id="hidden_field_label_cpf" style="<?php echo $sStyleHidden_cpf; ?>"><span id="id_label_cpf"><?php echo $this->nm_new_label['cpf']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['cpf']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['cpf'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></TD>
-    <TD class="scFormDataOdd css_cpf_line" id="hidden_field_data_cpf" style="<?php echo $sStyleHidden_cpf; ?>"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_cpf_line" style="vertical-align: top;padding: 0px">
+    <TD class="scFormDataOdd css_cpf_line" id="hidden_field_data_cpf" style="<?php echo $sStyleHidden_cpf; ?>vertical-align: top;"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_cpf_line" style="vertical-align: top;padding: 0px">
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["cpf"]) &&  $this->nmgp_cmp_readonly["cpf"] == "on") { 
 
  ?>
@@ -1299,7 +1309,7 @@ unset($NM_ult_sep);
 <?php } else { $sc_hidden_no++; ?>
 
     <TD class="scFormLabelOdd scUiLabelWidthFix css_data_nascimento_label" id="hidden_field_label_data_nascimento" style="<?php echo $sStyleHidden_data_nascimento; ?>"><span id="id_label_data_nascimento"><?php echo $this->nm_new_label['data_nascimento']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['data_nascimento']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['data_nascimento'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></TD>
-    <TD class="scFormDataOdd css_data_nascimento_line" id="hidden_field_data_data_nascimento" style="<?php echo $sStyleHidden_data_nascimento; ?>"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_nascimento_line" style="vertical-align: top;padding: 0px">
+    <TD class="scFormDataOdd css_data_nascimento_line" id="hidden_field_data_data_nascimento" style="<?php echo $sStyleHidden_data_nascimento; ?>vertical-align: top;"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_nascimento_line" style="vertical-align: top;padding: 0px">
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["data_nascimento"]) &&  $this->nmgp_cmp_readonly["data_nascimento"] == "on") { 
 
  ?>
@@ -1372,7 +1382,7 @@ if ('scButton_' == substr($miniCalendarButton[1], 0, 9)) {
 <?php } else { $sc_hidden_no++; ?>
 
     <TD class="scFormLabelOdd scUiLabelWidthFix css_data_inicio_pena_label" id="hidden_field_label_data_inicio_pena" style="<?php echo $sStyleHidden_data_inicio_pena; ?>"><span id="id_label_data_inicio_pena"><?php echo $this->nm_new_label['data_inicio_pena']; ?></span><?php if (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['data_inicio_pena']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['php_cmp_required']['data_inicio_pena'] == "on") { ?> <span class="scFormRequiredOdd">*</span> <?php }?></TD>
-    <TD class="scFormDataOdd css_data_inicio_pena_line" id="hidden_field_data_data_inicio_pena" style="<?php echo $sStyleHidden_data_inicio_pena; ?>"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_inicio_pena_line" style="vertical-align: top;padding: 0px">
+    <TD class="scFormDataOdd css_data_inicio_pena_line" id="hidden_field_data_data_inicio_pena" style="<?php echo $sStyleHidden_data_inicio_pena; ?>vertical-align: top;"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_inicio_pena_line" style="vertical-align: top;padding: 0px">
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["data_inicio_pena"]) &&  $this->nmgp_cmp_readonly["data_inicio_pena"] == "on") { 
 
  ?>
@@ -1443,7 +1453,7 @@ if ('scButton_' == substr($miniCalendarButton[1], 0, 9)) {
 <?php } else { $sc_hidden_no++; ?>
 
     <TD class="scFormLabelOdd scUiLabelWidthFix css_status_id_label" id="hidden_field_label_status_id" style="<?php echo $sStyleHidden_status_id; ?>"><span id="id_label_status_id"><?php echo $this->nm_new_label['status_id']; ?></span></TD>
-    <TD class="scFormDataOdd css_status_id_line" id="hidden_field_data_status_id" style="<?php echo $sStyleHidden_status_id; ?>"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_status_id_line" style="vertical-align: top;padding: 0px">
+    <TD class="scFormDataOdd css_status_id_line" id="hidden_field_data_status_id" style="<?php echo $sStyleHidden_status_id; ?>vertical-align: top;"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_status_id_line" style="vertical-align: top;padding: 0px">
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["status_id"]) &&  $this->nmgp_cmp_readonly["status_id"] == "on") { 
  
 $nmgp_def_dados = "" ; 
@@ -1644,7 +1654,7 @@ else
 <?php } else { $sc_hidden_no++; ?>
 
     <TD class="scFormLabelOdd scUiLabelWidthFix css_data_label" id="hidden_field_label_data" style="<?php echo $sStyleHidden_data; ?>"><span id="id_label_data"><?php echo $this->nm_new_label['data']; ?></span></TD>
-    <TD class="scFormDataOdd css_data_line" id="hidden_field_data_data" style="<?php echo $sStyleHidden_data; ?>"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_line" style="vertical-align: top;padding: 0px">
+    <TD class="scFormDataOdd css_data_line" id="hidden_field_data_data" style="<?php echo $sStyleHidden_data; ?>vertical-align: top;"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_line" style="vertical-align: top;padding: 0px">
 <?php if ($bTestReadOnly && $this->nmgp_opcao != "novo" && isset($this->nmgp_cmp_readonly["data"]) &&  $this->nmgp_cmp_readonly["data"] == "on") { 
 
  ?>
@@ -1684,6 +1694,139 @@ if ('scButton_' == substr($miniCalendarButton[1], 0, 9)) {
     <TD class="scFormDataOdd" colspan="<?php echo $sc_hidden_yes * 2; ?>" >&nbsp;</TD>
 <?php } 
 ?> 
+
+
+   </tr>
+<?php $sc_hidden_no = 1; ?>
+</TABLE></div><!-- bloco_f -->
+   </td>
+   </tr></table>
+   <a name="bloco_1"></a>
+   <table width="100%" height="100%" cellpadding="0" cellspacing=0><tr valign="top"><td width="100%" height="">
+<div id="div_hidden_bloco_1"><!-- bloco_c -->
+<TABLE align="center" id="hidden_bloco_1" class="scFormTable<?php echo $this->classes_100perc_fields['table'] ?>" width="100%" style="height: 100%;">   <tr>
+
+
+    <TD colspan="1" height="20" class="scFormBlock">
+     <TABLE style="padding: 0px; spacing: 0px; border-width: 0px;" width="100%" height="100%">
+      <TR>
+       <TD align="" valign="" class="scFormBlockFont"><?php if ('' != $this->Ini->Block_img_exp && '' != $this->Ini->Block_img_col && !$this->Ini->Export_img_zip) { echo "<table style=\"border-collapse: collapse; height: 100%; width: 100%\"><tr><td style=\"vertical-align: middle; border-width: 0px; padding: 0px 2px 0px 0px\"><img id=\"SC_blk_pdf1\" src=\"" . $this->Ini->path_icones . "/" . $this->Ini->Block_img_col . "\" style=\"border: 0px; float: left\" class=\"sc-ui-block-control\"></td><td style=\"border-width: 0px; padding: 0px; width: 100%;\" class=\"scFormBlockAlign\">"; } ?>Crimes<?php if ('' != $this->Ini->Block_img_exp && '' != $this->Ini->Block_img_col && !$this->Ini->Export_img_zip) { echo "</td></tr></table>"; } ?></TD>
+       
+      </TR>
+     </TABLE>
+    </TD>
+
+
+
+
+   </tr>
+<?php if ($sc_hidden_no > 0) { echo "<tr>"; }; 
+      $sc_hidden_yes = 0; $sc_hidden_no = 0; ?>
+
+
+   <?php
+    if (!isset($this->nm_new_label['crimes']))
+    {
+        $this->nm_new_label['crimes'] = "crimes";
+    }
+?>
+<?php
+   $nm_cor_fun_cel  = ($nm_cor_fun_cel  == $this->Ini->cor_grid_impar ? $this->Ini->cor_grid_par : $this->Ini->cor_grid_impar);
+   $nm_img_fun_cel  = ($nm_img_fun_cel  == $this->Ini->img_fun_imp    ? $this->Ini->img_fun_par  : $this->Ini->img_fun_imp);
+   $crimes = $this->crimes;
+   $sStyleHidden_crimes = '';
+   if (isset($this->nmgp_cmp_hidden['crimes']) && $this->nmgp_cmp_hidden['crimes'] == 'off')
+   {
+       unset($this->nmgp_cmp_hidden['crimes']);
+       $sStyleHidden_crimes = 'display: none;';
+   }
+   $bTestReadOnly = true;
+   $sStyleReadLab_crimes = 'display: none;';
+   $sStyleReadInp_crimes = '';
+   if (/*$this->nmgp_opcao != "novo" && */isset($this->nmgp_cmp_readonly['crimes']) && $this->nmgp_cmp_readonly['crimes'] == 'on')
+   {
+       $bTestReadOnly = false;
+       unset($this->nmgp_cmp_readonly['crimes']);
+       $sStyleReadLab_crimes = '';
+       $sStyleReadInp_crimes = 'display: none;';
+   }
+?>
+<?php if (isset($this->nmgp_cmp_hidden['crimes']) && $this->nmgp_cmp_hidden['crimes'] == 'off') { $sc_hidden_yes++;  ?>
+<input type="hidden" name="crimes" value="<?php echo $this->form_encode_input($crimes) . "\">"; ?>
+<?php } else { $sc_hidden_no++; ?>
+
+    <TD class="scFormDataOdd css_crimes_line" id="hidden_field_data_crimes" style="<?php echo $sStyleHidden_crimes; ?>vertical-align: top;"> <table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td width="100%" class="scFormDataFontOdd css_crimes_line" style="vertical-align: top;padding: 0px">
+<?php
+ if (isset($_SESSION['scriptcase']['dashboard_scinit'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboard_info']['dashboard_app'] ][ $this->Ini->sc_lig_target['C_@scinf_crimes'] ]) && '' != $_SESSION['scriptcase']['dashboard_scinit'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboard_info']['dashboard_app'] ][ $this->Ini->sc_lig_target['C_@scinf_crimes'] ]) {
+     $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] = $_SESSION['scriptcase']['dashboard_scinit'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboard_info']['dashboard_app'] ][ $this->Ini->sc_lig_target['C_@scinf_crimes'] ];
+ }
+ else {
+     $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] = $this->Ini->sc_page;
+ }
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_proc']  = false;
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_form']  = true;
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_call']  = true;
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_multi'] = false;
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_liga_form_insert'] = 'on';
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_liga_form_update'] = 'on';
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_liga_form_delete'] = 'on';
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_liga_form_btn_nav'] = 'off';
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_liga_grid_edit'] = 'on';
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_liga_grid_edit_link'] = 'on';
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_liga_qtd_reg'] = '10';
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_liga_tp_pag'] = 'parcial';
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['embutida_parms'] = "detento_id*scin" . $this->nmgp_dados_form['id'] . "*scoutNM_btn_insert*scinS*scoutNM_btn_update*scinS*scoutNM_btn_delete*scinS*scoutNM_btn_navega*scinN*scout";
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['foreign_key']['detento_id'] = $this->nmgp_dados_form['id'];
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['where_filter'] = "detento_id = " . $this->nmgp_dados_form['id'] . "";
+ $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['where_detal']  = "detento_id = " . $this->nmgp_dados_form['id'] . "";
+ if ($_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_detento']['total'] < 0)
+ {
+     $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init'] ]['form_crimes_detento']['where_filter'] = "1 <> 1";
+ }
+ $sDetailSrc = ('novo' == $this->nmgp_opcao) ? 'form_detento_empty.htm' : $this->Ini->link_form_crimes_detento_edit . '?script_case_init=' . $this->form_encode_input($this->Ini->sc_page) . '&script_case_detail=Y';
+if (isset($this->Ini->sc_lig_target['C_@scinf_crimes']) && 'nmsc_iframe_liga_form_crimes_detento' != $this->Ini->sc_lig_target['C_@scinf_crimes'])
+{
+    if ('novo' != $this->nmgp_opcao)
+    {
+        $sDetailSrc .= '&under_dashboard=1&dashboard_app=' . $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboard_info']['dashboard_app'] . '&own_widget=' . $this->Ini->sc_lig_target['C_@scinf_crimes'] . '&parent_widget=' . $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['dashboard_info']['own_widget'];
+        $sDetailSrc  = $this->addUrlParam($sDetailSrc, 'script_case_init', $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento']['form_crimes_detento_script_case_init']);
+    }
+?>
+<script type="text/javascript">
+$(function() {
+    scOpenMasterDetail("<?php echo $this->Ini->sc_lig_target['C_@scinf_crimes'] ?>", "<?php echo $sDetailSrc; ?>");
+});
+</script>
+<?php
+}
+else
+{
+?>
+<iframe border="0" id="nmsc_iframe_liga_form_crimes_detento"  marginWidth="0" marginHeight="0" frameborder="0" valign="top" height="100" width="100%" name="nmsc_iframe_liga_form_crimes_detento"  scrolling="auto" src="<?php echo $sDetailSrc; ?>"></iframe>
+<?php
+}
+?>
+</td></tr><tr><td style="vertical-align: top; padding: 0"><table class="scFormFieldErrorTable" style="display: none" id="id_error_display_crimes_frame"><tr><td class="scFormFieldErrorMessage"><span id="id_error_display_crimes_text"></span></td></tr></table></td></tr></table> </TD>
+   <?php }?>
+
+
+
+
+
+<?php if ($sc_hidden_yes > 0 && $sc_hidden_no > 0) { ?>
+
+
+    <TD class="scFormDataOdd" colspan="<?php echo $sc_hidden_yes * 1; ?>" >&nbsp;</TD>
+
+
+
+
+<?php } 
+?> 
+
+
+
+
 
 
    </td></tr></table>
@@ -1809,13 +1952,13 @@ unset($NM_ult_sep);
 </form> 
 <script> 
 <?php
-  $nm_sc_blocos_da_pag = array(0);
+  $nm_sc_blocos_da_pag = array(0,1);
 
   foreach ($this->Ini->nm_hidden_blocos as $bloco => $hidden)
   {
       if ($hidden == "off" && in_array($bloco, $nm_sc_blocos_da_pag))
       {
-          echo "document.getElementById('hidden_bloco_" . $bloco . "').style.display = 'none';";
+          echo "document.getElementById('hidden_bloco_" . $bloco . "').style.visibility = 'hidden';";
           if (isset($nm_sc_blocos_aba[$bloco]))
           {
                echo "document.getElementById('id_tabs_" . $nm_sc_blocos_aba[$bloco] . "_" . $bloco . "').style.display = 'none';";
@@ -1823,6 +1966,20 @@ unset($NM_ult_sep);
       }
   }
 ?>
+$(window).bind("load", function() {
+<?php
+  $nm_sc_blocos_da_pag = array(0,1);
+
+  foreach ($this->Ini->nm_hidden_blocos as $bloco => $hidden)
+  {
+      if ($hidden == "off" && in_array($bloco, $nm_sc_blocos_da_pag))
+      {
+          echo "document.getElementById('hidden_bloco_" . $bloco . "').style.display = 'none';";
+          echo "document.getElementById('hidden_bloco_" . $bloco . "').style.visibility = '';";
+      }
+  }
+?>
+});
 </script> 
 <script>
 <?php

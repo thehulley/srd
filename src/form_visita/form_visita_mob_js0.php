@@ -45,7 +45,7 @@ function sc_btn_excluir_visita()
       return;
     }
     if (Crtl_btn_excluir_visita) {return;}
-    sc_btn_excluir_visita_ok();
+    scJs_confirm("<?php echo html_entity_decode("Deseja realmente excluir a visita?", ENT_COMPAT, $_SESSION['scriptcase']['charset']); ?>", sc_btn_excluir_visita_ok, sc_btn_excluir_visita_cancel)
 }
 function sc_btn_excluir_visita_cancel()
 {
@@ -54,6 +54,27 @@ function sc_btn_excluir_visita_ok()
 {
     Crtl_btn_excluir_visita = true;
     document.F1.nmgp_parms.value = "nmgp_opcao?#?formphp?@?nm_call_php?#?excluir_visita?@?";
+    document.F1.action = "form_visita_mob.php";
+    document.F1.target = "_self";
+    document.F1.submit();
+}
+var Crtl_btn_finalizar_visita = false;
+function sc_btn_finalizar_visita()
+{
+    if (scEventControl_active("")) {
+      setTimeout(function() { sc_btn_finalizar_visita(); }, 500);
+      return;
+    }
+    if (Crtl_btn_finalizar_visita) {return;}
+    scJs_confirm("<?php echo html_entity_decode("Deseja realmente finalizar a visita?", ENT_COMPAT, $_SESSION['scriptcase']['charset']); ?>", sc_btn_finalizar_visita_ok, sc_btn_finalizar_visita_cancel)
+}
+function sc_btn_finalizar_visita_cancel()
+{
+}
+function sc_btn_finalizar_visita_ok()
+{
+    Crtl_btn_finalizar_visita = true;
+    document.F1.nmgp_parms.value = "nmgp_opcao?#?formphp?@?nm_call_php?#?finalizar_visita?@?";
     document.F1.action = "form_visita_mob.php";
     document.F1.target = "_self";
     document.F1.submit();

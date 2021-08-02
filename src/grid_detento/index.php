@@ -228,8 +228,8 @@ class grid_detento_ini
       $this->nm_dt_criacao   = "20210726"; 
       $this->nm_hr_criacao   = "075744"; 
       $this->nm_autor_alt    = "admin"; 
-      $this->nm_dt_ult_alt   = "20210726"; 
-      $this->nm_hr_ult_alt   = "123950"; 
+      $this->nm_dt_ult_alt   = "20210801"; 
+      $this->nm_hr_ult_alt   = "184444"; 
       $this->Apl_paginacao   = "PARCIAL"; 
       $temp_bug_list         = explode(" ", microtime()); 
       list($NM_usec, $NM_sec) = $temp_bug_list; 
@@ -957,7 +957,7 @@ class grid_detento_ini
       $this->nm_ttf_chi  = array("zh_cn", "zh_hk", "ko");
       $_SESSION['sc_session'][$this->sc_page]['grid_detento']['seq_dir'] = 0; 
       $_SESSION['sc_session'][$this->sc_page]['grid_detento']['sub_dir'] = array(); 
-      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1DcBiDQJwDSBYV5JeDMvOVcBOH5XCHIF7HQNmZSFaHArKHuFUDEBeVkJ3DWF/VoBiDcJUZSX7Z1BYHuFaDMvOV9FeV5X/VEBiHQXOZ1FGDSNOHuJsDMveHENiHEB7VoFGHQNwDQFaZ1vCV5BODMNOVcXKH5XKDoXGHQBiZkFGHINaZMJeHgBOHErsHEB7VoFGHQBiH9FUD1BeHuJeHgrwDkB/DWB3VoBqD9BsZ1F7DSrYD5rqDMrYZSJ3HEB7ZuJsHQFYDQFaHIBOVWJsHgrwVcB/DWXKDoXGHQJmH9BqDSNOHQJeDMveHArCV5B7VoFGDcBiZ9XGHIrwHuraDMvOVIB/HEBmDoXGHQBqZ1BOHIveHuX7HgBODkXKDurmDoF7D9XsDQJsDSBYV5FGHgNKDkBsDuB7VEBiHQNmVINUHIBeHuJsHgNKHEJqDurmVoFGHQFYDQFaHIrwHuX7DMvODkB/H5B7DoXGHQBsZ1BOHANOHQF7HgBeHEJqDurmVoFGHQFYZSBiHAN7HQFaDMBYVcB/HEX/VoBqD9BsZ1F7DSrYD5rqDMrYZSJGH5FYDoF7DcXOZSFGHAveV5FUHuBYVcFKDur/VoJwHQFYH9FaHANOD5NUDErKDkFeV5FaZuBqD9NmZSFGHINaV5JwHuvmVcrsH5XCDoXGD9BsZ1FUZ1BeD5BqDMBYHEXeHEFqVoBiDcBwDQX7HIBOV5JwHgNKDkBODuFqDoFGDcBqVIJwD1rwD5JeDMBYZSJqV5FaVoJeD9XsZSFGD1BeVWJsHgrYDkBODuFqVoB/D9BsZ1FaHAvsV5X7DEvsZSXeHEFqZuFaD9JKDQBOZ1BYVWJwHgvsVIFCDWFYDoJsD9BiZ1rqD1zGV5X7DErKZSXeDWFqDoJeD9NmH9X7HABYV5BODMrwV9BUDWrmVorqHQFYZkBiHAvsZMB/HgvCHEXeDuFYZuFaD9NwZ9rqZ1zGV5BODMrwVcFCDWF/DoXGHQJmZ1F7Z1vmD5rqDEBOHArCDWF/VoJeHQFYDQFUHANOVWJwHuBOVcXKDWF/DoJsD9JmZ1F7D1rwHQrqHgBeHEFiV5B3DoF7D9XsDuFaHANKV5JwHgrKDkFCDWJeDoFGDcJUZ1X7Z1BeV5B/DMzGHEJGH5F/VoB/D9XsH9FGD1veV5JwDMrwVIFCDWXCDoX7D9XOZ1FGHArKV5FUDMrYZSXeV5FqHIJsHQJKDQJsZ1vCV5FGHuNOV9FeDWXCHIFUDcFYH9FaHANOHuX7DErKDkB/DWF/HIXGHQJKZ9XGDSBYV5FGHgrwVcrsH5FqHMBOD9JmH9BqHArKV5FUDMrYZSXeV5FqHIJsDcBwDQJsHABYD5F7HuNODkBsDWXCDoJsDcBwH9B/Z1rYHQJwHgveDkXKDWBmDoJeHQBiDuBqHANKVWXGDMvOZSNiDWF/HMBiD9BsVIraD1rwV5X7HgBeHENiH5F/HIBOHQBiDQX7HIBeV5BqDMBYVcBOV5F/HMB/HQNwVIJsD1rwD5F7HgBeHEFiV5B3DoF7D9XsDuFaHAveD5JsHgrKVcBOV5FYVoraHQJmZ1F7Z1vmD5rqDEBOHArCDWBmZuXGHQXGZ9XGHAveHuFaHuNOZSrCH5FqDoXGHQJmZ1rqHArKZMFaDMBYVkJqV5FaZuBODcJeDQX7HIBeD5BqHgrKVcFeDWXCHMBiHQNmVINUHAvsD5XGHgveHArsDWBmZuBqHQBiZ9XGHAvCVWFU";
+      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1DcBwDuFaHIBeV5FaHuBOVcrsDuX7VoB/HQBsZ1BiHArYHQraDEBOHEBUDWr/HIraD9XsZ9F7D1BeHQJwDMvmVcFKV5BmVoBqD9BsZkFGHAvsD5XGHgBeHEFiV5B3DoF7D9XsDuFaHAveHQrqDMzGDkBsV5X7HIBiHQBqZ1FaD1rwV5XGDMvCZSXeDWrGZuJeD9JKDQFUHArYHuFaHuNOZSrCH5FqDoXGHQJmZ1F7D1rKV5FaDEBOHEXeV5FaHIJsD9XsZ9JeD1BeD5F7DMvmVcFiV5X7DoF7D9XOZSB/DSrYV5B/DMNKZSXeH5F/VoB/D9NmDQJsHABYD5NUHuBYVcFKV5FGDoJsD9XOZ1F7HIveD5BqHgBeHEFiV5B3DoF7D9XsDuFaHAveHuFUDMBOVcBOV5FYVoBOHQXOZkFGHArYV5X7HgvsHEXeDWFqHIJeHQNwDQJsHIBOD5F7DMrYVcFeDWXCDoJsDcBwH9B/Z1rYHQJwHgvsHArsHEXCHIrqHQNwH9FUHArYHuBOHgvOV9FiV5FYHMBOHQBiVINUHAN7HQFUDMvCHAFKV5FqHMBqHQNmDQBqDSBYHuNUDMvsV9FiV5X/VoX7HQXGH9BOHANOHQBOHgNOHEFKH5FYVoX7D9JKDQX7D1BOV5FGDMzGV9BUHEF/HIBiHQBiZ1BiD1rKHQFaHgNOHAFKV5FqHIFGHQNwH9FUDSBYHuBqDMBYV9FiV5FYVoBiHQNwH9BqD1zGD5XGDMveDkFeV5B7ZuXGDcBiDQB/D1BeHuBiDMvsVcFiH5FqDoJeD9JmZ1B/D1NaD5rqHgvsHErsHEB3DoJeHQXOZSFUHAvOVWJwHgvOVcFiV5FYHIBiHQBsH9BqHINKD5JeHgNODkBsV5FqHIFUDcXGH9BiHIrKHuB/HgvOVcFiV5FYHIXGHQBsZSBOHArKHuBODMveHAFKH5FYVoX7D9JKDQX7D1BOV5FGHuzGDkBOH5FqVoJwD9XOZ1F7HABYZMB/DEBeHENiV5XKDoB/D9NmH9X7HArYV5BODMrwDkFCDuX7VEF7D9BiVIJwZ1BeV5XGDEvsHEFiV5FqVoX7HQXGZSFGHAveV5FUHuvmVcBOV5F/DoraD9BsZ1FUZ1BOD5rqDEBOHEFiHEFqDoF7DcJUZSFGD1BeV5FGHgrYDkBODur/VoraD9XOH9FaD1rKD5BiDEBOHEFiDWX7VoFGD9NwDQBOZ1BYVWXGHuvmVcFCH5XCDoX7HQFYZ1FaHArYD5F7DEvsHEXeV5XCZuFaD9NmDuBOZ1BYV5BqHgrKVcFCDWJeVErqDcJUZ1FaHAvCV5X7HgveDkXKDWBmVoFGHQBiDQBqD1NKD5F7HuNOVcrsH5XCVoFGHQFYZkBiHAvCV5X7DEvsVkXeV5FqHIJsD9XsZ9JeD1BeD5F7DMvmVcBUDWrmVorqHQNmVINUHAzGD5BqHgBYHErsDWBmDoBqHQJKDQJsZ1vCV5FGHuNOV9FeDWXCHMJsHQNmZ1F7Z1rYHuFGDEvsHErsDuFaHIraD9NwH9FUHAN7HQB/DMBODkFCDWXCHMBiD9BsVIraD1rwV5X7HgBeHEFiH5F/VoB/D9XsDQX7Z1rwHuFaHuNOZSrCH5FqDoXGHQJmZ1BiDSvOV5FUHgveHErCDWF/VoBiDcJUZSX7Z1BYHuFaHuzGVcrsDWFYVoBODcNwH9FaHANOD5NUDEBOHEFiHEFqVoFaHQJKDQFaHANKV5BODMvOVcBUDWrmVoF7HQNmZ1BiHINKD5BqHgveDkFiV5JeZura";
 $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 108, 101, 61, 34, 102, 111, 110, 116, 45, 102, 97, 109, 105, 108, 121, 58, 32, 84, 97, 104, 111, 109, 97, 44, 32, 65, 114, 105, 97, 108, 44, 32, 115, 97, 110, 115, 45, 115, 101, 114, 105, 102, 59, 32, 102, 111, 110, 116, 45, 115, 105, 122, 101, 58, 32, 49, 51, 112, 120, 59, 32, 102, 111, 110, 116, 45, 119, 101, 105, 103, 104, 116, 58, 32, 98, 111, 108, 100, 59, 32, 116, 101, 120, 116, 45, 97, 108, 105, 103, 110, 58, 32, 99, 101, 110, 116, 101, 114, 34, 62, 84, 104, 105, 115, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 119, 97, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 97, 110, 100, 32, 112, 117, 98, 108, 105, 115, 104, 101, 100, 32, 117, 115, 105, 110, 103, 32, 97, 32, 116, 114, 105, 97, 108, 32, 118, 101, 114, 115, 105, 111, 110, 32, 111, 102, 32, 83, 99, 114, 105, 112, 116, 67, 97, 115, 101, 32, 97, 110, 100, 32, 105, 116, 115, 32, 116, 114, 105, 97, 108, 32, 112, 101, 114, 105, 111, 100, 32, 104, 97, 115, 32, 101, 120, 112, 105, 114, 101, 100, 46, 60, 47, 100, 105, 118, 62);
       $this->prep_conect();
       $this->conectDB();
@@ -1971,6 +1971,11 @@ class grid_detento_apl
                    }
               }
           } 
+          if (isset($i)) 
+          {
+              $_SESSION['i'] = $i;
+              nm_limpa_str_grid_detento($_SESSION["i"]);
+          }
       } 
       if ($Parms_form_pdf)
       { 
@@ -2485,6 +2490,7 @@ class grid_detento_apl
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order'][] = "data_nascimento";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order'][] = "data_inicio_pena";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order'][] = "status_id";
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order'][] = "tempo";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order'][] = "data";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order'][] = "id";
           $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order_orig'] = $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order'];
@@ -4774,6 +4780,10 @@ $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento'][$path_doc_md5][1] =
    {
        $nmgp_parms = "";
    }
+   if (isset($i)) 
+   {
+       $_SESSION['i'] = $i;
+   }
    if (!empty($glo_perfil))  
    { 
       $_SESSION['scriptcase']['glo_perfil'] = $glo_perfil;
@@ -4890,6 +4900,11 @@ $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento'][$path_doc_md5][1] =
                     $Tmp_par   = $cadapar[0];
                     $$Tmp_par = $cadapar[1];
                 }
+           }
+           if (isset($i)) 
+           {
+               $_SESSION['i'] = $i;
+               nm_limpa_str_grid_detento($_SESSION["i"]);
            }
            $NMSC_conf_apl = array();
            if (isset($NMSC_inicial))
@@ -5124,6 +5139,10 @@ $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento'][$path_doc_md5][1] =
        { 
            $_SESSION['sc_session'][$script_case_init]['grid_detento']['opcao'] = $nmgp_opcao ;  
        }   
+       if (!isset($_SESSION["i"])) 
+       {
+           $_SESSION["i"] = "";
+       }
        if (!isset($_SESSION['sc_session'][$script_case_init]['grid_detento']['mostra_edit'])) 
        {
            $_SESSION['sc_session'][$script_case_init]['grid_detento']['mostra_edit'] = "S";
