@@ -91,6 +91,11 @@ class grid_funcionario_xml
                }
           }
       }
+      if (isset($i)) 
+      {
+          $_SESSION['i'] = $i;
+          nm_limpa_str_grid_funcionario($_SESSION["i"]);
+      }
       $dir_raiz          = strrpos($_SERVER['PHP_SELF'],"/") ;  
       $dir_raiz          = substr($_SERVER['PHP_SELF'], 0, $dir_raiz + 1) ;  
       $this->New_Format  = true;
@@ -242,6 +247,26 @@ class grid_funcionario_xml
               $this->funcao_id = substr($this->funcao_id, 0, $tmp_pos);
           }
       } 
+      $this->nm_where_dinamico = "";
+      $_SESSION['scriptcase']['grid_funcionario']['contr_erro'] = 'on';
+ echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
+$_SESSION['scriptcase']['grid_funcionario']['contr_erro'] = 'off'; 
+      if  (!empty($this->nm_where_dinamico)) 
+      {   
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['where_pesq'] .= $this->nm_where_dinamico;
+      }   
       if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['xml_name']))
       {
           $Pos = strrpos($_SESSION['sc_session'][$this->Ini->sc_page]['grid_funcionario']['xml_name'], ".");

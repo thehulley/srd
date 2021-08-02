@@ -58,6 +58,7 @@ function scEventControl_init(iSeqRow) {
   scEventControl_data["data_inicio_pena" + iSeqRow] = {"blur": false, "change": false, "autocomp": false, "original": "", "calculated": ""};
   scEventControl_data["status_id" + iSeqRow] = {"blur": false, "change": false, "autocomp": false, "original": "", "calculated": ""};
   scEventControl_data["data" + iSeqRow] = {"blur": false, "change": false, "autocomp": false, "original": "", "calculated": ""};
+  scEventControl_data["crimes" + iSeqRow] = {"blur": false, "change": false, "autocomp": false, "original": "", "calculated": ""};
 }
 
 function scEventControl_active(iSeqRow) {
@@ -101,6 +102,12 @@ function scEventControl_active(iSeqRow) {
     return true;
   }
   if (scEventControl_data["data" + iSeqRow]["change"]) {
+    return true;
+  }
+  if (scEventControl_data["crimes" + iSeqRow]["blur"]) {
+    return true;
+  }
+  if (scEventControl_data["crimes" + iSeqRow]["change"]) {
     return true;
   }
   return false;
@@ -174,6 +181,9 @@ function scJQEventsAdd(iSeqRow) {
   $('#id_sc_field_data_hora' + iSeqRow).bind('blur', function() { sc_form_detento_data_hora_onblur(this, iSeqRow) })
                                        .bind('change', function() { sc_form_detento_data_hora_onchange(this, iSeqRow) })
                                        .bind('focus', function() { sc_form_detento_data_hora_onfocus(this, iSeqRow) });
+  $('#id_sc_field_crimes' + iSeqRow).bind('blur', function() { sc_form_detento_crimes_onblur(this, iSeqRow) })
+                                    .bind('change', function() { sc_form_detento_crimes_onchange(this, iSeqRow) })
+                                    .bind('focus', function() { sc_form_detento_crimes_onfocus(this, iSeqRow) });
 } // scJQEventsAdd
 
 function sc_form_detento_id_onchange(oThis, iSeqRow) {
@@ -294,9 +304,26 @@ function sc_form_detento_data_hora_onfocus(oThis, iSeqRow) {
   scCssFocus(oThis);
 }
 
+function sc_form_detento_crimes_onblur(oThis, iSeqRow) {
+  do_ajax_form_detento_validate_crimes();
+  scCssBlur(oThis);
+}
+
+function sc_form_detento_crimes_onchange(oThis, iSeqRow) {
+  scMarkFormAsChanged();
+}
+
+function sc_form_detento_crimes_onfocus(oThis, iSeqRow) {
+  scEventControl_onFocus(oThis, iSeqRow);
+  scCssFocus(oThis);
+}
+
 function displayChange_block(block, status) {
 	if ("0" == block) {
 		displayChange_block_0(status);
+	}
+	if ("1" == block) {
+		displayChange_block_1(status);
 	}
 }
 
@@ -310,6 +337,10 @@ function displayChange_block_0(status) {
 	displayChange_field("data", "", status);
 }
 
+function displayChange_block_1(status) {
+	displayChange_field("crimes", "", status);
+}
+
 function displayChange_row(row, status) {
 	displayChange_field_nome(row, status);
 	displayChange_field_matricula(row, status);
@@ -318,6 +349,7 @@ function displayChange_row(row, status) {
 	displayChange_field_data_inicio_pena(row, status);
 	displayChange_field_status_id(row, status);
 	displayChange_field_data(row, status);
+	displayChange_field_crimes(row, status);
 }
 
 function displayChange_field(field, row, status) {
@@ -342,6 +374,9 @@ function displayChange_field(field, row, status) {
 	if ("data" == field) {
 		displayChange_field_data(row, status);
 	}
+	if ("crimes" == field) {
+		displayChange_field_crimes(row, status);
+	}
 }
 
 function displayChange_field_nome(row, status) {
@@ -363,6 +398,12 @@ function displayChange_field_status_id(row, status) {
 }
 
 function displayChange_field_data(row, status) {
+}
+
+function displayChange_field_crimes(row, status) {
+	if ("on" == status && typeof $("#nmsc_iframe_liga_form_crimes_detento")[0].contentWindow.scRecreateSelect2 === "function") {
+		$("#nmsc_iframe_liga_form_crimes_detento")[0].contentWindow.scRecreateSelect2();
+	}
 }
 
 function scRecreateSelect2() {

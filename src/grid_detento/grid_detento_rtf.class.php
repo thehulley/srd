@@ -84,6 +84,11 @@ class grid_detento_rtf
                }
           }
       }
+      if (isset($i)) 
+      {
+          $_SESSION['i'] = $i;
+          nm_limpa_str_grid_detento($_SESSION["i"]);
+      }
       $dir_raiz          = strrpos($_SERVER['PHP_SELF'],"/") ;  
       $dir_raiz          = substr($_SERVER['PHP_SELF'], 0, $dir_raiz + 1) ;  
       $this->nm_location = $this->Ini->sc_protocolo . $this->Ini->server . $dir_raiz; 
@@ -182,6 +187,26 @@ class grid_detento_rtf
               $this->cpf = substr($this->cpf, 0, $tmp_pos);
           }
       } 
+      $this->nm_where_dinamico = "";
+      $_SESSION['scriptcase']['grid_detento']['contr_erro'] = 'on';
+ echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
+$_SESSION['scriptcase']['grid_detento']['contr_erro'] = 'off'; 
+      if  (!empty($this->nm_where_dinamico)) 
+      {   
+          $_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['where_pesq'] .= $this->nm_where_dinamico;
+      }   
       if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['rtf_name']))
       {
           $Pos = strrpos($_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['rtf_name'], ".");
@@ -241,6 +266,14 @@ class grid_detento_rtf
           }
           $SC_Label = (isset($this->New_label['status_id'])) ? $this->New_label['status_id'] : "Status"; 
           if ($Cada_col == "status_id" && (!isset($this->NM_cmp_hidden[$Cada_col]) || $this->NM_cmp_hidden[$Cada_col] != "off"))
+          {
+              $SC_Label = NM_charset_to_utf8($SC_Label);
+              $SC_Label = str_replace('<', '&lt;', $SC_Label);
+              $SC_Label = str_replace('>', '&gt;', $SC_Label);
+              $this->Texto_tag .= "<td>" . $SC_Label . "</td>\r\n";
+          }
+          $SC_Label = (isset($this->New_label['tempo'])) ? $this->New_label['tempo'] : "Tempo"; 
+          if ($Cada_col == "tempo" && (!isset($this->NM_cmp_hidden[$Cada_col]) || $this->NM_cmp_hidden[$Cada_col] != "off"))
           {
               $SC_Label = NM_charset_to_utf8($SC_Label);
               $SC_Label = str_replace('<', '&lt;', $SC_Label);
@@ -339,6 +372,77 @@ class grid_detento_rtf
          $this->Lookup->lookup_status_id($this->look_status_id, $this->status_id) ; 
          $this->look_status_id = ($this->look_status_id == "&nbsp;") ? "" : $this->look_status_id; 
          $this->sc_proc_grid = true; 
+         $_SESSION['scriptcase']['grid_detento']['contr_erro'] = 'on';
+ $check_sql = 'SELECT crime_id FROM crimes_detento WHERE detento_id = ' . $this->id ;
+
+ 
+      $nm_select = $check_sql; 
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_select; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      $this->rs = array();
+      if ($SCrx = $this->Db->Execute($nm_select)) 
+      { 
+          $SCy = 0; 
+          $nm_count = $SCrx->FieldCount();
+          while (!$SCrx->EOF)
+          { 
+                 for ($SCx = 0; $SCx < $nm_count; $SCx++)
+                 { 
+                        $this->rs[$SCy] [$SCx] = $SCrx->fields[$SCx];
+                 }
+                 $SCy++; 
+                 $SCrx->MoveNext();
+          } 
+          $SCrx->Close();
+      } 
+      elseif (isset($GLOBALS["NM_ERRO_IBASE"]) && $GLOBALS["NM_ERRO_IBASE"] != 1)  
+      { 
+          $this->rs = false;
+          $this->rs_erro = $this->Db->ErrorMsg();
+      } 
+;
+
+$this->tempo = 0;
+
+if (isset($this->rs[0][0])){
+	for ($i = 0; isset($this->rs[$i][0]); $i++){
+		$check_sql = 'SELECT tempo FROM crimes WHERE id = ' . $this->rs[$i][0];
+
+		 
+      $nm_select = $check_sql; 
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_select; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      $this->rs1 = array();
+      if ($SCrx = $this->Db->Execute($nm_select)) 
+      { 
+          $SCy = 0; 
+          $nm_count = $SCrx->FieldCount();
+          while (!$SCrx->EOF)
+          { 
+                 for ($SCx = 0; $SCx < $nm_count; $SCx++)
+                 { 
+                        $this->rs1[$SCy] [$SCx] = $SCrx->fields[$SCx];
+                 }
+                 $SCy++; 
+                 $SCrx->MoveNext();
+          } 
+          $SCrx->Close();
+      } 
+      elseif (isset($GLOBALS["NM_ERRO_IBASE"]) && $GLOBALS["NM_ERRO_IBASE"] != 1)  
+      { 
+          $this->rs1 = false;
+          $this->rs1_erro = $this->Db->ErrorMsg();
+      } 
+;
+		
+		if (isset($this->rs1[0][0])){
+			$this->tempo += $this->rs1[0][0];
+		}
+	}
+}
+
+$this->tempo  = $this->tempo;
+$_SESSION['scriptcase']['grid_detento']['contr_erro'] = 'off'; 
          foreach ($_SESSION['sc_session'][$this->Ini->sc_page]['grid_detento']['field_order'] as $Cada_col)
          { 
             if (!isset($this->NM_cmp_hidden[$Cada_col]) || $this->NM_cmp_hidden[$Cada_col] != "off")
@@ -437,6 +541,16 @@ class grid_detento_rtf
          $this->look_status_id = str_replace('<', '&lt;', $this->look_status_id);
          $this->look_status_id = str_replace('>', '&gt;', $this->look_status_id);
          $this->Texto_tag .= "<td>" . $this->look_status_id . "</td>\r\n";
+   }
+   //----- tempo
+   function NM_export_tempo()
+   {
+         $this->tempo = html_entity_decode($this->tempo, ENT_COMPAT, $_SESSION['scriptcase']['charset']);
+         $this->tempo = strip_tags($this->tempo);
+         $this->tempo = NM_charset_to_utf8($this->tempo);
+         $this->tempo = str_replace('<', '&lt;', $this->tempo);
+         $this->tempo = str_replace('>', '&gt;', $this->tempo);
+         $this->Texto_tag .= "<td>" . $this->tempo . "</td>\r\n";
    }
    //----- data
    function NM_export_data()

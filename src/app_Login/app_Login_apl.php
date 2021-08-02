@@ -310,10 +310,6 @@ class app_Login_apl
       {
           $_SESSION['google_name'] = $this->google_name;
       }
-      if (isset($this->logged_date_login) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
-      {
-          $_SESSION['logged_date_login'] = $this->logged_date_login;
-      }
       if (isset($this->usr_login) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
       {
           $_SESSION['usr_login'] = $this->usr_login;
@@ -321,6 +317,18 @@ class app_Login_apl
       if (isset($this->usr_email) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
       {
           $_SESSION['usr_email'] = $this->usr_email;
+      }
+      if (isset($this->i) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($this->usr_priv_admin) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
+      {
+          $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
+      }
+      if (isset($this->usr_name) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
+      {
+          $_SESSION['usr_name'] = $this->usr_name;
       }
       if (isset($this->twitter_user) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
       {
@@ -333,14 +341,6 @@ class app_Login_apl
       if (isset($this->twitter_name) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
       {
           $_SESSION['twitter_name'] = $this->twitter_name;
-      }
-      if (isset($this->usr_name) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
-      {
-          $_SESSION['usr_name'] = $this->usr_name;
-      }
-      if (isset($this->usr_priv_admin) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
-      {
-          $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
       }
       if (isset($_POST["facebook_error_code"]) && isset($this->facebook_error_code)) 
       {
@@ -382,10 +382,6 @@ class app_Login_apl
       {
           $_SESSION['google_name'] = $this->google_name;
       }
-      if (isset($_POST["logged_date_login"]) && isset($this->logged_date_login)) 
-      {
-          $_SESSION['logged_date_login'] = $this->logged_date_login;
-      }
       if (isset($_POST["usr_login"]) && isset($this->usr_login)) 
       {
           $_SESSION['usr_login'] = $this->usr_login;
@@ -393,6 +389,18 @@ class app_Login_apl
       if (isset($_POST["usr_email"]) && isset($this->usr_email)) 
       {
           $_SESSION['usr_email'] = $this->usr_email;
+      }
+      if (isset($_POST["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($_POST["usr_priv_admin"]) && isset($this->usr_priv_admin)) 
+      {
+          $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
+      }
+      if (isset($_POST["usr_name"]) && isset($this->usr_name)) 
+      {
+          $_SESSION['usr_name'] = $this->usr_name;
       }
       if (isset($_POST["twitter_user"]) && isset($this->twitter_user)) 
       {
@@ -405,14 +413,6 @@ class app_Login_apl
       if (isset($_POST["twitter_name"]) && isset($this->twitter_name)) 
       {
           $_SESSION['twitter_name'] = $this->twitter_name;
-      }
-      if (isset($_POST["usr_name"]) && isset($this->usr_name)) 
-      {
-          $_SESSION['usr_name'] = $this->usr_name;
-      }
-      if (isset($_POST["usr_priv_admin"]) && isset($this->usr_priv_admin)) 
-      {
-          $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
       }
       if (isset($_GET["facebook_error_code"]) && isset($this->facebook_error_code)) 
       {
@@ -454,10 +454,6 @@ class app_Login_apl
       {
           $_SESSION['google_name'] = $this->google_name;
       }
-      if (isset($_GET["logged_date_login"]) && isset($this->logged_date_login)) 
-      {
-          $_SESSION['logged_date_login'] = $this->logged_date_login;
-      }
       if (isset($_GET["usr_login"]) && isset($this->usr_login)) 
       {
           $_SESSION['usr_login'] = $this->usr_login;
@@ -465,6 +461,18 @@ class app_Login_apl
       if (isset($_GET["usr_email"]) && isset($this->usr_email)) 
       {
           $_SESSION['usr_email'] = $this->usr_email;
+      }
+      if (isset($_GET["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($_GET["usr_priv_admin"]) && isset($this->usr_priv_admin)) 
+      {
+          $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
+      }
+      if (isset($_GET["usr_name"]) && isset($this->usr_name)) 
+      {
+          $_SESSION['usr_name'] = $this->usr_name;
       }
       if (isset($_GET["twitter_user"]) && isset($this->twitter_user)) 
       {
@@ -477,14 +485,6 @@ class app_Login_apl
       if (isset($_GET["twitter_name"]) && isset($this->twitter_name)) 
       {
           $_SESSION['twitter_name'] = $this->twitter_name;
-      }
-      if (isset($_GET["usr_name"]) && isset($this->usr_name)) 
-      {
-          $_SESSION['usr_name'] = $this->usr_name;
-      }
-      if (isset($_GET["usr_priv_admin"]) && isset($this->usr_priv_admin)) 
-      {
-          $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
       }
       if (isset($_SESSION['sc_session'][$script_case_init]['app_Login']['embutida_parms']))
       { 
@@ -569,10 +569,6 @@ class app_Login_apl
           {
               $_SESSION['google_name'] = $this->google_name;
           }
-          if (isset($this->logged_date_login)) 
-          {
-              $_SESSION['logged_date_login'] = $this->logged_date_login;
-          }
           if (isset($this->usr_login)) 
           {
               $_SESSION['usr_login'] = $this->usr_login;
@@ -580,6 +576,18 @@ class app_Login_apl
           if (isset($this->usr_email)) 
           {
               $_SESSION['usr_email'] = $this->usr_email;
+          }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
+          }
+          if (isset($this->usr_priv_admin)) 
+          {
+              $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
+          }
+          if (isset($this->usr_name)) 
+          {
+              $_SESSION['usr_name'] = $this->usr_name;
           }
           if (isset($this->twitter_user)) 
           {
@@ -592,14 +600,6 @@ class app_Login_apl
           if (isset($this->twitter_name)) 
           {
               $_SESSION['twitter_name'] = $this->twitter_name;
-          }
-          if (isset($this->usr_name)) 
-          {
-              $_SESSION['usr_name'] = $this->usr_name;
-          }
-          if (isset($this->usr_priv_admin)) 
-          {
-              $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
           }
           if (isset($this->NM_where_filter_form))
           {
@@ -654,10 +654,6 @@ class app_Login_apl
           {
               $_SESSION['google_name'] = $this->google_name;
           }
-          if (isset($this->logged_date_login)) 
-          {
-              $_SESSION['logged_date_login'] = $this->logged_date_login;
-          }
           if (isset($this->usr_login)) 
           {
               $_SESSION['usr_login'] = $this->usr_login;
@@ -665,6 +661,18 @@ class app_Login_apl
           if (isset($this->usr_email)) 
           {
               $_SESSION['usr_email'] = $this->usr_email;
+          }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
+          }
+          if (isset($this->usr_priv_admin)) 
+          {
+              $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
+          }
+          if (isset($this->usr_name)) 
+          {
+              $_SESSION['usr_name'] = $this->usr_name;
           }
           if (isset($this->twitter_user)) 
           {
@@ -677,14 +685,6 @@ class app_Login_apl
           if (isset($this->twitter_name)) 
           {
               $_SESSION['twitter_name'] = $this->twitter_name;
-          }
-          if (isset($this->usr_name)) 
-          {
-              $_SESSION['usr_name'] = $this->usr_name;
-          }
-          if (isset($this->usr_priv_admin)) 
-          {
-              $_SESSION['usr_priv_admin'] = $this->usr_priv_admin;
           }
       } 
       elseif (isset($script_case_init) && !empty($script_case_init) && isset($_SESSION['sc_session'][$script_case_init]['app_Login']['parms']))
@@ -3849,6 +3849,27 @@ $_SESSION['scriptcase']['app_Login']['contr_erro'] = 'off';
     if (!$this->NM_ajax_flag || !isset($this->nmgp_refresh_fields)) {
     $_SESSION['scriptcase']['app_Login']['contr_erro'] = 'on';
   $_SESSION['scriptcase']['sc_apl_conf']['app_form_add_users']['start'] = 'new';
+
+echo "
+<script>
+	window.addEventListener('load', function(event) {
+		$('#id-links-1').remove();
+	});
+</script>";
+
+echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
 $_SESSION['scriptcase']['app_Login']['contr_erro'] = 'off'; 
     }
     if (!empty($this->Campos_Mens_erro)) 

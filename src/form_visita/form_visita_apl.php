@@ -305,6 +305,18 @@ class form_visita_apl
       {
           $nmgp_parms = "";
       }
+      if (isset($this->i) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($_POST["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($_GET["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
       if (isset($_SESSION['sc_session'][$script_case_init]['form_visita']['embutida_parms']))
       { 
           $this->nmgp_parms = $_SESSION['sc_session'][$script_case_init]['form_visita']['embutida_parms'];
@@ -348,6 +360,10 @@ class form_visita_apl
              }
              $ix++;
           }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
+          }
           if (isset($this->NM_where_filter_form))
           {
               $_SESSION['sc_session'][$script_case_init]['form_visita']['where_filter_form'] = $this->NM_where_filter_form;
@@ -360,6 +376,10 @@ class form_visita_apl
           if (isset($this->sc_redir_insert))
           {
               $_SESSION['sc_session'][$script_case_init]['form_visita']['sc_redir_insert'] = $this->sc_redir_insert;
+          }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
           }
       } 
       elseif (isset($script_case_init) && !empty($script_case_init) && isset($_SESSION['sc_session'][$script_case_init]['form_visita']['parms']))
@@ -535,6 +555,16 @@ class form_visita_apl
       $this->arr_buttons['excluir_visita']['has_fa']            = "true";
       $this->arr_buttons['excluir_visita']['fontawesomeicon']            = "";
 
+      $this->arr_buttons['finalizar_visita']['hint']             = "";
+      $this->arr_buttons['finalizar_visita']['type']             = "button";
+      $this->arr_buttons['finalizar_visita']['value']            = "Finalizar";
+      $this->arr_buttons['finalizar_visita']['display']          = "text_fontawesomeicon";
+      $this->arr_buttons['finalizar_visita']['display_position'] = "text_right";
+      $this->arr_buttons['finalizar_visita']['style']            = "danger";
+      $this->arr_buttons['finalizar_visita']['image']            = "";
+      $this->arr_buttons['finalizar_visita']['has_fa']            = "true";
+      $this->arr_buttons['finalizar_visita']['fontawesomeicon']            = "";
+
 
       $_SESSION['scriptcase']['error_icon']['form_visita']  = "<img src=\"" . $this->Ini->path_icones . "/scriptcase__NM__btn__NM__scriptcase9_Rhino__NM__nm_scriptcase9_Rhino_error.png\" style=\"border-width: 0px\" align=\"top\">&nbsp;";
       $_SESSION['scriptcase']['error_close']['form_visita'] = "<td>" . nmButtonOutput($this->arr_buttons, "berrm_clse", "document.getElementById('id_error_display_fixed').style.display = 'none'; document.getElementById('id_error_message_fixed').innerHTML = ''; return false", "document.getElementById('id_error_display_fixed').style.display = 'none'; document.getElementById('id_error_message_fixed').innerHTML = ''; return false", "", "", "", "", "", "", "", $this->Ini->path_botoes, "", "", "", "", "") . "</td>";
@@ -693,6 +723,7 @@ class form_visita_apl
       $this->nmgp_botoes['qtline'] = "off";
       $this->nmgp_botoes['reload'] = "on";
       $this->nmgp_botoes['excluir_visita'] = "on";
+      $this->nmgp_botoes['finalizar_visita'] = "on";
       if (isset($this->NM_btn_cancel) && 'N' == $this->NM_btn_cancel)
       {
           $this->nmgp_botoes['cancel'] = "off";
@@ -1039,10 +1070,12 @@ class form_visita_apl
       if ($this->nmgp_opcao == "novo")  
       {
           $this->nmgp_botoes['excluir_visita'] = "off";
+          $this->nmgp_botoes['finalizar_visita'] = "off";
       }
       elseif ($this->nmgp_opcao == "incluir")  
       {
           $this->nmgp_botoes['excluir_visita'] = $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita']['botoes']['excluir_visita'];
+          $this->nmgp_botoes['finalizar_visita'] = $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita']['botoes']['finalizar_visita'];
       }
       if ($this->nmgp_opcao == "recarga" || $this->nmgp_opcao == "muda_form")  
       {
@@ -1109,6 +1142,10 @@ class form_visita_apl
           if ($nm_call_php == "excluir_visita")
           { 
               $this->sc_btn_excluir_visita();
+          } 
+          if ($nm_call_php == "finalizar_visita")
+          { 
+              $this->sc_btn_finalizar_visita();
           } 
           $this->NM_close_db(); 
           exit;
@@ -1648,6 +1685,138 @@ include_once("form_visita_sajax_js.php");
 $update_where  = "id = " . $this->id ; 
 $update_fields = array(   
      "status_id = 3",
+ );
+
+$update_sql = 'UPDATE ' . $update_table
+    . ' SET '   . implode(', ', $update_fields)
+    . ' WHERE ' . $update_where;
+
+     $nm_select = $update_sql; 
+         $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_select;
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+         $rf = $this->Db->Execute($nm_select);
+         if ($rf === false)
+         {
+             $this->Erro->mensagem (__FILE__, __LINE__, "banco", $this->Ini->Nm_lang['lang_errm_dber'], $this->Db->ErrorMsg());
+             $this->NM_rollback_db(); 
+             if ($this->NM_ajax_flag)
+             {
+                form_visita_pack_ajax_response();
+             }
+             exit;
+         }
+         $rf->Close();
+      ;
+$_SESSION['scriptcase']['form_visita']['contr_erro'] = 'off'; 
+    echo ob_get_clean();
+?>
+      </td></tr><tr><td align="center">
+      <form name="FPHP" method="post" 
+                        action="<?php echo $nm_f_saida ?>" 
+                        target="_self">
+      <input type=hidden name="nmgp_opcao" value=""/>
+      <input type=hidden name="script_case_init" value="<?php  echo $this->form_encode_input($this->Ini->sc_page); ?>"/>
+      <input type=hidden name="id" value="<?php echo $this->form_encode_input($this->id) ?>"/>
+      <input type=hidden name="nmgp_opcao" value="<?php echo $this->form_encode_input($nmgp_opcao_saida_php); ?>"/>
+      <input type=hidden name="nmgp_opc_ant" value="<?php echo $this->form_encode_input($nmgp_opc_ant_saida_php); ?>"/>
+      <input type=submit name="nmgp_bok" value="<?php echo $this->Ini->Nm_lang['lang_btns_cfrm'] ?>"/>
+      </form>
+      </td></tr></table>
+      </body>
+      </html>
+<?php
+       if (isset($this->redir_modal) && !empty($this->redir_modal))
+       {
+           echo "<script type=\"text/javascript\">" . $this->redir_modal . "</script>";
+           $this->redir_modal = "";
+       }
+   }
+   function sc_btn_finalizar_visita() 
+   {
+        global $nm_url_saida, $teste_validade, 
+               $glo_senha_protect, $nm_apl_dependente, $nm_form_submit, $sc_check_excl, $nm_opc_form_php, $nm_call_php, $nm_opc_lookup;
+ 
+     ob_start();
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+
+<html<?php echo $_SESSION['scriptcase']['reg_conf']['html_dir'] ?>>
+ <head>
+    <META http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['scriptcase']['charset_html'] ?>" />
+<?php
+
+      if (isset($_SESSION['scriptcase']['device_mobile']) && $_SESSION['scriptcase']['device_mobile'] && $_SESSION['scriptcase']['display_mobile'])
+      {
+?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<?php
+      }
+
+?>
+        <link rel="shortcut icon" href="../_lib/img/scriptcase__NM__ico__NM__favicon.ico">
+    <SCRIPT type="text/javascript">
+      var sc_pathToTB = '<?php echo $this->Ini->path_prod ?>/third/jquery_plugin/thickbox/';
+      var sc_tbLangClose = "<?php echo html_entity_decode($this->Ini->Nm_lang["lang_tb_close"], ENT_COMPAT, $_SESSION["scriptcase"]["charset"]) ?>";
+      var sc_tbLangEsc = "<?php echo html_entity_decode($this->Ini->Nm_lang["lang_tb_esc"], ENT_COMPAT, $_SESSION["scriptcase"]["charset"]) ?>";
+      var sc_userSweetAlertDisplayed = false;
+    </SCRIPT>
+    <SCRIPT type="text/javascript" src="../_lib/lib/js/jquery-3.6.0.min.js"></SCRIPT>
+    <SCRIPT type="text/javascript" src="<?php echo $this->Ini->path_prod; ?>/third/jquery_plugin/malsup-blockui/jquery.blockUI.js"></SCRIPT>
+    <SCRIPT type="text/javascript" src="<?php echo $this->Ini->path_prod; ?>/third/jquery_plugin/thickbox/thickbox-compressed.js"></SCRIPT>
+<?php
+include_once("form_visita_sajax_js.php");
+?>
+ <link rel="stylesheet" type="text/css" href="<?php echo $this->Ini->path_link ?>_lib/css/<?php echo $this->Ini->str_schema_all ?>_sweetalert.css" />
+ <SCRIPT type="text/javascript" src="<?php echo $this->Ini->path_prod; ?>/third/sweetalert/sweetalert2.all.min.js"></SCRIPT>
+ <SCRIPT type="text/javascript" src="<?php echo $this->Ini->path_prod; ?>/third/sweetalert/polyfill.min.js"></SCRIPT>
+ <script type="text/javascript" src="../_lib/lib/js/frameControl.js"></script>
+    <link rel="stylesheet" href="<?php echo $this->Ini->path_prod ?>/third/jquery_plugin/thickbox/thickbox.css" type="text/css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../_lib/css/<?php echo $this->Ini->str_schema_all ?>_form.css" />
+    <link rel="stylesheet" type="text/css" href="../_lib/css/<?php echo $this->Ini->str_schema_all ?>_form<?php echo $_SESSION['scriptcase']['reg_conf']['css_dir'] ?>.css" />
+  <?php 
+  if(isset($this->Ini->str_google_fonts) && !empty($this->Ini->str_google_fonts)) 
+  { 
+  ?> 
+  <link href="<?php echo $this->Ini->str_google_fonts ?>" rel="stylesheet" /> 
+  <?php 
+  } 
+  ?> 
+ </head>
+  <body class="scFormPage">
+      <table class="scFormTabela" align="center"><tr><td>
+<?php
+      $varloc_btn_php = array();
+      $nmgp_opcao_saida_php = "igual";
+      $nmgp_opc_ant_saida_php = "";
+      if ($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita']['opc_ant'] == "novo" || $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita']['opc_ant'] == "incluir")
+      {
+          $nmgp_opc_ant_saida_php = "novo";
+          $nmgp_opcao_saida_php   = "recarga";
+      }
+      else
+      {
+          if (!isset($this->id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_visita']['dados_form']['id']))
+          {
+              $varloc_btn_php['id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita']['dados_form']['id'];
+          }
+      }
+      $nm_f_saida = "./";
+      nm_limpa_numero($this->id, $this->field_config['id']['symbol_grp']) ; 
+      nm_limpa_ciccnpj($this->cpf) ; 
+      nm_limpa_data($this->data_nascimento, $this->field_config['data_nascimento']['date_sep']) ; 
+      nm_limpa_data($this->data_visita, $this->field_config['data_visita']['date_sep']) ; 
+      nm_limpa_hora($this->data_visita_hora, $this->field_config['data_visita']['time_sep']) ; 
+      $this->nm_converte_datas();
+      foreach ($varloc_btn_php as $cmp => $val_cmp)
+      {
+          $this->$cmp = $val_cmp;
+      }
+      $_SESSION['scriptcase']['form_visita']['contr_erro'] = 'on';
+ $update_table  = 'visita';      
+$update_where  = "id = " . $this->id ; 
+$update_fields = array(   
+     "status_id = 1",
  );
 
 $update_sql = 'UPDATE ' . $update_table
@@ -3707,6 +3876,27 @@ else
    } // ajax_add_parameters
   function nm_proc_onload($bFormat = true)
   {
+      if (!$this->NM_ajax_flag || !isset($this->nmgp_refresh_fields)) {
+      $_SESSION['scriptcase']['form_visita']['contr_erro'] = 'on';
+ echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
+$_SESSION['scriptcase']['form_visita']['contr_erro'] = 'off'; 
+      }
+      if (empty($this->data_visita))
+      {
+          $this->data_visita_hora = $this->data_visita;
+      }
       $this->nm_guardar_campos();
       if ($bFormat) $this->nm_formatar_campos();
   }
@@ -4847,6 +5037,7 @@ $_SESSION['scriptcase']['form_visita']['contr_erro'] = 'off';
                   $this->NM_ajax_info['buttonDisplay']['delete']  = $this->nmgp_botoes['delete']  = "off";
                   $this->NM_ajax_info['buttonDisplay']['first']   = $this->nmgp_botoes['insert']  = "off";
                   $this->NM_ajax_info['buttonDisplay']['excluir_visita'] = $this->nmgp_botoes['excluir_visita'] = "off";
+                  $this->NM_ajax_info['buttonDisplay']['finalizar_visita'] = $this->nmgp_botoes['finalizar_visita'] = "off";
                   $_SESSION['sc_session'][$this->Ini->sc_page]['form_visita']['empty_filter'] = true;
                   return; 
               }
@@ -4862,6 +5053,7 @@ $_SESSION['scriptcase']['form_visita']['contr_erro'] = 'off';
               $this->nm_flag_saida_novo = "S"; 
               $rs->Close(); 
               $this->NM_ajax_info['buttonDisplay']['excluir_visita'] = $this->nmgp_botoes['excluir_visita'] = "off";
+              $this->NM_ajax_info['buttonDisplay']['finalizar_visita'] = $this->nmgp_botoes['finalizar_visita'] = "off";
               if ($this->aba_iframe)
               {
                   $this->NM_ajax_info['buttonDisplay']['exit'] = $this->nmgp_botoes['exit'] = 'off';

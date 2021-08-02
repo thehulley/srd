@@ -260,6 +260,10 @@ class app_change_pswd_apl
       {
           $_SESSION['act_code'] = $this->act_code;
       }
+      if (isset($this->i) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
+      {
+          $_SESSION['i'] = $this->i;
+      }
       if (isset($this->usr_login) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
       {
           $_SESSION['usr_login'] = $this->usr_login;
@@ -268,6 +272,10 @@ class app_change_pswd_apl
       {
           $_SESSION['act_code'] = $this->act_code;
       }
+      if (isset($_POST["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
       if (isset($_POST["usr_login"]) && isset($this->usr_login)) 
       {
           $_SESSION['usr_login'] = $this->usr_login;
@@ -275,6 +283,10 @@ class app_change_pswd_apl
       if (isset($_GET["act_code"]) && isset($this->act_code)) 
       {
           $_SESSION['act_code'] = $this->act_code;
+      }
+      if (isset($_GET["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
       }
       if (isset($_GET["usr_login"]) && isset($this->usr_login)) 
       {
@@ -327,6 +339,10 @@ class app_change_pswd_apl
           {
               $_SESSION['act_code'] = $this->act_code;
           }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
+          }
           if (isset($this->usr_login)) 
           {
               $_SESSION['usr_login'] = $this->usr_login;
@@ -347,6 +363,10 @@ class app_change_pswd_apl
           if (isset($this->act_code)) 
           {
               $_SESSION['act_code'] = $this->act_code;
+          }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
           }
           if (isset($this->usr_login)) 
           {
@@ -466,10 +486,6 @@ class app_change_pswd_apl
       $_SESSION['scriptcase']['css_form_help'] = '../_lib/css/' . $this->Ini->str_schema_all . "_form.css";
       $_SESSION['scriptcase']['css_form_help_dir'] = '../_lib/css/' . $this->Ini->str_schema_all . "_form" . $_SESSION['scriptcase']['reg_conf']['css_dir'] . ".css";
       $this->Db = $this->Ini->Db; 
-      $this->nm_new_label['pswd'] = '' . $this->Ini->Nm_lang['lang_sec_users_fild_pswd'] . '';
-      $this->nm_new_label['confirm_pswd'] = '' . $this->Ini->Nm_lang['lang_sec_users_fild_pswd_confirm'] . '';
-      $this->nm_new_label['old_pswd'] = '' . $this->Ini->Nm_lang['lang_old_pswd'] . '';
-
       $this->Ini->str_google_fonts = isset($str_google_fonts)?$str_google_fonts:'';
       $this->Ini->Img_sep_form    = "/" . trim($str_toolbar_separator);
       $this->Ini->Color_bg_ajax   = "" == trim($str_ajax_bg)         ? "#000" : $str_ajax_bg;
@@ -1661,13 +1677,13 @@ if (isset($_SESSION['scriptcase']['device_mobile']) && $_SESSION['scriptcase']['
        switch($campo)
        {
            case 'old_pswd':
-               return "" . $this->Ini->Nm_lang['lang_old_pswd'] . "";
+               return "Senha Antiga";
                break;
            case 'pswd':
-               return "" . $this->Ini->Nm_lang['lang_sec_users_fild_pswd'] . "";
+               return "Nova Senha";
                break;
            case 'confirm_pswd':
-               return "" . $this->Ini->Nm_lang['lang_sec_users_fild_pswd_confirm'] . "";
+               return "Confirme a Nova Senha";
                break;
        }
 
@@ -1907,7 +1923,7 @@ $_SESSION['scriptcase']['app_change_pswd']['contr_erro'] = 'off';
           if (NM_utf8_strlen($this->old_pswd) > 32) 
           { 
               $hasError = true;
-              $Campos_Crit .= "" . $this->Ini->Nm_lang['lang_old_pswd'] . " " . $this->Ini->Nm_lang['lang_errm_mxch'] . " 32 " . $this->Ini->Nm_lang['lang_errm_nchr']; 
+              $Campos_Crit .= "Senha Antiga " . $this->Ini->Nm_lang['lang_errm_mxch'] . " 32 " . $this->Ini->Nm_lang['lang_errm_nchr']; 
               if (!isset($Campos_Erros['old_pswd']))
               {
                   $Campos_Erros['old_pswd'] = array();
@@ -1939,7 +1955,7 @@ $_SESSION['scriptcase']['app_change_pswd']['contr_erro'] = 'off';
           if ($this->pswd == "")  
           { 
               $hasError = true;
-              $Campos_Falta[] =  "" . $this->Ini->Nm_lang['lang_sec_users_fild_pswd'] . "" ; 
+              $Campos_Falta[] =  "Nova Senha" ; 
               if (!isset($Campos_Erros['pswd']))
               {
                   $Campos_Erros['pswd'] = array();
@@ -1957,7 +1973,7 @@ $_SESSION['scriptcase']['app_change_pswd']['contr_erro'] = 'off';
           if (NM_utf8_strlen($this->pswd) > 32) 
           { 
               $hasError = true;
-              $Campos_Crit .= "" . $this->Ini->Nm_lang['lang_sec_users_fild_pswd'] . " " . $this->Ini->Nm_lang['lang_errm_mxch'] . " 32 " . $this->Ini->Nm_lang['lang_errm_nchr']; 
+              $Campos_Crit .= "Nova Senha " . $this->Ini->Nm_lang['lang_errm_mxch'] . " 32 " . $this->Ini->Nm_lang['lang_errm_nchr']; 
               if (!isset($Campos_Erros['pswd']))
               {
                   $Campos_Erros['pswd'] = array();
@@ -1989,7 +2005,7 @@ $_SESSION['scriptcase']['app_change_pswd']['contr_erro'] = 'off';
           if ($this->confirm_pswd == "")  
           { 
               $hasError = true;
-              $Campos_Falta[] =  "" . $this->Ini->Nm_lang['lang_sec_users_fild_pswd_confirm'] . "" ; 
+              $Campos_Falta[] =  "Confirme a Nova Senha" ; 
               if (!isset($Campos_Erros['confirm_pswd']))
               {
                   $Campos_Erros['confirm_pswd'] = array();
@@ -2007,7 +2023,7 @@ $_SESSION['scriptcase']['app_change_pswd']['contr_erro'] = 'off';
           if (NM_utf8_strlen($this->confirm_pswd) > 32) 
           { 
               $hasError = true;
-              $Campos_Crit .= "" . $this->Ini->Nm_lang['lang_sec_users_fild_pswd_confirm'] . " " . $this->Ini->Nm_lang['lang_errm_mxch'] . " 32 " . $this->Ini->Nm_lang['lang_errm_nchr']; 
+              $Campos_Crit .= "Confirme a Nova Senha " . $this->Ini->Nm_lang['lang_errm_mxch'] . " 32 " . $this->Ini->Nm_lang['lang_errm_nchr']; 
               if (!isset($Campos_Erros['confirm_pswd']))
               {
                   $Campos_Erros['confirm_pswd'] = array();
@@ -2730,6 +2746,20 @@ else
 	$this->nmgp_cmp_hidden["old_pswd"] = "on"; $this->NM_ajax_info['fieldDisplay']['old_pswd'] = 'on';
 	$this->NM_ajax_info['buttonDisplay']['exit'] = $this->nmgp_botoes["exit"] = "on";;
 }
+
+echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
 if (isset($this->sc_temp_act_code)) { $_SESSION['act_code'] = $this->sc_temp_act_code;}
 if (isset($this->NM_ajax_flag) && $this->NM_ajax_flag)
 {

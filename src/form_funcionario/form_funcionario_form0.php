@@ -906,6 +906,7 @@ if (($this->Embutida_form || !$this->Embutida_call || $this->Grid_editavel || $t
           $SC_Label_atu['funcao_id'] = (isset($this->nm_new_label['funcao_id'])) ? $this->nm_new_label['funcao_id'] : 'Função'; 
           $SC_Label_atu['senha'] = (isset($this->nm_new_label['senha'])) ? $this->nm_new_label['senha'] : 'Senha'; 
           $SC_Label_atu['ativo'] = (isset($this->nm_new_label['ativo'])) ? $this->nm_new_label['ativo'] : 'Ativo'; 
+          $SC_Label_atu['data'] = (isset($this->nm_new_label['data'])) ? $this->nm_new_label['data'] : 'Data'; 
           foreach ($SC_Label_atu as $CMP => $LABEL)
           {
               if($CMP == 'SC_all_Cmp')
@@ -1091,6 +1092,10 @@ unset($NM_ult_sep);
    if (!isset($this->nmgp_cmp_hidden['ativo']))
    {
        $this->nmgp_cmp_hidden['ativo'] = 'off';
+   }
+   if (!isset($this->nmgp_cmp_hidden['data']))
+   {
+       $this->nmgp_cmp_hidden['data'] = 'off';
    }
 ?>
 <TABLE align="center" id="hidden_bloco_0" class="scFormTable<?php echo $this->classes_100perc_fields['table'] ?>" width="100%" style="height: 100%;"><?php if ($sc_hidden_no > 0) { echo "<tr>"; }; 
@@ -1503,6 +1508,7 @@ else
    $old_value_matricula = $this->matricula;
    $old_value_telefone = $this->telefone;
    $old_value_data_nascimento = $this->data_nascimento;
+   $old_value_data = $this->data;
    $this->nm_tira_formatacao();
    $this->nm_converte_datas(false);
 
@@ -1511,6 +1517,7 @@ else
    $unformatted_value_matricula = $this->matricula;
    $unformatted_value_telefone = $this->telefone;
    $unformatted_value_data_nascimento = $this->data_nascimento;
+   $unformatted_value_data = $this->data;
 
    $nm_comando = "SELECT id, descricao  FROM funcao  ORDER BY descricao";
 
@@ -1518,6 +1525,7 @@ else
    $this->matricula = $old_value_matricula;
    $this->telefone = $old_value_telefone;
    $this->data_nascimento = $old_value_data_nascimento;
+   $this->data = $old_value_data;
 
    $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando;
    $_SESSION['scriptcase']['sc_sql_ult_conexao'] = '';
@@ -1747,6 +1755,67 @@ else
 </div>
 </span><?php  }?>
 </td></tr><tr><td style="vertical-align: top; padding: 0"><table class="scFormFieldErrorTable" style="display: none" id="id_error_display_ativo_frame"><tr><td class="scFormFieldErrorMessage"><span id="id_error_display_ativo_text"></span></td></tr></table></td></tr></table></TD>
+   <?php }?>
+
+<?php if ($sc_hidden_yes > 0 && $sc_hidden_no > 0) { ?>
+
+
+    <TD class="scFormDataOdd" colspan="<?php echo $sc_hidden_yes * 2; ?>" >&nbsp;</TD>
+<?php } 
+?> 
+<?php if ($sc_hidden_no > 0) { echo "<tr>"; }; 
+      $sc_hidden_yes = 0; $sc_hidden_no = 0; ?>
+
+
+   <?php
+    if (!isset($this->nm_new_label['data']))
+    {
+        $this->nm_new_label['data'] = "Data";
+    }
+?>
+<?php
+   $nm_cor_fun_cel  = ($nm_cor_fun_cel  == $this->Ini->cor_grid_impar ? $this->Ini->cor_grid_par : $this->Ini->cor_grid_impar);
+   $nm_img_fun_cel  = ($nm_img_fun_cel  == $this->Ini->img_fun_imp    ? $this->Ini->img_fun_par  : $this->Ini->img_fun_imp);
+   $data = $this->data;
+   if (!isset($this->nmgp_cmp_hidden['data']))
+   {
+       $this->nmgp_cmp_hidden['data'] = 'off';
+   }
+   $sStyleHidden_data = '';
+   if (isset($this->nmgp_cmp_hidden['data']) && $this->nmgp_cmp_hidden['data'] == 'off')
+   {
+       unset($this->nmgp_cmp_hidden['data']);
+       $sStyleHidden_data = 'display: none;';
+   }
+   $bTestReadOnly = true;
+   $sStyleReadLab_data = 'display: none;';
+   $sStyleReadInp_data = '';
+   if (/*$this->nmgp_opcao != "novo" && */isset($this->nmgp_cmp_readonly['data']) && $this->nmgp_cmp_readonly['data'] == 'on')
+   {
+       $bTestReadOnly = false;
+       unset($this->nmgp_cmp_readonly['data']);
+       $sStyleReadLab_data = '';
+       $sStyleReadInp_data = 'display: none;';
+   }
+?>
+<?php if (isset($this->nmgp_cmp_hidden['data']) && $this->nmgp_cmp_hidden['data'] == 'off') { $sc_hidden_yes++;  ?>
+<input type="hidden" name="data" value="<?php echo $this->form_encode_input($data) . "\">"; ?>
+<?php } else { $sc_hidden_no++; ?>
+
+    <TD class="scFormLabelOdd scUiLabelWidthFix css_data_label" id="hidden_field_label_data" style="<?php echo $sStyleHidden_data; ?>"><span id="id_label_data"><?php echo $this->nm_new_label['data']; ?></span></TD>
+    <TD class="scFormDataOdd css_data_line" id="hidden_field_data_data" style="<?php echo $sStyleHidden_data; ?>"><table style="border-width: 0px; border-collapse: collapse; width: 100%"><tr><td  class="scFormDataFontOdd css_data_line" style="vertical-align: top;padding: 0px"><input type="hidden" name="data" value="<?php echo $this->form_encode_input($data); ?>"><span id="id_ajax_label_data"><?php echo nl2br($data); ?></span>
+<?php
+$tmp_form_data = $this->field_config['data']['date_format'];
+$tmp_form_data = str_replace('aaaa', 'yyyy', $tmp_form_data);
+$tmp_form_data = str_replace('dd'  , $this->Ini->Nm_lang['lang_othr_date_days'], $tmp_form_data);
+$tmp_form_data = str_replace('mm'  , $this->Ini->Nm_lang['lang_othr_date_mnth'], $tmp_form_data);
+$tmp_form_data = str_replace('yyyy', $this->Ini->Nm_lang['lang_othr_date_year'], $tmp_form_data);
+$tmp_form_data = str_replace('hh'  , $this->Ini->Nm_lang['lang_othr_date_hour'], $tmp_form_data);
+$tmp_form_data = str_replace('ii'  , $this->Ini->Nm_lang['lang_othr_date_mint'], $tmp_form_data);
+$tmp_form_data = str_replace('ss'  , $this->Ini->Nm_lang['lang_othr_date_scnd'], $tmp_form_data);
+$tmp_form_data = str_replace(';'   , ' '                                       , $tmp_form_data);
+?>
+&nbsp;<span class="scFormDataHelpOdd"><?php echo $tmp_form_data; ?></span></td></tr><tr><td style="vertical-align: top; padding: 0"><table class="scFormFieldErrorTable" style="display: none" id="id_error_display_data_frame"><tr><td class="scFormFieldErrorMessage"><span id="id_error_display_data_text"></span></td></tr></table></td></tr></table></TD>
    <?php }?>
 
 <?php if ($sc_hidden_yes > 0 && $sc_hidden_no > 0) { ?>

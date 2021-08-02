@@ -3423,9 +3423,9 @@ if ($this->Embutida_form)
   ajax_block_list[0] = "0";
 
   var ajax_error_list = {
-    "old_pswd": {"label": "<?php echo $this->Ini->Nm_lang['lang_old_pswd'] ?>", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
-    "pswd": {"label": "<?php echo $this->Ini->Nm_lang['lang_sec_users_fild_pswd'] ?>", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
-    "confirm_pswd": {"label": "<?php echo $this->Ini->Nm_lang['lang_sec_users_fild_pswd_confirm'] ?>", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5}
+    "old_pswd": {"label": "Senha Antiga", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
+    "pswd": {"label": "Nova Senha", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
+    "confirm_pswd": {"label": "Confirme a Nova Senha", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5}
   };
   var ajax_error_timeout = 5;
 

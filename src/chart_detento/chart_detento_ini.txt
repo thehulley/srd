@@ -1,0 +1,7 @@
+index.php
+com210
+chart_detento
+NAO
+cons
+chart_detento
+LigMd5

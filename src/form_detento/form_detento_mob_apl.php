@@ -60,6 +60,7 @@ class form_detento_mob_apl
    var $status_id_1;
    var $data;
    var $data_hora;
+   var $crimes;
    var $nm_data;
    var $nmgp_opcao;
    var $nmgp_opc_ant;
@@ -108,6 +109,10 @@ class form_detento_mob_apl
           if (isset($this->NM_ajax_info['param']['cpf']))
           {
               $this->cpf = $this->NM_ajax_info['param']['cpf'];
+          }
+          if (isset($this->NM_ajax_info['param']['crimes']))
+          {
+              $this->crimes = $this->NM_ajax_info['param']['crimes'];
           }
           if (isset($this->NM_ajax_info['param']['csrf_token']))
           {
@@ -297,6 +302,18 @@ class form_detento_mob_apl
       {
           $nmgp_parms = "";
       }
+      if (isset($this->i) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($_POST["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($_GET["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
       if (isset($_SESSION['sc_session'][$script_case_init]['form_detento_mob']['embutida_parms']))
       { 
           $this->nmgp_parms = $_SESSION['sc_session'][$script_case_init]['form_detento_mob']['embutida_parms'];
@@ -340,10 +357,19 @@ class form_detento_mob_apl
              }
              $ix++;
           }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
+          }
           if (isset($this->NM_where_filter_form))
           {
               $_SESSION['sc_session'][$script_case_init]['form_detento_mob']['where_filter_form'] = $this->NM_where_filter_form;
               unset($_SESSION['sc_session'][$script_case_init]['form_detento_mob']['total']);
+          }
+          if (!isset($_SESSION['sc_session'][$script_case_init]['form_detento_mob']['total']))
+          {
+              $_SESSION['sc_session'][ $_SESSION['sc_session'][$script_case_init]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['reg_start'] = "";
+              unset($_SESSION['sc_session'][ $_SESSION['sc_session'][$script_case_init]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['total']);
           }
           if (isset($this->sc_redir_atualiz))
           {
@@ -352,6 +378,10 @@ class form_detento_mob_apl
           if (isset($this->sc_redir_insert))
           {
               $_SESSION['sc_session'][$script_case_init]['form_detento_mob']['sc_redir_insert'] = $this->sc_redir_insert;
+          }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
           }
       } 
       elseif (isset($script_case_init) && !empty($script_case_init) && isset($_SESSION['sc_session'][$script_case_init]['form_detento_mob']['parms']))
@@ -1080,6 +1110,17 @@ class form_detento_mob_apl
           $this->nm_flag_saida_novo = "S";
       }
 //
+      if ($this->nmgp_opcao == "excluir")
+      {
+          $GLOBALS['script_case_init'] = $this->Ini->sc_page;
+          $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['embutida_form'] = false;
+          $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['embutida_proc'] = true;
+          $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['reg_start'] = "";
+          unset($_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['total']);
+          require_once($this->Ini->root . $this->Ini->path_link  . SC_dir_app_name('form_crimes_detento_mob') . "/index.php");
+          require_once($this->Ini->root . $this->Ini->path_link  . SC_dir_app_name('form_crimes_detento_mob') . "/form_crimes_detento_mob_apl.php");
+          $this->form_crimes_detento_mob = new form_crimes_detento_mob_apl;
+      }
       $this->NM_case_insensitive = false;
       $this->sc_evento = $this->nmgp_opcao;
       $this->sc_insert_on = false;
@@ -1117,6 +1158,7 @@ class form_detento_mob_apl
       if (isset($this->matricula)) { $this->nm_limpa_alfa($this->matricula); }
       if (isset($this->cpf)) { $this->nm_limpa_alfa($this->cpf); }
       if (isset($this->status_id)) { $this->nm_limpa_alfa($this->status_id); }
+      if (isset($this->crimes)) { $this->nm_limpa_alfa($this->crimes); }
       if ($nm_opc_form_php == "formphp")
       { 
           if ($nm_call_php == "Soltura")
@@ -1243,6 +1285,10 @@ class form_detento_mob_apl
           if ('validate_data' == $this->NM_ajax_opcao)
           {
               $this->Valida_campos($Campos_Crit, $Campos_Falta, $Campos_Erros, 'data');
+          }
+          if ('validate_crimes' == $this->NM_ajax_opcao)
+          {
+              $this->Valida_campos($Campos_Crit, $Campos_Falta, $Campos_Erros, 'crimes');
           }
           form_detento_mob_pack_ajax_response();
           exit;
@@ -1643,6 +1689,10 @@ include_once("form_detento_mob_sajax_js.php");
           {
               $varloc_btn_php['id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['dados_form']['id'];
           }
+          if (!isset($this->id) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['dados_form']['id']))
+          {
+              $varloc_btn_php['id'] = $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['dados_form']['id'];
+          }
       }
       $nm_f_saida = "form_detento_mob.php";
       nm_limpa_numero($this->matricula, $this->field_config['matricula']['symbol_grp']) ; 
@@ -1683,6 +1733,11 @@ $update_sql = 'UPDATE ' . $update_table
          }
          $rf->Close();
       ;
+
+ if (!isset($this->Campos_Mens_erro) || empty($this->Campos_Mens_erro))
+ {
+$this->nmgp_redireciona_form($this->Ini->path_link . "" . SC_dir_app_name('form_registros_soltura_2') . "/", $this->nm_location, "detento_id?#?" . NM_encode_input($this->id ) . "?@?","_self", '', 440, 630);
+ };
 $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off'; 
     echo ob_get_clean();
 ?>
@@ -1923,6 +1978,9 @@ $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off';
            case 'data':
                return "Data da Criação";
                break;
+           case 'crimes':
+               return "crimes";
+               break;
            case 'id':
                return "Id";
                break;
@@ -1985,6 +2043,8 @@ $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off';
         $this->ValidateField_status_id($Campos_Crit, $Campos_Falta, $Campos_Erros);
       if ('' == $filtro || 'data' == $filtro)
         $this->ValidateField_data($Campos_Crit, $Campos_Falta, $Campos_Erros);
+      if ('' == $filtro || 'crimes' == $filtro)
+        $this->ValidateField_crimes($Campos_Crit, $Campos_Falta, $Campos_Erros);
 //-- converter datas   
           $this->nm_converte_datas();
 //---
@@ -2401,6 +2461,26 @@ $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off';
         }
     } // ValidateField_data_hora
 
+    function ValidateField_crimes(&$Campos_Crit, &$Campos_Falta, &$Campos_Erros)
+    {
+        global $teste_validade;
+        $hasError = false;
+      if ($this->nmgp_opcao != "excluir") 
+      { 
+          if (trim($this->crimes) != "")  
+          { 
+          } 
+      } 
+        if ($hasError) {
+            global $sc_seq_vert;
+            $fieldName = 'crimes';
+            if (isset($sc_seq_vert) && '' != $sc_seq_vert) {
+                $fieldName .= $sc_seq_vert;
+            }
+            $this->NM_ajax_info['fieldsWithErrors'][] = $fieldName;
+        }
+    } // ValidateField_crimes
+
     function removeDuplicateDttmError($aErrDate, &$aErrTime)
     {
         if (empty($aErrDate) || empty($aErrTime))
@@ -2431,6 +2511,7 @@ $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off';
     $this->nmgp_dados_form['data_inicio_pena'] = (strlen(trim($this->data_inicio_pena)) > 19) ? str_replace(".", ":", $this->data_inicio_pena) : trim($this->data_inicio_pena);
     $this->nmgp_dados_form['status_id'] = $this->status_id;
     $this->nmgp_dados_form['data'] = (strlen(trim($this->data)) > 19) ? str_replace(".", ":", $this->data) : trim($this->data);
+    $this->nmgp_dados_form['crimes'] = $this->crimes;
     $this->nmgp_dados_form['id'] = $this->id;
     $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['dados_form'] = $this->nmgp_dados_form;
    }
@@ -3106,6 +3187,7 @@ $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off';
           $this->ajax_return_values_data_inicio_pena();
           $this->ajax_return_values_status_id();
           $this->ajax_return_values_data();
+          $this->ajax_return_values_crimes();
           $this->ajax_return_values_id();
           if ('navigate_form' == $this->NM_ajax_opcao)
           {
@@ -3113,6 +3195,23 @@ $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off';
               $this->NM_ajax_info['navStatus']['ret'] = $this->Nav_permite_ret ? 'S' : 'N';
               $this->NM_ajax_info['navStatus']['ava'] = $this->Nav_permite_ava ? 'S' : 'N';
               $this->NM_ajax_info['fldList']['id']['keyVal'] = form_detento_mob_pack_protect_string($this->nmgp_dados_form['id']);
+              $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['foreign_key']['detento_id'] = $this->nmgp_dados_form['id'];
+              $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['where_filter'] = "detento_id = " . $this->nmgp_dados_form['id'] . "";
+              $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['where_detal']  = "detento_id = " . $this->nmgp_dados_form['id'] . "";
+              if ($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['total'] < 0)
+              {
+                  $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['where_filter'] = "1 <> 1";
+              }
+              $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['reg_start'] = "";
+              unset($_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['total']);
+              foreach ($_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob'] as $i => $v)
+              {
+                  $_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento'][$i] = $v;
+              }
+              if (isset($_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['total']))
+              {
+                  unset($_SESSION['sc_session'][ $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['form_crimes_detento_mob_script_case_init'] ]['form_crimes_detento_mob']['total']);
+              }
           }
    } // ajax_return_values
 
@@ -3340,6 +3439,22 @@ else
           }
    }
 
+          //----- crimes
+   function ajax_return_values_crimes($bForce = false)
+   {
+          if ('navigate_form' == $this->NM_ajax_opcao || 'backup_line' == $this->NM_ajax_opcao || (isset($this->nmgp_refresh_fields) && in_array("crimes", $this->nmgp_refresh_fields)) || $bForce)
+          {
+              $sTmpValue = NM_charset_to_utf8($this->crimes);
+              $aLookup = array();
+          $aLookupOrig = $aLookup;
+          $this->NM_ajax_info['fldList']['crimes'] = array(
+                       'row'    => '',
+               'type'    => 'text',
+               'valList' => array($sTmpValue),
+              );
+          }
+   }
+
           //----- id
    function ajax_return_values_id($bForce = false)
    {
@@ -3429,6 +3544,74 @@ else
    } // ajax_add_parameters
   function nm_proc_onload($bFormat = true)
   {
+      if (!$this->NM_ajax_flag || !isset($this->nmgp_refresh_fields)) {
+      $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'on';
+if (isset($this->NM_ajax_flag) && $this->NM_ajax_flag)
+{
+    $original_status_id = $this->status_id;
+}
+  $check_sql = 'SELECT id FROM registros_soltura WHERE detento_id = ' . $this->id ;
+
+ 
+      $nm_select = $check_sql; 
+      $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_select; 
+      $_SESSION['scriptcase']['sc_sql_ult_conexao'] = ''; 
+      $this->rs = array();
+      if ($SCrx = $this->Db->Execute($nm_select)) 
+      { 
+          $SCy = 0; 
+          $nm_count = $SCrx->FieldCount();
+          while (!$SCrx->EOF)
+          { 
+                 for ($SCx = 0; $SCx < $nm_count; $SCx++)
+                 { 
+                      $this->rs[$SCy] [$SCx] = $SCrx->fields[$SCx];
+                 }
+                 $SCy++; 
+                 $SCrx->MoveNext();
+          } 
+          $SCrx->Close();
+      } 
+      elseif (isset($GLOBALS["NM_ERRO_IBASE"]) && $GLOBALS["NM_ERRO_IBASE"] != 1)  
+      { 
+          $this->rs = false;
+          $this->rs_erro = $this->Db->ErrorMsg();
+      } 
+;
+
+
+
+if (isset($this->rs[0][0]) and isset($this->id ) and $this->status_id  == 2){
+	$this->NM_ajax_info['buttonDisplay']['Soltura'] = $this->nmgp_botoes["Soltura"] = "off";;
+}
+
+
+echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
+if (isset($this->NM_ajax_flag) && $this->NM_ajax_flag)
+{
+    if (($original_status_id != $this->status_id || (isset($bFlagRead_status_id) && $bFlagRead_status_id)))
+    {
+        $this->ajax_return_values_status_id(true);
+    }
+}
+$_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off'; 
+      }
+      if (empty($this->data))
+      {
+          $this->data_hora = $this->data;
+      }
       $this->nm_guardar_campos();
       if ($bFormat) $this->nm_formatar_campos();
   }
@@ -3513,6 +3696,7 @@ else
       $NM_val_form['data_inicio_pena'] = $this->data_inicio_pena;
       $NM_val_form['status_id'] = $this->status_id;
       $NM_val_form['data'] = $this->data;
+      $NM_val_form['crimes'] = $this->crimes;
       $NM_val_form['id'] = $this->id;
       if ($this->id === "" || is_null($this->id))  
       { 
@@ -3559,6 +3743,13 @@ else
           { 
               $this->data = "null"; 
               $NM_val_null[] = "data";
+          } 
+          $this->crimes_before_qstr = $this->crimes;
+          $this->crimes = substr($this->Db->qstr($this->crimes), 1, -1); 
+          if ($this->crimes == "" && in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_access))  
+          { 
+              $this->crimes = "null"; 
+              $NM_val_null[] = "crimes";
           } 
       }
       if ($this->nmgp_opcao == "alterar") 
@@ -3719,6 +3910,7 @@ else
               }   
               $this->nome = $this->nome_before_qstr;
               $this->cpf = $this->cpf_before_qstr;
+              $this->crimes = $this->crimes_before_qstr;
               if (in_array(strtolower($this->Ini->nm_tpbanco), $nm_bases_lob_geral))
               { 
               }   
@@ -3746,6 +3938,8 @@ else
               elseif (isset($this->cpf)) { $this->nm_limpa_alfa($this->cpf); }
               if     (isset($NM_val_form) && isset($NM_val_form['status_id'])) { $this->status_id = $NM_val_form['status_id']; }
               elseif (isset($this->status_id)) { $this->nm_limpa_alfa($this->status_id); }
+              if     (isset($NM_val_form) && isset($NM_val_form['crimes'])) { $this->crimes = $NM_val_form['crimes']; }
+              elseif (isset($this->crimes)) { $this->nm_limpa_alfa($this->crimes); }
 
               $this->nm_formatar_campos();
               if (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mssql))
@@ -3753,7 +3947,7 @@ else
               }
 
               $aOldRefresh               = $this->nmgp_refresh_fields;
-              $this->nmgp_refresh_fields = array_diff(array('nome', 'matricula', 'cpf', 'data_nascimento', 'data_inicio_pena', 'status_id', 'data'), $aDoNotUpdate);
+              $this->nmgp_refresh_fields = array_diff(array('nome', 'matricula', 'cpf', 'data_nascimento', 'data_inicio_pena', 'status_id', 'data', 'crimes'), $aDoNotUpdate);
               $this->ajax_return_values();
               $this->nmgp_refresh_fields = $aOldRefresh;
 
@@ -3980,6 +4174,7 @@ else
               } 
               $this->nome = $this->nome_before_qstr;
               $this->cpf = $this->cpf_before_qstr;
+              $this->crimes = $this->crimes_before_qstr;
               }
 
               $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['db_changed'] = true;
@@ -3992,17 +4187,16 @@ else
               $this->sc_evento = "insert"; 
               $this->nome = $this->nome_before_qstr;
               $this->cpf = $this->cpf_before_qstr;
+              $this->crimes = $this->crimes_before_qstr;
               $this->sc_insert_on = true; 
               if (empty($this->sc_erro_insert)) {
                   $this->record_insert_ok = true;
               } 
               if ('refresh_insert' != $this->nmgp_opcao && (!isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['sc_redir_insert']) || $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['sc_redir_insert'] != "S"))
               {
-              $this->nmgp_opcao = "novo"; 
-              if ($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['run_iframe'] == "F" || $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['run_iframe'] == "R")
-              { 
-                   $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['return_edit'] = "new";
-              } 
+              $this->nmgp_opcao   = "igual"; 
+              $this->nmgp_opc_ant = "igual"; 
+              $this->nmgp_botoes['Soltura'] = "on";
               }
               $this->nm_flag_iframe = true;
           } 
@@ -4017,6 +4211,16 @@ else
 
           $bDelecaoOk = true;
           $sMsgErro   = '';
+          if ($bDelecaoOk)
+          {
+              $sDetailWhere = "detento_id = " . $this->id . "";
+              $this->form_crimes_detento_mob->ini_controle();
+              if ($this->form_crimes_detento_mob->temRegistros($sDetailWhere))
+              {
+                  $bDelecaoOk = false;
+                  $sMsgErro   = $this->Ini->Nm_lang['lang_errm_fkvi'];
+              }
+          }
 
           if ($bDelecaoOk)
           {
@@ -4565,6 +4769,8 @@ else
               $this->data =  date('Y') . "-" . date('m')  . "-" . date('d') . " " . date('H') . ":" . date('i') . ":" . date('s');
               $this->data_hora =  date('Y') . "-" . date('m')  . "-" . date('d') . " " . date('H') . ":" . date('i') . ":" . date('s');
               $this->nmgp_dados_form["data"] = $this->data;
+              $this->crimes = "";  
+              $this->nmgp_dados_form["crimes"] = $this->crimes;
               $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['dados_form'] = $this->nmgp_dados_form;
               $this->formatado = false;
               if ($this->nmgp_clone != "S")
@@ -4580,6 +4786,7 @@ else
                   $this->data_inicio_pena = $this->nmgp_dados_select['data_inicio_pena'];  
                   $this->status_id = $this->nmgp_dados_select['status_id'];  
                   $this->data = $this->nmgp_dados_select['data'];  
+                  $this->crimes = $this->nmgp_dados_select['crimes'];  
               }
           }
           if (($this->Embutida_form || $this->Embutida_multi) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['foreign_key']) && !empty($_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['foreign_key']))
@@ -4604,6 +4811,7 @@ else
       { 
           $this->nm_proc_onload();
       }
+      $_SESSION['sc_session'][$this->Ini->sc_page]['form_crimes_detento_mob']['embutida_parms'] = "detento_id*scin" . $this->nmgp_dados_form['id'] . "*scoutNM_btn_insert*scinS*scoutNM_btn_update*scinS*scoutNM_btn_delete*scinS*scoutNM_btn_navega*scinN*scout";
   }
 // 
 //-- 
@@ -5193,10 +5401,10 @@ $_SESSION['scriptcase']['form_detento_mob']['contr_erro'] = 'off';
     function form_highlight_search_quicksearch(&$result, $field, $value)
     {
         $searchOk = false;
-        if ('SC_all_Cmp' == $this->nmgp_fast_search && in_array($field, array("nome", "matricula", "cpf", "data_nascimento", "data_inicio_pena", "status_id", "data"))) {
+        if ('SC_all_Cmp' == $this->nmgp_fast_search && in_array($field, array("nome", "matricula", "cpf", "data_nascimento", "data_inicio_pena", "status_id", "data", "crimes"))) {
             $searchOk = true;
         }
-        elseif ($field == $this->nmgp_fast_search && in_array($field, array("nome", "matricula", "cpf", "data_nascimento", "data_inicio_pena", "status_id", "data"))) {
+        elseif ($field == $this->nmgp_fast_search && in_array($field, array("nome", "matricula", "cpf", "data_nascimento", "data_inicio_pena", "status_id", "data", "crimes"))) {
             $searchOk = true;
         }
 
@@ -6279,6 +6487,218 @@ if (parent && parent.scAjaxDetailValue)
    </HTML>
 <?php
   exit;
+}
+function nmgp_redireciona_form($nm_apl_dest, $nm_apl_retorno, $nm_apl_parms, $nm_target="", $opc="", $alt_modal=430, $larg_modal=630)
+{
+   if (isset($this->NM_is_redirected) && $this->NM_is_redirected)
+   {
+       return;
+   }
+   $_SESSION['sc_session'][$this->Ini->sc_page]['form_crimes_detento_mob']['reg_start'] = "";
+   unset($_SESSION['sc_session'][$this->Ini->sc_page]['form_crimes_detento_mob']['total']);
+   if (is_array($nm_apl_parms))
+   {
+       $tmp_parms = "";
+       foreach ($nm_apl_parms as $par => $val)
+       {
+           $par = trim($par);
+           $val = trim($val);
+           $tmp_parms .= str_replace(".", "_", $par) . "?#?";
+           if (substr($val, 0, 1) == "$")
+           {
+               $tmp_parms .= $$val;
+           }
+           elseif (substr($val, 0, 1) == "{")
+           {
+               $val        = substr($val, 1, -1);
+               $tmp_parms .= $this->$val;
+           }
+           elseif (substr($val, 0, 1) == "[")
+           {
+               $tmp_parms .= $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob'][substr($val, 1, -1)];
+           }
+           else
+           {
+               $tmp_parms .= $val;
+           }
+           $tmp_parms .= "?@?";
+       }
+       $nm_apl_parms = $tmp_parms;
+   }
+   if (empty($opc))
+   {
+       $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['opcao'] = "";
+       $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['opc_ant'] = "";
+       $_SESSION['sc_session'][$this->Ini->sc_page]['form_detento_mob']['retorno_edit'] = "";
+   }
+   $nm_target_form = (empty($nm_target)) ? "_self" : $nm_target;
+   if (strtolower(substr($nm_apl_dest, -4)) != ".php" && (strtolower(substr($nm_apl_dest, 0, 7)) == "http://" || strtolower(substr($nm_apl_dest, 0, 8)) == "https://" || strtolower(substr($nm_apl_dest, 0, 3)) == "../"))
+   {
+       if ($this->NM_ajax_flag)
+       {
+           $this->NM_ajax_info['redir']['metodo'] = 'location';
+           $this->NM_ajax_info['redir']['action'] = $nm_apl_dest;
+           $this->NM_ajax_info['redir']['target'] = $nm_target_form;
+           form_detento_mob_pack_ajax_response();
+           exit;
+       }
+       echo "<SCRIPT language=\"javascript\">";
+       if (strtolower($nm_target) == "_blank")
+       {
+           echo "window.open ('" . $nm_apl_dest . "');";
+           echo "</SCRIPT>";
+           return;
+       }
+       else
+       {
+           echo "window.location='" . $nm_apl_dest . "';";
+           echo "</SCRIPT>";
+           $this->NM_close_db();
+           exit;
+       }
+   }
+   $dir = explode("/", $nm_apl_dest);
+   if (count($dir) == 1)
+   {
+       $nm_apl_dest = str_replace(".php", "", $nm_apl_dest);
+       $nm_apl_dest = $this->Ini->path_link . SC_dir_app_name($nm_apl_dest) . "/" . $nm_apl_dest . ".php";
+   }
+   if ($this->NM_ajax_flag)
+   {
+       $nm_apl_parms = str_replace("?#?", "*scin", NM_charset_to_utf8($nm_apl_parms));
+       $nm_apl_parms = str_replace("?@?", "*scout", $nm_apl_parms);
+       $this->NM_ajax_info['redir']['metodo']     = 'post';
+       $this->NM_ajax_info['redir']['action']     = $nm_apl_dest;
+       $this->NM_ajax_info['redir']['nmgp_parms'] = $nm_apl_parms;
+       $this->NM_ajax_info['redir']['target']     = $nm_target_form;
+       $this->NM_ajax_info['redir']['h_modal']    = $alt_modal;
+       $this->NM_ajax_info['redir']['w_modal']    = $larg_modal;
+       if ($nm_target_form == "_blank")
+       {
+           $this->NM_ajax_info['redir']['nmgp_outra_jan'] = 'true';
+       }
+       else
+       {
+           $this->NM_ajax_info['redir']['nmgp_url_saida']      = $nm_apl_retorno;
+           $this->NM_ajax_info['redir']['script_case_init']    = $this->Ini->sc_page;
+       }
+       form_detento_mob_pack_ajax_response();
+       exit;
+   }
+   if ($nm_target == "modal")
+   {
+       if (!empty($nm_apl_parms))
+       {
+           $nm_apl_parms = str_replace("?#?", "*scin", $nm_apl_parms);
+           $nm_apl_parms = str_replace("?@?", "*scout", $nm_apl_parms);
+           $nm_apl_parms = "nmgp_parms=" . $nm_apl_parms . "&";
+       }
+       $par_modal = "?script_case_init=" . $this->Ini->sc_page . "&nmgp_outra_jan=true&nmgp_url_saida=modal&NMSC_modal=ok&";
+       $this->redir_modal = "$(function() { tb_show('', '" . $nm_apl_dest . $par_modal . $nm_apl_parms . "TB_iframe=true&modal=true&height=" . $alt_modal . "&width=" . $larg_modal . "', '') })";
+       $this->NM_is_redirected = true;
+       return;
+   }
+   if ($nm_target == "_blank")
+   {
+?>
+<form name="Fredir" method="post" target="_blank" action="<?php echo $nm_apl_dest; ?>">
+  <input type="hidden" name="nmgp_parms" value="<?php echo $this->form_encode_input($nm_apl_parms); ?>"/>
+</form>
+<script type="text/javascript">
+setTimeout(function() { document.Fredir.submit(); }, 250);
+</script>
+<?php
+    return;
+   }
+?>
+<?php
+   if ($nm_target_form != "_blank" && $nm_target_form != "modal")
+   {
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+
+   <HTML>
+   <HEAD>
+    <META http-equiv="Content-Type" content="text/html; charset=<?php echo $_SESSION['scriptcase']['charset_html'] ?>" />
+<?php
+
+   if (isset($_SESSION['scriptcase']['device_mobile']) && $_SESSION['scriptcase']['device_mobile'] && $_SESSION['scriptcase']['display_mobile'])
+   {
+?>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<?php
+   }
+
+?>
+    <META http-equiv="Expires" content="Fri, Jan 01 1900 00:00:00 GMT"/>
+    <META http-equiv="Last-Modified" content="<?php echo gmdate("D, d M Y H:i:s"); ?> GMT"/>
+    <META http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"/>
+    <META http-equiv="Cache-Control" content="post-check=0, pre-check=0"/>
+    <META http-equiv="Pragma" content="no-cache"/>
+    <link rel="shortcut icon" href="../_lib/img/scriptcase__NM__ico__NM__favicon.ico">
+    <SCRIPT type="text/javascript" src="../_lib/lib/js/jquery-3.6.0.min.js"></SCRIPT>
+   </HEAD>
+   <BODY>
+<?php
+   }
+?>
+<form name="Fredir" method="post" 
+                  target="_self"> 
+  <input type="hidden" name="nmgp_parms" value="<?php echo $this->form_encode_input($nm_apl_parms); ?>"/>
+<?php
+   if ($nm_target_form == "_blank")
+   {
+?>
+  <input type="hidden" name="nmgp_outra_jan" value="true"/> 
+<?php
+   }
+   else
+   {
+?>
+  <input type="hidden" name="nmgp_url_saida" value="<?php echo $this->form_encode_input($nm_apl_retorno) ?>">
+  <input type="hidden" name="script_case_init" value="<?php echo $this->form_encode_input($this->Ini->sc_page); ?>"/> 
+<?php
+   }
+?>
+</form> 
+   <SCRIPT type="text/javascript">
+<?php
+   if ($nm_target_form == "modal")
+   {
+?>
+       $(document).ready(function(){
+           tb_show('', '<?php echo $nm_apl_dest ?>?script_case_init=<?php echo $this->Ini->sc_page; ?>&nmgp_url_saida=modal&nmgp_parms=<?php echo $this->form_encode_input($nm_apl_parms); ?>&nmgp_outra_jan=true&TB_iframe=true&height=<?php echo $alt_modal; ?>&width=<?php echo $larg_modal; ?>&modal=true', '');
+       });
+<?php
+   }
+   else
+   {
+?>
+    $(function() {
+       document.Fredir.target = "<?php echo $nm_target_form ?>"; 
+       document.Fredir.action = "<?php echo $nm_apl_dest ?>";
+       document.Fredir.submit();
+    });
+<?php
+   }
+?>
+   </SCRIPT>
+<?php
+   if ($nm_target_form != "_blank" && $nm_target_form != "modal")
+   {
+?>
+   </BODY>
+   </HTML>
+<?php
+   }
+?>
+<?php
+   if ($nm_target_form != "_blank" && $nm_target_form != "modal")
+   {
+       $this->NM_close_db();
+       exit;
+   }
 }
     function sc_ajax_alert($sMessage, $params = array())
     {

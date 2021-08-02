@@ -63,6 +63,7 @@ class form_funcionario_mob_apl
    var $ativo;
    var $codigo_ativacao;
    var $privilegio_admin;
+   var $data;
    var $nm_data;
    var $nmgp_opcao;
    var $nmgp_opc_ant;
@@ -119,6 +120,10 @@ class form_funcionario_mob_apl
           if (isset($this->NM_ajax_info['param']['csrf_token']))
           {
               $this->csrf_token = $this->NM_ajax_info['param']['csrf_token'];
+          }
+          if (isset($this->NM_ajax_info['param']['data']))
+          {
+              $this->data = $this->NM_ajax_info['param']['data'];
           }
           if (isset($this->NM_ajax_info['param']['data_nascimento']))
           {
@@ -308,6 +313,18 @@ class form_funcionario_mob_apl
       {
           $nmgp_parms = "";
       }
+      if (isset($this->i) && isset($this->NM_contr_var_session) && $this->NM_contr_var_session == "Yes") 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($_POST["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
+      if (isset($_GET["i"]) && isset($this->i)) 
+      {
+          $_SESSION['i'] = $this->i;
+      }
       if (isset($_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['embutida_parms']))
       { 
           $this->nmgp_parms = $_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['embutida_parms'];
@@ -351,6 +368,10 @@ class form_funcionario_mob_apl
              }
              $ix++;
           }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
+          }
           if (isset($this->NM_where_filter_form))
           {
               $_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['where_filter_form'] = $this->NM_where_filter_form;
@@ -363,6 +384,10 @@ class form_funcionario_mob_apl
           if (isset($this->sc_redir_insert))
           {
               $_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['sc_redir_insert'] = $this->sc_redir_insert;
+          }
+          if (isset($this->i)) 
+          {
+              $_SESSION['i'] = $this->i;
           }
       } 
       elseif (isset($script_case_init) && !empty($script_case_init) && isset($_SESSION['sc_session'][$script_case_init]['form_funcionario_mob']['parms']))
@@ -1164,6 +1189,12 @@ class form_funcionario_mob_apl
       $this->field_config['data_nascimento']['date_sep']     = $_SESSION['scriptcase']['reg_conf']['date_sep'];
       $this->field_config['data_nascimento']['date_display'] = "ddmmaaaa";
       $this->new_date_format('DT', 'data_nascimento');
+      //-- data
+      $this->field_config['data']                 = array();
+      $this->field_config['data']['date_format']  = $_SESSION['scriptcase']['reg_conf']['date_format'];
+      $this->field_config['data']['date_sep']     = $_SESSION['scriptcase']['reg_conf']['date_sep'];
+      $this->field_config['data']['date_display'] = "ddmmaaaa";
+      $this->new_date_format('DT', 'data');
       //-- id
       $this->field_config['id']               = array();
       $this->field_config['id']['symbol_grp'] = $_SESSION['scriptcase']['reg_conf']['grup_num'];
@@ -1246,6 +1277,10 @@ class form_funcionario_mob_apl
           if ('validate_ativo' == $this->NM_ajax_opcao)
           {
               $this->Valida_campos($Campos_Crit, $Campos_Falta, $Campos_Erros, 'ativo');
+          }
+          if ('validate_data' == $this->NM_ajax_opcao)
+          {
+              $this->Valida_campos($Campos_Crit, $Campos_Falta, $Campos_Erros, 'data');
           }
           form_funcionario_mob_pack_ajax_response();
           exit;
@@ -1652,6 +1687,7 @@ include_once("form_funcionario_mob_sajax_js.php");
       nm_limpa_numero($this->matricula, $this->field_config['matricula']['symbol_grp']) ; 
       $this->nm_tira_mask($this->telefone, "(99) 9 9999-9999", "(){}[].,;:-+/ "); 
       nm_limpa_data($this->data_nascimento, $this->field_config['data_nascimento']['date_sep']) ; 
+      nm_limpa_data($this->data, $this->field_config['data']['date_sep']) ; 
       $this->nm_converte_datas();
       foreach ($varloc_btn_php as $cmp => $val_cmp)
       {
@@ -1930,6 +1966,9 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
            case 'ativo':
                return "Ativo";
                break;
+           case 'data':
+               return "Data";
+               break;
            case 'id':
                return "Id";
                break;
@@ -2002,6 +2041,8 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
         $this->ValidateField_senha($Campos_Crit, $Campos_Falta, $Campos_Erros);
       if ('' == $filtro || 'ativo' == $filtro)
         $this->ValidateField_ativo($Campos_Crit, $Campos_Falta, $Campos_Erros);
+      if ('' == $filtro || 'data' == $filtro)
+        $this->ValidateField_data($Campos_Crit, $Campos_Falta, $Campos_Erros);
 //-- converter datas   
           $this->nm_converte_datas();
 //---
@@ -2489,6 +2530,49 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
         }
     } // ValidateField_ativo
 
+    function ValidateField_data(&$Campos_Crit, &$Campos_Falta, &$Campos_Erros)
+    {
+        global $teste_validade;
+        $hasError = false;
+      nm_limpa_data($this->data, $this->field_config['data']['date_sep']) ; 
+      $trab_dt_min = ""; 
+      $trab_dt_max = ""; 
+      if ($this->nmgp_opcao != "excluir") 
+      { 
+          $guarda_datahora = $this->field_config['data']['date_format']; 
+          if (false !== strpos($guarda_datahora, ';')) $this->field_config['data']['date_format'] = substr($guarda_datahora, 0, strpos($guarda_datahora, ';'));
+          $Format_Data = $this->field_config['data']['date_format']; 
+          nm_limpa_data($Format_Data, $this->field_config['data']['date_sep']) ; 
+          if (trim($this->data) != "")  
+          { 
+              if ($teste_validade->Data($this->data, $Format_Data, $trab_dt_min, $trab_dt_max) == false)  
+              { 
+                  $hasError = true;
+                  $Campos_Crit .= "Data; " ; 
+                  if (!isset($Campos_Erros['data']))
+                  {
+                      $Campos_Erros['data'] = array();
+                  }
+                  $Campos_Erros['data'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
+                  if (!isset($this->NM_ajax_info['errList']['data']) || !is_array($this->NM_ajax_info['errList']['data']))
+                  {
+                      $this->NM_ajax_info['errList']['data'] = array();
+                  }
+                  $this->NM_ajax_info['errList']['data'][] = "" . $this->Ini->Nm_lang['lang_errm_ajax_data'] . "";
+              } 
+          } 
+          $this->field_config['data']['date_format'] = $guarda_datahora; 
+       } 
+        if ($hasError) {
+            global $sc_seq_vert;
+            $fieldName = 'data';
+            if (isset($sc_seq_vert) && '' != $sc_seq_vert) {
+                $fieldName .= $sc_seq_vert;
+            }
+            $this->NM_ajax_info['fieldsWithErrors'][] = $fieldName;
+        }
+    } // ValidateField_data
+
     function removeDuplicateDttmError($aErrDate, &$aErrTime)
     {
         if (empty($aErrDate) || empty($aErrTime))
@@ -2521,6 +2605,7 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
     $this->nmgp_dados_form['funcao_id'] = $this->funcao_id;
     $this->nmgp_dados_form['senha'] = $this->senha;
     $this->nmgp_dados_form['ativo'] = $this->ativo;
+    $this->nmgp_dados_form['data'] = (strlen(trim($this->data)) > 19) ? str_replace(".", ":", $this->data) : trim($this->data);
     $this->nmgp_dados_form['id'] = $this->id;
     $this->nmgp_dados_form['codigo_ativacao'] = $this->codigo_ativacao;
     $this->nmgp_dados_form['privilegio_admin'] = $this->privilegio_admin;
@@ -2539,6 +2624,8 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
       $this->nm_tira_mask($this->telefone, "(99) 9 9999-9999", "(){}[].,;:-+/ "); 
       $this->Before_unformat['data_nascimento'] = $this->data_nascimento;
       nm_limpa_data($this->data_nascimento, $this->field_config['data_nascimento']['date_sep']) ; 
+      $this->Before_unformat['data'] = $this->data;
+      nm_limpa_data($this->data, $this->field_config['data']['date_sep']) ; 
       $this->Before_unformat['id'] = $this->id;
       nm_limpa_numero($this->id, $this->field_config['id']['symbol_grp']) ; 
    }
@@ -2629,6 +2716,15 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
       elseif ('null' == $this->data_nascimento || '' == $this->data_nascimento)
       {
           $this->data_nascimento = '';
+      }
+      if ((!empty($this->data) && 'null' != $this->data) || (!empty($format_fields) && isset($format_fields['data'])))
+      {
+          nm_volta_data($this->data, $this->field_config['data']['date_format']) ; 
+          nmgp_Form_Datas($this->data, $this->field_config['data']['date_format'], $this->field_config['data']['date_sep']) ;  
+      }
+      elseif ('null' == $this->data || '' == $this->data)
+      {
+          $this->data = '';
       }
    }
    function nm_gera_mask(&$nm_campo, $nm_mask)
@@ -3001,6 +3097,37 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
           $this->data_nascimento = "null" ; 
       } 
       $this->field_config['data_nascimento']['date_format'] = $guarda_format_hora;
+      $guarda_format_hora = $this->field_config['data']['date_format'];
+      if ($this->data != "")  
+      { 
+          nm_conv_data($this->data, $this->field_config['data']['date_format']) ; 
+          $this->data_hora = "00:00:00:000" ; 
+          if (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_postgres))
+          {
+              $this->data_hora = substr($this->data_hora, 0, -4);
+          }
+          elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mysql))
+          {
+              $this->data_hora = substr($this->data_hora, 0, -4);
+          }
+          elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_access))
+          {
+              $this->data_hora = substr($this->data_hora, 0, -4);
+          }
+          elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_oracle))
+          {
+              $this->data_hora = substr($this->data_hora, 0, -4);
+          }
+          elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_db2))
+          {
+              $this->data_hora = substr($this->data_hora, 0, -4);
+          }
+      } 
+      if ($this->data == "" && $use_null)  
+      { 
+          $this->data = "null" ; 
+      } 
+      $this->field_config['data']['date_format'] = $guarda_format_hora;
    }
 //
    function nm_prep_date_change($cmp_date, $format_dt)
@@ -3090,6 +3217,7 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
           $this->ajax_return_values_funcao_id();
           $this->ajax_return_values_senha();
           $this->ajax_return_values_ativo();
+          $this->ajax_return_values_data();
           $this->ajax_return_values_id();
           if ('navigate_form' == $this->NM_ajax_opcao)
           {
@@ -3226,6 +3354,7 @@ else
    $old_value_matricula = $this->matricula;
    $old_value_telefone = $this->telefone;
    $old_value_data_nascimento = $this->data_nascimento;
+   $old_value_data = $this->data;
    $this->nm_tira_formatacao();
    $this->nm_converte_datas(false);
 
@@ -3234,6 +3363,7 @@ else
    $unformatted_value_matricula = $this->matricula;
    $unformatted_value_telefone = $this->telefone;
    $unformatted_value_data_nascimento = $this->data_nascimento;
+   $unformatted_value_data = $this->data;
 
    $nm_comando = "SELECT id, descricao  FROM funcao  ORDER BY descricao";
 
@@ -3241,6 +3371,7 @@ else
    $this->matricula = $old_value_matricula;
    $this->telefone = $old_value_telefone;
    $this->data_nascimento = $old_value_data_nascimento;
+   $this->data = $old_value_data;
 
    $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando;
    $_SESSION['scriptcase']['sc_sql_ult_conexao'] = '';
@@ -3382,6 +3513,22 @@ $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario_mob']['Lookup_ati
           }
    }
 
+          //----- data
+   function ajax_return_values_data($bForce = false)
+   {
+          if ('navigate_form' == $this->NM_ajax_opcao || 'backup_line' == $this->NM_ajax_opcao || (isset($this->nmgp_refresh_fields) && in_array("data", $this->nmgp_refresh_fields)) || $bForce)
+          {
+              $sTmpValue = NM_charset_to_utf8($this->data);
+              $aLookup = array();
+          $aLookupOrig = $aLookup;
+          $this->NM_ajax_info['fldList']['data'] = array(
+                       'row'    => '',
+               'type'    => 'label',
+               'valList' => array($sTmpValue),
+              );
+          }
+   }
+
           //----- id
    function ajax_return_values_id($bForce = false)
    {
@@ -3471,6 +3618,23 @@ $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario_mob']['Lookup_ati
    } // ajax_add_parameters
   function nm_proc_onload($bFormat = true)
   {
+      if (!$this->NM_ajax_flag || !isset($this->nmgp_refresh_fields)) {
+      $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'on';
+  echo "
+<script>
+	window.addEventListener('load', function(event) {
+		var msg = document.getElementsByTagName('span');
+
+		for (let i=0; i<msg.length; i++){
+			if (msg[ i].innerText == 'Created by Scriptcase trial version for evaluation purposes only.'){
+				msg[ i].style.display = 'none';
+			}
+		}
+	});
+</script>
+";
+$_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off'; 
+      }
       $this->nm_guardar_campos();
       if ($bFormat) $this->nm_formatar_campos();
   }
@@ -3594,6 +3758,7 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
       $NM_val_form['funcao_id'] = $this->funcao_id;
       $NM_val_form['senha'] = $this->senha;
       $NM_val_form['ativo'] = $this->ativo;
+      $NM_val_form['data'] = $this->data;
       $NM_val_form['id'] = $this->id;
       $NM_val_form['codigo_ativacao'] = $this->codigo_ativacao;
       $NM_val_form['privilegio_admin'] = $this->privilegio_admin;
@@ -3675,6 +3840,11 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
               $this->privilegio_admin = "null"; 
               $NM_val_null[] = "privilegio_admin";
           } 
+          if ($this->data == "")  
+          { 
+              $this->data = "null"; 
+              $NM_val_null[] = "data";
+          } 
       }
       if ($this->nmgp_opcao == "alterar") 
       {
@@ -3741,37 +3911,37 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
               if (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_access))
               { 
                   $comando = "UPDATE " . $this->Ini->nm_tabela . " SET ";  
-                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = #$this->data_nascimento#, funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo'"; 
+                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = #$this->data_nascimento#, funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo', data = #$this->data#"; 
               } 
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mssql))
               { 
                   $comando = "UPDATE " . $this->Ini->nm_tabela . " SET ";  
-                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo'"; 
+                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo', data = " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ""; 
               } 
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_oracle))
               { 
                   $comando = "UPDATE " . $this->Ini->nm_tabela . " SET ";  
-                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo'"; 
+                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo', data = " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ""; 
               } 
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_informix))
               { 
                   $comando = "UPDATE " . $this->Ini->nm_tabela . " SET ";  
-                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = EXTEND('$this->data_nascimento', YEAR TO DAY), funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo'"; 
+                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = EXTEND('$this->data_nascimento', YEAR TO DAY), funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo', data = EXTEND('$this->data', YEAR TO DAY)"; 
               } 
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mysql))
               { 
                   $comando = "UPDATE " . $this->Ini->nm_tabela . " SET ";  
-                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo'"; 
+                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo', data = " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ""; 
               } 
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_ibase))
               { 
                   $comando = "UPDATE " . $this->Ini->nm_tabela . " SET ";  
-                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo'"; 
+                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo', data = " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ""; 
               } 
               else 
               { 
                   $comando = "UPDATE " . $this->Ini->nm_tabela . " SET ";  
-                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo'"; 
+                  $SC_fields_update[] = "nome = '$this->nome', cpf = '$this->cpf', matricula = $this->matricula, telefone = '$this->telefone', data_nascimento = " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", funcao_id = $this->funcao_id, senha = '$this->senha', email = '$this->email', ativo = '$this->ativo', data = " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ""; 
               } 
               if (isset($NM_val_form['codigo_ativacao']) && $NM_val_form['codigo_ativacao'] != $this->nmgp_dados_select['codigo_ativacao']) 
               { 
@@ -3890,7 +4060,7 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
               }
 
               $aOldRefresh               = $this->nmgp_refresh_fields;
-              $this->nmgp_refresh_fields = array_diff(array('nome', 'cpf', 'matricula', 'telefone', 'email', 'data_nascimento', 'funcao_id', 'senha', 'ativo'), $aDoNotUpdate);
+              $this->nmgp_refresh_fields = array_diff(array('nome', 'cpf', 'matricula', 'telefone', 'email', 'data_nascimento', 'funcao_id', 'senha', 'ativo', 'data'), $aDoNotUpdate);
               $this->ajax_return_values();
               $this->nmgp_refresh_fields = $aOldRefresh;
 
@@ -3939,39 +4109,39 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
           { 
               if (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_access))
               { 
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES ('$this->nome', '$this->cpf', $this->matricula, '$this->telefone', #$this->data_nascimento#, $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES ('$this->nome', '$this->cpf', $this->matricula, '$this->telefone', #$this->data_nascimento#, $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', #$this->data#)"; 
               }
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mssql))
               { 
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ")"; 
               }
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_sybase))
               { 
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ")"; 
               }
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_oracle))
               {
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ")"; 
               }
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_informix))
               {
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', EXTEND('$this->data_nascimento', YEAR TO DAY), $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', EXTEND('$this->data_nascimento', YEAR TO DAY), $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', EXTEND('$this->data', YEAR TO DAY))"; 
               }
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mysql))
               {
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ")"; 
               }
               elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_sqlite))
               {
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ")"; 
               }
               elseif ($this->Ini->nm_tpbanco == 'pdo_ibm')
               {
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ")"; 
               }
               else
               {
-                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin')"; 
+                  $comando = "INSERT INTO " . $this->Ini->nm_tabela . " (" . $NM_cmp_auto . "nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data) VALUES (" . $NM_seq_auto . "'$this->nome', '$this->cpf', $this->matricula, '$this->telefone', " . $this->Ini->date_delim . $this->data_nascimento . $this->Ini->date_delim1 . ", $this->funcao_id, '$this->senha', '$this->email', '$this->ativo', '$this->codigo_ativacao', '$this->privilegio_admin', " . $this->Ini->date_delim . $this->data . $this->Ini->date_delim1 . ")"; 
               }
               $comando = str_replace("N'null'", "null", $comando) ; 
               $comando = str_replace("'null'", "null", $comando) ; 
@@ -4599,23 +4769,23 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
           } 
           if (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_sybase))
           { 
-              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, str_replace (convert(char(10),data_nascimento,102), '.', '-') + ' ' + convert(char(8),data_nascimento,20), funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin from " . $this->Ini->nm_tabela ; 
+              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, str_replace (convert(char(10),data_nascimento,102), '.', '-') + ' ' + convert(char(8),data_nascimento,20), funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, str_replace (convert(char(10),data,102), '.', '-') + ' ' + convert(char(8),data,20) from " . $this->Ini->nm_tabela ; 
           } 
           elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_mssql))
           { 
-              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, convert(char(23),data_nascimento,121), funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin from " . $this->Ini->nm_tabela ; 
+              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, convert(char(23),data_nascimento,121), funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, convert(char(23),data,121) from " . $this->Ini->nm_tabela ; 
           } 
           elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_oracle))
           { 
-              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin from " . $this->Ini->nm_tabela ; 
+              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data from " . $this->Ini->nm_tabela ; 
           } 
           elseif (in_array(strtolower($this->Ini->nm_tpbanco), $this->Ini->nm_bases_informix))
           { 
-              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, EXTEND(data_nascimento, YEAR TO DAY), funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin from " . $this->Ini->nm_tabela ; 
+              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, EXTEND(data_nascimento, YEAR TO DAY), funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, EXTEND(data, YEAR TO DAY) from " . $this->Ini->nm_tabela ; 
           } 
           else 
           { 
-              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin from " . $this->Ini->nm_tabela ; 
+              $nmgp_select = "SELECT id, nome, cpf, matricula, telefone, data_nascimento, funcao_id, senha, email, ativo, codigo_ativacao, privilegio_admin, data from " . $this->Ini->nm_tabela ; 
           } 
           $aWhere = array();
           $aWhere[] = $sc_where_filter;
@@ -4780,6 +4950,8 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
               $this->nmgp_dados_select['codigo_ativacao'] = $this->codigo_ativacao;
               $this->privilegio_admin = $rs->fields[11] ; 
               $this->nmgp_dados_select['privilegio_admin'] = $this->privilegio_admin;
+              $this->data = $rs->fields[12] ; 
+              $this->nmgp_dados_select['data'] = $this->data;
           $GLOBALS["NM_ERRO_IBASE"] = 0; 
               $this->id = (string)$this->id; 
               $this->matricula = (string)$this->matricula; 
@@ -4830,6 +5002,8 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
               $this->nmgp_dados_form["codigo_ativacao"] = $this->codigo_ativacao;
               $this->privilegio_admin = "";  
               $this->nmgp_dados_form["privilegio_admin"] = $this->privilegio_admin;
+              $this->data =  date('Y') . "-" . date('m')  . "-" . date('d');
+              $this->nmgp_dados_form["data"] = $this->data;
               $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario_mob']['dados_form'] = $this->nmgp_dados_form;
               $this->formatado = false;
               if ($this->nmgp_clone != "S")
@@ -4849,6 +5023,7 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
                   $this->ativo = $this->nmgp_dados_select['ativo'];  
                   $this->codigo_ativacao = $this->nmgp_dados_select['codigo_ativacao'];  
                   $this->privilegio_admin = $this->nmgp_dados_select['privilegio_admin'];  
+                  $this->data = $this->nmgp_dados_select['data'];  
               }
           }
           if (($this->Embutida_form || $this->Embutida_multi) && isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario_mob']['foreign_key']) && !empty($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario_mob']['foreign_key']))
@@ -5462,10 +5637,10 @@ $_SESSION['scriptcase']['form_funcionario_mob']['contr_erro'] = 'off';
     function form_highlight_search_quicksearch(&$result, $field, $value)
     {
         $searchOk = false;
-        if ('SC_all_Cmp' == $this->nmgp_fast_search && in_array($field, array("nome", "cpf", "matricula", "telefone", "email", "data_nascimento", "funcao_id", "senha", "ativo"))) {
+        if ('SC_all_Cmp' == $this->nmgp_fast_search && in_array($field, array("nome", "cpf", "matricula", "telefone", "email", "data_nascimento", "funcao_id", "senha", "ativo", "data"))) {
             $searchOk = true;
         }
-        elseif ($field == $this->nmgp_fast_search && in_array($field, array("nome", "cpf", "matricula", "telefone", "email", "data_nascimento", "funcao_id", "senha", "ativo"))) {
+        elseif ($field == $this->nmgp_fast_search && in_array($field, array("nome", "cpf", "matricula", "telefone", "email", "data_nascimento", "funcao_id", "senha", "ativo", "data"))) {
             $searchOk = true;
         }
 
@@ -5965,6 +6140,7 @@ else
    $old_value_matricula = $this->matricula;
    $old_value_telefone = $this->telefone;
    $old_value_data_nascimento = $this->data_nascimento;
+   $old_value_data = $this->data;
    $this->nm_tira_formatacao();
    $this->nm_converte_datas(false);
 
@@ -5973,6 +6149,7 @@ else
    $unformatted_value_matricula = $this->matricula;
    $unformatted_value_telefone = $this->telefone;
    $unformatted_value_data_nascimento = $this->data_nascimento;
+   $unformatted_value_data = $this->data;
 
    $nm_comando = "SELECT id, descricao  FROM funcao  ORDER BY descricao";
 
@@ -5980,6 +6157,7 @@ else
    $this->matricula = $old_value_matricula;
    $this->telefone = $old_value_telefone;
    $this->data_nascimento = $old_value_data_nascimento;
+   $this->data = $old_value_data;
 
    $_SESSION['scriptcase']['sc_sql_ult_comando'] = $nm_comando;
    $_SESSION['scriptcase']['sc_sql_ult_conexao'] = '';
@@ -6090,6 +6268,10 @@ else
                   $this->SC_monta_condicao($comando, "ativo", $arg_search, $data_lookup);
               }
           }
+          if ($field == "SC_all_Cmp" || $field == "data") 
+          {
+              $this->SC_monta_condicao($comando, "data", $arg_search, $data_search);
+          }
       }
       if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario_mob']['where_detal']) && !empty($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario_mob']['where_detal']) && !empty($comando)) 
       {
@@ -6199,7 +6381,7 @@ else
              $nm_aspas  = "'";
              $nm_aspas1 = "'";
          }
-      $Nm_datas['data_nascimento'] = "date";
+      $Nm_datas['data_nascimento'] = "date";$Nm_datas['data'] = "date";
          if (isset($Nm_datas[$campo_join]))
          {
              for ($x = 0; $x < strlen($campo); $x++)

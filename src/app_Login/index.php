@@ -284,8 +284,8 @@ class app_Login_ini
       $this->nm_dt_criacao   = "20210726"; 
       $this->nm_hr_criacao   = "073851"; 
       $this->nm_autor_alt    = "admin"; 
-      $this->nm_dt_ult_alt   = "20210726"; 
-      $this->nm_hr_ult_alt   = "073906"; 
+      $this->nm_dt_ult_alt   = "20210801"; 
+      $this->nm_hr_ult_alt   = "165431"; 
       list($NM_usec, $NM_sec) = explode(" ", microtime()); 
       $this->nm_timestamp    = (float) $NM_sec; 
       $this->nm_app_version  = "1.0.0"; 
@@ -518,8 +518,8 @@ class app_Login_ini
           }
       }
       if (isset($_SESSION['scriptcase']['app_Login']['session_timeout']['redir'])) {
-          $SS_cod_html  = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-';
+          $SS_cod_html  = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">';
           $SS_cod_html .= "<HTML>\r\n";
           $SS_cod_html .= " <HEAD>\r\n";
           $SS_cod_html .= "  <TITLE></TITLE>\r\n";
@@ -935,7 +935,7 @@ class app_Login_ini
       $this->nm_bases_odbc       = array("odbc");
       $this->nm_bases_progress   = array("progress", "pdo_progress_odbc");
       $this->nm_bases_all        = array_merge($this->nm_bases_access, $this->nm_bases_db2, $this->nm_bases_ibase, $this->nm_bases_informix, $this->nm_bases_mssql, $this->nm_bases_mysql, $this->nm_bases_postgres, $this->nm_bases_oracle, $this->nm_bases_sqlite, $this->nm_bases_sybase, $this->nm_bases_vfp, $this->nm_bases_odbc, $this->nm_bases_progress);
-      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1HQNmDQBqHABYV5BqHuBOVIBOHEX7HMBODcBqZ1B/Z1BeZMBODMzGVkJGDuJeHIBqHQBiH9FUHAveHuFaHuNOZSrCH5FqDoXGHQJmZ1BiHAN7HQJwDEBODkFeH5FYVoFGHQJKDQFaHANOHQBODMBYDkBOV5FYVEX7HQXOZSBqHArYHQBqDMzGHArCDWF/VoBiDcJUZSX7Z1BYHuFaHgrKVcFKDWFYDoXGD9BsH9BqHArKV5FUDMrYZSXeV5FqHIJsHQXGZSX7HArYV5JeHuzGVcXKV5X7HIrqD9BsH9B/HIBeV5JeDEBODkFeV5XCDoBOD9JKDQJwHAveHuFaHuNOZSrCH5FqDoXGHQJmZ1FGHANOHQrqHgNKDkB/DWF/HMFaHQNmDQFaDSN7HQBODMBOVIFCDWXCDoXGHQBiZ1X7D1rwHuJeDEBeDkB/DWFqHIJsD9XsZ9JeD1BeD5F7DMvmVcFeV5X/VEBiHQXOZ1FGDSNOHuJsDMveHENiHEB7VoFGHQNwDQFaZ1vCV5BODMNOVcXKH5XKDoXGHQBiZkFGHINaZMJeHgBOHErsHEB7VoFGHQBiH9FUD1BeHuJeHgrwDkB/DWB3VoBqD9BsZ1F7DSrYD5rqDMrYZSJ3HEB7ZuJsHQFYDQFaHIBOVWJsHgrwVcB/DWXKDoXGHQJmH9BqDSNOHQJeDMveHArCV5B7VoFGDcBiZ9XGHIrwHuraDMvOVIB/HEBmDoXGHQBqZ1BOHIveHuX7HgBODkXKDurmDoF7D9XsDQJsDSBYV5FGHgNKDkBsDuB7VEBiHQNmVINUHIBeHuJsHgNKHEJqDurmVoFGHQFYDQFaHIrwHuX7DMvODkB/H5B7DoXGHQBsZ1BOHANOHQF7HgBeHEJqDurmVoFGHQFYZSBiHAN7HQFaDMBYVcB/HEX/VoBqD9BsZ1F7DSrYD5rqDMrYZSJGH5FYDoF7DcXOZSFGHAveV5FUHuBYVcFKDur/VoJwHQFYH9FaHANOD5NUDErKDkFeV5FaZuBqD9NmZSFGHINaV5JwHuvmVcrsH5XCDoXGD9BsZ1FUZ1BeD5BqDMBYHEXeHEFqVoBiDcBwDQX7HIBOV5JwHgNKDkBODuFqDoFGDcBqVIJwD1rwD5JeDMBYZSJqV5FaVoJeD9XsZSFGD1BeVWJsHgrYDkBODuFqVoB/D9BsZ1FaHAvsV5X7DEvsZSXeHEFqZuFaD9JKDQBOZ1BYVWJwHgvsVIFCDWFYDoJsD9BiZ1rqD1zGV5X7DErKZSXeDWFqDoJeD9NmH9X7HABYV5BODMrwV9BUDWrmVorqHQFYZkBiHAvsZMB/HgvCHEXeDuFYZuFaD9NwZ9rqZ1zGV5BODMrwVcFCDWF/DoXGHQJmZ1F7Z1vmD5rqDEBOHArCDWBmDoJeHQBiDQBqHAvmV5XGDMvOVcBUDuFGVoX7HQNwZSBqHArKV5FUDMrYZSXeV5FqHIJsHQNwZSX7Z1rwVWXGDMBOVcBUH5XCHMFUDcFYZ1B/HIveHQJeDENOVkXeV5FqDoBOD9NwDQB/HABYHuFaHuNOZSrCH5FqDoXGHQJmZ1F7D1rKV5FaDEBOHEXeV5FaHIJsD9XsZ9JeD1BeD5F7DMvmVcBUHEX/DoJsHQNmZ1FGHArKV5FUDMrYZSXeV5FqHIJsD9NwDQJwHABYV5X7HgrYDkFCDWF/VoB/D9BsZ1F7DSrYV5B/HgBeHErCDWBmDoJeHQBiDQBqHAvmV5XGDMvOVcBUDuFGVoX7HQNwVIF7Z1veZMNU";
+      $_SESSION['scriptcase']['nm_bases_security']  = "enc_nm_enc_v1HQJKDQX7Z1BYVWBOHuBYVIFCDur/VoraHQXOH9B/HANOD5BqHgBeHEFiV5B3DoF7D9XsDuFaHANKV5XGDMBYV9BUHEF/HMBOHQXOZSBOHABYHQXGDMveHAFKV5FqHIrqHQNmZ9XGHANOHuNUHgrwV9FiV5FYHIF7HQBiZ1BiDSrYHQFUHgBYHAFKV5B7DoJeHQFYZSFUHAN7HuXGDMBOVcFiH5FqDoJeD9JmZ1B/D1NaD5rqHgrKHArsHEXCHMJsHQNmDQBqD1veHuJwDMBOV9FiV5FYHMXGHQXOZSBODSrYHQJeHgvsHAFKV5FqDoJsHQXOZSBiD1vOV5BOHgvOZSrCV5X/VEFGDcNmZ1X7D1rwHQraHgBYHEFKH5FYVoX7D9JKDQX7D1BOV5FGDMBYVcBUHEBmVoX7HQNwH9BOHAzGZMFaDMveHEFKV5FqHMJsHQXsZSBiHIvsV5BqDMBOZSJ3V5FYHMJwDcFYZSBqHIveHQJsDMveHEFKV5FqHMFGHQXsH9FUHAveHQXGHgvOV9FiH5FqDoJeD9JmZ1B/D1NaD5rqDErKZSXeH5FYDoFUD9NwDQJsHArYVWJsHuvmVcXKV5FGVoraD9BiZSB/HABYD5XGHgvCZSJGDuFaZuBqD9NmZ9rqZ1rwD5BOHuBYVcFKV5FYDoJeHQFYH9FaHArKD5NUDEBeHEXeV5XCVoB/D9XsDQBOZ1NaV5FGHuNOVcFKHEFYVoBqDcBwH9FaD1rwD5rqDMNKZSXeDuJeDoB/D9NwZSFGD1veV5raHuNOVcFKDWFaDoXGD9XOZ1FUZ1rYZMBODEBeHEJGH5F/VoJeHQXGDQFGHABYV5X7HuBYVcBOV5F/VENUD9BiZkFUZ1rYD5JeDMzGHEJGDWr/ZuBODcBwDQFGHAvmD5F7DMvOZSNiDWB3DoXGHQNmZ1BiD1vsV5X7DEBOHEBUH5F/DoXGHQXGDuBqHAvmD5F7HuBYVIBOV5FYHMBiD9BsVIraD1rwV5X7HgBeHENiDuFaVoXGDcBwDQBqD1BeV5JeDMzGVcBOH5B3VEraDcFYVIJsHArKV5FUDMBYDkXKDuFaDoJeHQJKDQJsZ1vCV5FGHuNOV9FeDWB3VoraDcBqZ1FaHArKD5BqDMNKZSJ3DuFYDoB/DcBwZSX7DSBYD5NUDMrwVIFCDWXCDoX7D9XOZ1FGHArKV5FUDMrYZSXeV5FqHIJsHQJKDQJsZ1vCV5FGHuNOV9FeDWXCHMraDcJUZkBiDSrYD5BqDEBeHEFiDuJeHMFGD9NwDQX7Z1N7V5BqDMNOVcFeDWXCDoJsDcBwH9B/Z1rYHQJwDMzGHEFiDWFqVoFGD9XsZSBiHAveD5NUHgNKDkBOV5FYHMBiHQNmVINUHAvsD5XGHgveHArsDWBmZuJeHQBiDQBqHArYHuFaHuNOZSrCH5FqDoXGHQJmZ1rqHAN7HQFUDErKVkJ3HEFqVoBiHQNwH9X7D1BeD5B/HgrKVcFeV5F/HMraHQBiH9BqHArKV5FUDMrYZSXeV5FqHIJsDcBwDQJsHABYD5F7HuNODkBsDWXCDoJsDcBwH9B/Z1rYHQJwHgBYHAFKV5B3DoBOHQJKDQJsZ1vCV5FGHuNOV9FeDWXCVorqD9BiZ1B/HAN7D5BiDEvsVkXeDWX7VoX7D9JKDQX7D1veHuFaDMvmVcBUDWrmVorqHQNmVINUHAzGD5BqHgBYHErsDWBmDoJe";
 $_SESSION['scriptcase']['nmamp'] = array(60, 100, 105, 118, 32, 115, 116, 121, 108, 101, 61, 34, 102, 111, 110, 116, 45, 102, 97, 109, 105, 108, 121, 58, 32, 84, 97, 104, 111, 109, 97, 44, 32, 65, 114, 105, 97, 108, 44, 32, 115, 97, 110, 115, 45, 115, 101, 114, 105, 102, 59, 32, 102, 111, 110, 116, 45, 115, 105, 122, 101, 58, 32, 49, 51, 112, 120, 59, 32, 102, 111, 110, 116, 45, 119, 101, 105, 103, 104, 116, 58, 32, 98, 111, 108, 100, 59, 32, 116, 101, 120, 116, 45, 97, 108, 105, 103, 110, 58, 32, 99, 101, 110, 116, 101, 114, 34, 62, 84, 104, 105, 115, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 119, 97, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 97, 110, 100, 32, 112, 117, 98, 108, 105, 115, 104, 101, 100, 32, 117, 115, 105, 110, 103, 32, 97, 32, 116, 114, 105, 97, 108, 32, 118, 101, 114, 115, 105, 111, 110, 32, 111, 102, 32, 83, 99, 114, 105, 112, 116, 67, 97, 115, 101, 32, 97, 110, 100, 32, 105, 116, 115, 32, 116, 114, 105, 97, 108, 32, 112, 101, 114, 105, 111, 100, 32, 104, 97, 115, 32, 101, 120, 112, 105, 114, 101, 100, 46, 60, 47, 100, 105, 118, 62);
       $this->prep_conect();
       if (isset($_SESSION['sc_session'][$this->sc_page]['app_Login']['initialize']) && $_SESSION['sc_session'][$this->sc_page]['app_Login']['initialize'])  
@@ -1918,10 +1918,6 @@ ob_start();
         {
             $_SESSION['google_name'] = $google_name;
         }
-        if (isset($logged_date_login)) 
-        {
-            $_SESSION['logged_date_login'] = $logged_date_login;
-        }
         if (isset($usr_login)) 
         {
             $_SESSION['usr_login'] = $usr_login;
@@ -1929,6 +1925,18 @@ ob_start();
         if (isset($usr_email)) 
         {
             $_SESSION['usr_email'] = $usr_email;
+        }
+        if (isset($i)) 
+        {
+            $_SESSION['i'] = $i;
+        }
+        if (isset($usr_priv_admin)) 
+        {
+            $_SESSION['usr_priv_admin'] = $usr_priv_admin;
+        }
+        if (isset($usr_name)) 
+        {
+            $_SESSION['usr_name'] = $usr_name;
         }
         if (isset($twitter_user)) 
         {
@@ -1941,14 +1949,6 @@ ob_start();
         if (isset($twitter_name)) 
         {
             $_SESSION['twitter_name'] = $twitter_name;
-        }
-        if (isset($usr_name)) 
-        {
-            $_SESSION['usr_name'] = $usr_name;
-        }
-        if (isset($usr_priv_admin)) 
-        {
-            $_SESSION['usr_priv_admin'] = $usr_priv_admin;
         }
     } 
     elseif (isset($script_case_init) && !empty($script_case_init) && !is_array($script_case_init) && isset($_SESSION['sc_session'][$script_case_init]['app_Login']['parms']))
@@ -2268,16 +2268,6 @@ ob_start();
             $_SESSION['google_name'] = $_GET["google_name"];
             nm_limpa_str_app_Login($_SESSION['google_name']);
         }
-        if (isset($_POST["logged_date_login"])) 
-        {
-            $_SESSION['logged_date_login'] = $_POST["logged_date_login"];
-            nm_limpa_str_app_Login($_SESSION['logged_date_login']);
-        }
-        if (isset($_GET["logged_date_login"])) 
-        {
-            $_SESSION['logged_date_login'] = $_GET["logged_date_login"];
-            nm_limpa_str_app_Login($_SESSION['logged_date_login']);
-        }
         if (isset($_POST["usr_login"])) 
         {
             $_SESSION['usr_login'] = $_POST["usr_login"];
@@ -2297,6 +2287,36 @@ ob_start();
         {
             $_SESSION['usr_email'] = $_GET["usr_email"];
             nm_limpa_str_app_Login($_SESSION['usr_email']);
+        }
+        if (isset($_POST["i"])) 
+        {
+            $_SESSION['i'] = $_POST["i"];
+            nm_limpa_str_app_Login($_SESSION['i']);
+        }
+        if (isset($_GET["i"])) 
+        {
+            $_SESSION['i'] = $_GET["i"];
+            nm_limpa_str_app_Login($_SESSION['i']);
+        }
+        if (isset($_POST["usr_priv_admin"])) 
+        {
+            $_SESSION['usr_priv_admin'] = $_POST["usr_priv_admin"];
+            nm_limpa_str_app_Login($_SESSION['usr_priv_admin']);
+        }
+        if (isset($_GET["usr_priv_admin"])) 
+        {
+            $_SESSION['usr_priv_admin'] = $_GET["usr_priv_admin"];
+            nm_limpa_str_app_Login($_SESSION['usr_priv_admin']);
+        }
+        if (isset($_POST["usr_name"])) 
+        {
+            $_SESSION['usr_name'] = $_POST["usr_name"];
+            nm_limpa_str_app_Login($_SESSION['usr_name']);
+        }
+        if (isset($_GET["usr_name"])) 
+        {
+            $_SESSION['usr_name'] = $_GET["usr_name"];
+            nm_limpa_str_app_Login($_SESSION['usr_name']);
         }
         if (isset($_POST["twitter_user"])) 
         {
@@ -2327,26 +2347,6 @@ ob_start();
         {
             $_SESSION['twitter_name'] = $_GET["twitter_name"];
             nm_limpa_str_app_Login($_SESSION['twitter_name']);
-        }
-        if (isset($_POST["usr_name"])) 
-        {
-            $_SESSION['usr_name'] = $_POST["usr_name"];
-            nm_limpa_str_app_Login($_SESSION['usr_name']);
-        }
-        if (isset($_GET["usr_name"])) 
-        {
-            $_SESSION['usr_name'] = $_GET["usr_name"];
-            nm_limpa_str_app_Login($_SESSION['usr_name']);
-        }
-        if (isset($_POST["usr_priv_admin"])) 
-        {
-            $_SESSION['usr_priv_admin'] = $_POST["usr_priv_admin"];
-            nm_limpa_str_app_Login($_SESSION['usr_priv_admin']);
-        }
-        if (isset($_GET["usr_priv_admin"])) 
-        {
-            $_SESSION['usr_priv_admin'] = $_GET["usr_priv_admin"];
-            nm_limpa_str_app_Login($_SESSION['usr_priv_admin']);
         }
         if (!empty($_SESSION['sc_session'][$script_case_init]['app_Login']['volta_redirect_apl']))
         {

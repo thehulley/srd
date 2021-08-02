@@ -3188,6 +3188,43 @@ sajax_show_javascript();
     scAjaxSetFocus();
   } // do_ajax_form_funcionario_validate_ativo_cb
 
+  // ---------- Validate data
+  function do_ajax_form_funcionario_validate_data()
+  {
+    var nomeCampo_data = "data";
+    var var_data = scAjaxGetFieldHidden(nomeCampo_data);
+    var var_script_case_init = document.F1.script_case_init.value;
+    x_ajax_form_funcionario_validate_data(var_data, var_script_case_init, do_ajax_form_funcionario_validate_data_cb);
+  } // do_ajax_form_funcionario_validate_data
+
+  function do_ajax_form_funcionario_validate_data_cb(sResp)
+  {
+    oResp = scAjaxResponse(sResp);
+    scAjaxRedir();
+    sFieldValid = "data";
+    scEventControl_onBlur(sFieldValid);
+    scAjaxUpdateFieldErrors(sFieldValid, "valid");
+    sFieldErrors = scAjaxListFieldErrors(sFieldValid, false);
+    if ("" == sFieldErrors)
+    {
+      var sImgStatus = sc_img_status_ok;
+      scAjaxHideErrorDisplay(sFieldValid);
+    }
+    else
+    {
+      var sImgStatus = sc_img_status_err;
+      scAjaxShowErrorDisplay(sFieldValid, sFieldErrors);
+    }
+    var $oImg = $('#id_sc_status_' + sFieldValid);
+    if (0 < $oImg.length)
+    {
+      $oImg.attr('src', sImgStatus).css('display', '');
+    }
+    scAjaxShowDebug();
+    scAjaxSetMaster();
+    scAjaxSetFocus();
+  } // do_ajax_form_funcionario_validate_data_cb
+
   // ---------- Event onchange cpf
   function do_ajax_form_funcionario_event_cpf_onchange()
   {
@@ -3579,6 +3616,7 @@ function scJs_sweetalert_params(params) {
     var var_funcao_id = scAjaxGetFieldSelect("funcao_id");
     var var_senha = scAjaxGetFieldText("senha");
     var var_ativo = scAjaxGetFieldRadio("ativo");
+    var var_data = scAjaxGetFieldHidden("data");
     var var_nm_form_submit = document.F1.nm_form_submit.value;
     var var_nmgp_url_saida = document.F1.nmgp_url_saida.value;
     var var_nmgp_opcao = document.F1.nmgp_opcao.value;
@@ -3588,7 +3626,7 @@ function scJs_sweetalert_params(params) {
     var var_script_case_init = document.F1.script_case_init.value;
     var var_csrf_token = scAjaxGetFieldText("csrf_token");
     scAjaxProcOn();
-    x_ajax_form_funcionario_submit_form(var_nome, var_cpf, var_matricula, var_telefone, var_email, var_data_nascimento, var_funcao_id, var_senha, var_ativo, var_nm_form_submit, var_nmgp_url_saida, var_nmgp_opcao, var_nmgp_ancora, var_nmgp_num_form, var_nmgp_parms, var_script_case_init, var_csrf_token, do_ajax_form_funcionario_submit_form_cb);
+    x_ajax_form_funcionario_submit_form(var_nome, var_cpf, var_matricula, var_telefone, var_email, var_data_nascimento, var_funcao_id, var_senha, var_ativo, var_data, var_nm_form_submit, var_nmgp_url_saida, var_nmgp_opcao, var_nmgp_ancora, var_nmgp_num_form, var_nmgp_parms, var_script_case_init, var_csrf_token, do_ajax_form_funcionario_submit_form_cb);
   } // do_ajax_form_funcionario_submit_form
 
   function do_ajax_form_funcionario_submit_form_cb(sResp)
@@ -3622,6 +3660,7 @@ function scJs_sweetalert_params(params) {
       scAjaxHideErrorDisplay("funcao_id");
       scAjaxHideErrorDisplay("senha");
       scAjaxHideErrorDisplay("ativo");
+      scAjaxHideErrorDisplay("data");
       scLigEditLookupCall();
 <?php
 if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['dashboard_info']['under_dashboard']) && $_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['dashboard_info']['under_dashboard']) {
@@ -3691,6 +3730,7 @@ if (isset($_SESSION['sc_session'][$this->Ini->sc_page]['form_funcionario']['dash
     scAjaxHideErrorDisplay("funcao_id");
     scAjaxHideErrorDisplay("senha");
     scAjaxHideErrorDisplay("ativo");
+    scAjaxHideErrorDisplay("data");
     var var_id = document.F2.id.value;
     var var_nm_form_submit = document.F2.nm_form_submit.value;
     var var_nmgp_opcao = document.F2.nmgp_opcao.value;
@@ -3802,6 +3842,7 @@ if ($this->Embutida_form)
   ajax_field_list[6] = "funcao_id";
   ajax_field_list[7] = "senha";
   ajax_field_list[8] = "ativo";
+  ajax_field_list[9] = "data";
 
   var ajax_block_list = new Array();
   ajax_block_list[0] = "0";
@@ -3815,7 +3856,8 @@ if ($this->Embutida_form)
     "data_nascimento": {"label": "Data de Nascimento", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
     "funcao_id": {"label": "Função", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
     "senha": {"label": "Senha", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
-    "ativo": {"label": "Ativo", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5}
+    "ativo": {"label": "Ativo", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5},
+    "data": {"label": "Data", "valid": new Array(), "onblur": new Array(), "onchange": new Array(), "onclick": new Array(), "onfocus": new Array(), "timeout": 5}
   };
   var ajax_error_timeout = 5;
 
@@ -3836,7 +3878,8 @@ if ($this->Embutida_form)
     "data_nascimento": new Array(),
     "funcao_id": new Array(),
     "senha": new Array(),
-    "ativo": new Array()
+    "ativo": new Array(),
+    "data": new Array()
   };
   ajax_field_mult["nome"][1] = "nome";
   ajax_field_mult["cpf"][1] = "cpf";
@@ -3847,6 +3890,7 @@ if ($this->Embutida_form)
   ajax_field_mult["funcao_id"][1] = "funcao_id";
   ajax_field_mult["senha"][1] = "senha";
   ajax_field_mult["ativo"][1] = "ativo";
+  ajax_field_mult["data"][1] = "data";
 
   var ajax_field_id = {
     "nome": new Array("hidden_field_label_nome", "hidden_field_data_nome"),
@@ -3868,7 +3912,8 @@ if ($this->Embutida_form)
     "data_nascimento": "off",
     "funcao_id": "off",
     "senha": "off",
-    "ativo": "off"
+    "ativo": "off",
+    "data": "off"
   };
   var bRefreshTable = false;
   function scRefreshTable()
@@ -4019,6 +4064,23 @@ if ($this->Embutida_form)
     if ("ativo" == sIndex)
     {
       scAjaxSetFieldRadio(sIndex, aValue, null, 1, null, "", false, true);
+      updateHeaderFooter(sIndex, aValue);
+
+      if ($("#id_sc_field_" + sIndex).length) {
+          $("#id_sc_field_" + sIndex).change();
+      }
+      else if (document.F1.elements[sIndex]) {
+          $(document.F1.elements[sIndex]).change();
+      }
+      else if (document.F1.elements[sFieldName + "[]"]) {
+          $(document.F1.elements[sFieldName + "[]"]).change();
+      }
+
+      return;
+    }
+    if ("data" == sIndex)
+    {
+      scAjaxSetFieldLabel(sIndex, aValue);
       updateHeaderFooter(sIndex, aValue);
 
       if ($("#id_sc_field_" + sIndex).length) {

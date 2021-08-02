@@ -60,6 +60,7 @@ function scEventControl_init(iSeqRow) {
   scEventControl_data["funcao_id" + iSeqRow] = {"blur": false, "change": false, "autocomp": false, "original": "", "calculated": ""};
   scEventControl_data["senha" + iSeqRow] = {"blur": false, "change": false, "autocomp": false, "original": "", "calculated": ""};
   scEventControl_data["ativo" + iSeqRow] = {"blur": false, "change": false, "autocomp": false, "original": "", "calculated": ""};
+  scEventControl_data["data" + iSeqRow] = {"blur": false, "change": false, "autocomp": false, "original": "", "calculated": ""};
 }
 
 function scEventControl_active(iSeqRow) {
@@ -115,6 +116,12 @@ function scEventControl_active(iSeqRow) {
     return true;
   }
   if (scEventControl_data["ativo" + iSeqRow]["change"]) {
+    return true;
+  }
+  if (scEventControl_data["data" + iSeqRow]["blur"]) {
+    return true;
+  }
+  if (scEventControl_data["data" + iSeqRow]["change"]) {
     return true;
   }
   return false;
@@ -193,6 +200,9 @@ function scJQEventsAdd(iSeqRow) {
                                    .bind('focus', function() { sc_form_funcionario_ativo_onfocus(this, iSeqRow) });
   $('#id_sc_field_codigo_ativacao' + iSeqRow).bind('change', function() { sc_form_funcionario_codigo_ativacao_onchange(this, iSeqRow) });
   $('#id_sc_field_privilegio_admin' + iSeqRow).bind('change', function() { sc_form_funcionario_privilegio_admin_onchange(this, iSeqRow) });
+  $('#id_sc_field_data' + iSeqRow).bind('blur', function() { sc_form_funcionario_data_onblur(this, iSeqRow) })
+                                  .bind('change', function() { sc_form_funcionario_data_onchange(this, iSeqRow) })
+                                  .bind('focus', function() { sc_form_funcionario_data_onfocus(this, iSeqRow) });
   $('.sc-ui-radio-ativo' + iSeqRow).on('click', function() { scMarkFormAsChanged(); });
 } // scJQEventsAdd
 
@@ -336,6 +346,20 @@ function sc_form_funcionario_privilegio_admin_onchange(oThis, iSeqRow) {
   scMarkFormAsChanged();
 }
 
+function sc_form_funcionario_data_onblur(oThis, iSeqRow) {
+  do_ajax_form_funcionario_validate_data();
+  scCssBlur(oThis);
+}
+
+function sc_form_funcionario_data_onchange(oThis, iSeqRow) {
+  scMarkFormAsChanged();
+}
+
+function sc_form_funcionario_data_onfocus(oThis, iSeqRow) {
+  scEventControl_onFocus(oThis, iSeqRow);
+  scCssFocus(oThis);
+}
+
 function displayChange_block(block, status) {
 	if ("0" == block) {
 		displayChange_block_0(status);
@@ -352,6 +376,7 @@ function displayChange_block_0(status) {
 	displayChange_field("funcao_id", "", status);
 	displayChange_field("senha", "", status);
 	displayChange_field("ativo", "", status);
+	displayChange_field("data", "", status);
 }
 
 function displayChange_row(row, status) {
@@ -364,6 +389,7 @@ function displayChange_row(row, status) {
 	displayChange_field_funcao_id(row, status);
 	displayChange_field_senha(row, status);
 	displayChange_field_ativo(row, status);
+	displayChange_field_data(row, status);
 }
 
 function displayChange_field(field, row, status) {
@@ -394,6 +420,9 @@ function displayChange_field(field, row, status) {
 	if ("ativo" == field) {
 		displayChange_field_ativo(row, status);
 	}
+	if ("data" == field) {
+		displayChange_field_data(row, status);
+	}
 }
 
 function displayChange_field_nome(row, status) {
@@ -421,6 +450,9 @@ function displayChange_field_senha(row, status) {
 }
 
 function displayChange_field_ativo(row, status) {
+}
+
+function displayChange_field_data(row, status) {
 }
 
 function scRecreateSelect2() {

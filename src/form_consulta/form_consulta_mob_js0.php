@@ -45,7 +45,7 @@ function sc_btn_excluir_consulta()
       return;
     }
     if (Crtl_btn_excluir_consulta) {return;}
-    sc_btn_excluir_consulta_ok();
+    scJs_confirm("<?php echo html_entity_decode("Deseja realmente cancelar a consulta?", ENT_COMPAT, $_SESSION['scriptcase']['charset']); ?>", sc_btn_excluir_consulta_ok, sc_btn_excluir_consulta_cancel)
 }
 function sc_btn_excluir_consulta_cancel()
 {
